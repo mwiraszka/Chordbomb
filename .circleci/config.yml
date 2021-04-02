@@ -25,7 +25,6 @@ jobs:
       - run: npm run lint
       - run: npm run build:prod
 
-  test:
       # Currently no e2e tests configured
       # - run: npm run e2e
 
@@ -44,4 +43,3 @@ workflows:
   build-and-test:
     jobs:
       - build
-      - test
