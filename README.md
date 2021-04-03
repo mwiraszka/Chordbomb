@@ -1,27 +1,16 @@
 # Chordbomb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
+Chordbomb is a single-page app built using [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6. It allows users to query a small database of songs, and customize how the lyrics and chords are displayed.
+<br><br>
+## Version 1.0.0
+Currently in development, with `version 1.0.0` set to be deployed in May 2021. Features will include:
+* 10 songs retrievable using Firebase's Realtime Database
+* Search-as-you-type functionality
+* Ability to increase text font-size and toggle between 3 different chord modes when viewing song
+* Fully responsive design with lazy-loading implemented for increased performance
 
-## Development server
+### Wireframe mock-ups:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![search page (website landing page)](./mock-up/search_page.png)
+![search page - input & settings](./mock-up/search_page_-_input_&_settings.png)
+![song page](./mock-up/song_page.png)
