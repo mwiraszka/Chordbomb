@@ -1,4 +1,4 @@
-version: 3.0
+version: 2.1
 jobs:
   build:
     docker:
@@ -26,6 +26,7 @@ jobs:
       - run: npm run lint
       - run: npm run build:prod
 
+  test:
       # Currently no e2e tests configured
       # - run: npm run e2e
 
@@ -36,12 +37,12 @@ jobs:
       - store_artifacts:
           path: dist.tar.gz
 
+# Orchestrate our job run sequence
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build
-        filters:
-          branches:
-            only:
-              -main
+      - test:
+        requires:
+          - build
