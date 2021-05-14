@@ -1,0 +1,16 @@
+<div class="card mt-4" style="width: 95%; margin: auto;">
+  <h3 class="card-header">
+    Song Manager
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+  </h3>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-5">
+        <app-song-edit></app-song-edit>
+      </div>
+      <div class="col-md-7">
+        <app-song-list></app-song-list>
+      </div>
+    </div>
+  </div>
+</div>

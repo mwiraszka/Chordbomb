@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "chordbomb": {
+      "hosting": {
+        "chordbomb": [
+          "chordbomb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chordbomb"
+  }
+}

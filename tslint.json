@@ -76,7 +76,7 @@
     ],
     "semicolon": [
       true,
-      "never"
+      "always"
     ],
     "space-before-function-paren": {
       "options": {
@@ -88,7 +88,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {

@@ -1,0 +1,40 @@
+#login-container {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+mat-card {
+  min-width: 250px;
+  max-width: 400px;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin-bottom: -15px;
+  width: 100%;
+}
+
+mat-card-title,
+mat-card-content {
+  width: 85%;
+}
+
+mat-error {
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 80px;
+  margin-left: calc(100% - 80px);
+}
+
+button:hover {
+  font-size: 110%;
+  padding-left: -5%;
+}

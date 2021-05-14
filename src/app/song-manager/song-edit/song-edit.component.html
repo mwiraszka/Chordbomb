@@ -1,0 +1,39 @@
+<div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+  <h1 class="display-4" style="display: inline">Edit Song</h1>
+  <button class="btn btn-dark" (click)="onNewEntry()">
+    <i class="fa fa-plus"></i> New Entry
+  </button>
+</div>
+<form #form="ngForm" autocomplete="off" (submit)="onSave(form)">
+  <input type="hidden" name="id" #id="ngModel" class="form-control"
+    [(ngModel)]="songService.formData.id">
+  <div class="form-group">
+    <input name="artist" #artist="ngModel" class="form-control"
+      [(ngModel)]="songService.formData.artist" placeholder="Artist(s)" required>
+  </div>
+  <div class="validation-error" *ngIf="artist.invalid && artist.touched">Artist is required</div>
+  <div class="form-group">
+    <input name="title" #title="ngModel" class="form-control"
+      [(ngModel)]="songService.formData.title" placeholder="Song Title" required>
+  </div>
+  <div class="validation-error" *ngIf="title.invalid && title.touched">Song Title is required</div>
+  <div class="form-row">
+    <div class="form-group col-md-5">
+      <input name="timeSignature" #timeSignature="ngModel" class="form-control"
+        [(ngModel)]="songService.formData.timeSignature"
+        placeholder="Time Signature (e.g. 4/4)">
+    </div>
+    <div class="form-group col-md-7">
+      <input name="originalKey" #originalKey="ngModel" class="form-control"
+        [(ngModel)]="songService.formData.originalKey"
+        placeholder="Original Key (e.g. F# Minor)">
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-block btn-dark" type="submit"
+      [disabled]="form.invalid">
+      <span *ngIf="songService.editMode; else addMode">Update Song</span>
+      <ng-template #addMode>Add Song</ng-template>
+    </button>
+  </div>
+</form>

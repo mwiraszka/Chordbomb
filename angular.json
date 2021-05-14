@@ -41,7 +41,8 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -104,7 +105,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -133,6 +134,10 @@
               "devServerTarget": "chordbomb:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

@@ -1,0 +1,15 @@
+<h1 class="display-4">Songs in Database</h1>
+<table class="table table-hover">
+  <thead>
+    <th>Song</th>
+    <th>Time Signature</th>
+    <th>Original Key</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let song of songList">
+      <td (click)=onEdit(song)>{{ song.artist }} - {{ song.title }}</td>
+      <td (click)=onEdit(song)>{{ song.timeSignature }}</td>
+      <td (click)=onEdit(song)>{{ song.originalKey }}</td>
+    </tr>
+  </tbody>
+</table>
