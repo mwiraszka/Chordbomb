@@ -1,6 +1,9 @@
 # Chordbomb
 
 Chordbomb is a single-page app built using [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6. It allows users to query a small database of songs, and customize how the lyrics and chords are displayed.
+
+Check it out! Live development server: https://chordbomb.web.app
+
 <br><br>
 ## Version 1.0.0
 Currently in development, with `version 1.0.0` set to be deployed in May 2021. Features will include:
