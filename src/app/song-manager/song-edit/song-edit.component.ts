@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-
 import { SongService } from '@app/song.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({ selector: 'app-song-edit', templateUrl: './song-edit.component.html' })
 export class SongEditComponent implements OnInit {

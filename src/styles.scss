@@ -2,20 +2,19 @@
  * GLOBAL FONT ---------------------------------------------------------------------------
  * Use Lato font family (with a fall-back of any sans-serif) pulled from Google's font API
  */
- @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&display=swap');
- * {
-   font-family: 'Lato', sans-serif;
- }
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&display=swap');
+* {
+  font-family: 'Lato', sans-serif;
+}
 
-
- /**
+/**
  * GLOBAL COLORS & THEMING ---------------------------------------------------------------
  * Chordbomb color scheme designed using Material Theming
  * (https://material.angular.io/guide/theming) with custom primary and accent palettes
  * generated on http://mcg.mbitson.com
  */
 @import '~@angular/material/theming';
-@include mat-core();  // Mixin should only be included once in project
+@include mat-core(); // Mixin should only be included once in project
 
 $cb-primary-palette: (
   50: #eee4e4,
@@ -46,7 +45,7 @@ $cb-primary-palette: (
     A100: #000000,
     A200: #ffffff,
     A400: #ffffff,
-    A700: #ffffff,
+    A700: #ffffff
   )
 );
 
@@ -79,16 +78,18 @@ $cb-accent-palette: (
     A100: #000000,
     A200: #000000,
     A400: #000000,
-    A700: #000000,
+    A700: #000000
   )
 );
 
-$cb-theme: mat-light-theme((
-  color: (
-    primary: $cb-primary-palette,
-    accent: $cb-accent-palette
+$cb-theme: mat-light-theme(
+  (
+    color: (
+      primary: $cb-primary-palette,
+      accent: $cb-accent-palette
+    )
   )
-));
+);
 
 $cb-primary: mat-color($cb-primary-palette, 500);
 $cb-accent: mat-color($cb-accent-palette, 500);
@@ -98,7 +99,6 @@ $cb-white: #e3e3e3;
 $cb-black: #0e0e0e;
 
 @include angular-material-theme($cb-theme);
-
 
 /**
  * GLOBAL STYLES -------------------------------------------------------------------------
@@ -126,7 +126,6 @@ main {
   min-height: calc(100vh - 65px - 40px - 32px - 24px);
 }
 
-
 #admin-welcome {
   color: #aaa;
   margin: auto 1em;
@@ -146,7 +145,6 @@ input.ng-touched.ng-invalid {
 table.table-hover tbody tr:hover {
   cursor: pointer;
 }
-
 
 footer {
   display: block;
@@ -172,5 +170,3 @@ footer {
     border-radius: 8px;
   }
 }
-
-

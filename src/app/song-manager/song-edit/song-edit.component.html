@@ -11,12 +11,14 @@
     <input name="artist" #artist="ngModel" class="form-control"
       [(ngModel)]="songService.formData.artist" placeholder="Artist(s)" required>
   </div>
-  <div class="validation-error" *ngIf="artist.invalid && artist.touched">Artist is required</div>
+  <div class="validation-error" *ngIf="artist.invalid && artist.touched">Artist is
+    required</div>
   <div class="form-group">
     <input name="title" #title="ngModel" class="form-control"
       [(ngModel)]="songService.formData.title" placeholder="Song Title" required>
   </div>
-  <div class="validation-error" *ngIf="title.invalid && title.touched">Song Title is required</div>
+  <div class="validation-error" *ngIf="title.invalid && title.touched">Song Title is
+    required</div>
   <div class="form-row">
     <div class="form-group col-md-5">
       <input name="timeSignature" #timeSignature="ngModel" class="form-control"
@@ -30,8 +32,7 @@
     </div>
   </div>
   <div class="form-group">
-    <button class="btn btn-block btn-dark" type="submit"
-      [disabled]="form.invalid">
+    <button class="btn btn-block btn-dark" type="submit" [disabled]="form.invalid">
       <span *ngIf="songService.editMode; else addMode">Update Song</span>
       <ng-template #addMode>Add Song</ng-template>
     </button>

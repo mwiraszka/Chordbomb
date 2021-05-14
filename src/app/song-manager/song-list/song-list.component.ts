@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Song } from '@app/song.model';
 import { SongService } from '@app/song.service';
 import { ToastrService } from 'ngx-toastr';
-
-import { Song } from '@app/song.model';
 
 @Component({
   selector: 'app-song-list',
