@@ -103,6 +103,11 @@ $cb-black: #0e0e0e;
 /**
  * GLOBAL STYLES -------------------------------------------------------------------------
  */
+ html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 body {
   background-color: $cb-background;
 }

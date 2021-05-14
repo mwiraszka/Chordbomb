@@ -5,13 +5,22 @@
   text-align: center;
 }
 
-mat-card {
+mat-card.main {
   min-width: 250px;
   max-width: 400px;
   width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+mat-card.aside {
+  width: 100%;
+  padding: 2px;
+  margin: 10px 0 30px 0;
+}
+p {
+  margin: 0;
 }
 
 mat-form-field {
