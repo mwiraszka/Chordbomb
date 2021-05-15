@@ -1,51 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SongService } from '@app/song.service';
+import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
+import { SongService } from '@app/_services/song.service';
+import { Song } from '@app/_models/song.model';
+
 @Component({ selector: 'app-song-edit', templateUrl: './song-edit.component.html' })
-export class SongEditComponent implements OnInit {
+export class SongEditComponent implements OnDestroy {
+  selectedSongSub!: Subscription;
+  selectedSong!: Song;
+
   constructor(
     public songService: SongService,
-    private firestore: AngularFirestore,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit() {
-    this.resetForm();
+  ) {
+    // Populate form with selected song's data; if no song selected, use default values
+    // from song model
+    this.selectedSongSub = this.songService.getSelectedSong().subscribe(song => {
+      this.selectedSong = song ? song : new Song();
+    })
   }
 
-  resetForm(form?: NgForm) {
-    if (form) {
-      form.resetForm();
-    }
-    this.songService.formData = {
-      id: '',
-      artist: '',
-      title: '',
-      timeSignature: '',
-      originalKey: ''
-    };
+  ngOnDestroy() {
+    this.selectedSongSub.unsubscribe();
   }
 
   onNewEntry() {
-    this.resetForm();
+    this.songService.clearSelectedSong();
     this.songService.editMode = false;
   }
 
-  onSave(form: NgForm) {
-    const data = Object.assign({}, form.value);
-    delete data.id;
-    if (!form.value.id) {
-      this.firestore.collection('songs').add(data);
-      this.toastr.success('Added to database', `${data.artist} - ${data.title}`, {
+  onSubmit(form: NgForm) {
+    const song = Object.assign({}, form.value);
+    if (this.songService.editMode) {
+      // Retain original song ID in database
+      delete song.id;
+      this.songService.updateSong(form.value.id, song)
+      this.toastr.success('Changes saved', `${song.artists} - ${song.title}`, {
         positionClass: 'toast-bottom-right'
-      });
+      })
     } else {
-      // On update, we do not want to alter the existing ID
-      this.firestore.doc('songs/' + form.value.id).update(data);
-      this.toastr.success('Changes saved', `${data.artist} - ${data.title}`, {
+      this.songService.addSong(song)
+      this.toastr.success('Added to database', `${song.artists} - ${song.title}`, {
         positionClass: 'toast-bottom-right'
       });
     }

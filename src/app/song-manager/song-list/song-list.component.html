@@ -7,9 +7,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let song of songList">
-      <td (click)=onEdit(song)>{{ song.artist }} - {{ song.title }}</td>
-      <td (click)=onEdit(song)>{{ song.timeSignature }}</td>
-      <td (click)=onEdit(song)>{{ song.originalKey }}</td>
+      <td (click)=onSelect(song)>{{ song.artists }} - {{ song.title }}</td>
+      <td (click)=onSelect(song)>{{ song.timeSignature }}</td>
+      <td (click)=onSelect(song)>{{ song.originalKey }}</td>
     </tr>
   </tbody>
 </table>

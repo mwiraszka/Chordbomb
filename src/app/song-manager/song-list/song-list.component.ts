@@ -1,34 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Song } from '@app/song.model';
-import { SongService } from '@app/song.service';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-@Component({
-  selector: 'app-song-list',
-  templateUrl: './song-list.component.html'
-})
-export class SongListComponent implements OnInit {
-  songList: Song[] = [];
-  constructor(
-    private songService: SongService,
-    private firestore: AngularFirestore,
-    private toastr: ToastrService
-  ) {}
+import { Song } from '@app/_models/song.model';
+import { SongService } from '@app/_services/song.service';
 
-  ngOnInit() {
-    this.songService.getSongs().subscribe((actionArray) => {
+@Component({ selector: 'app-song-list', templateUrl: './song-list.component.html' })
+export class SongListComponent implements OnDestroy {
+  songList!: Song[];
+  songListSub!: Subscription;
+
+  constructor(private songService: SongService) {
+    this.songListSub = this.songService.getSongs().subscribe((actionArray) => {
       this.songList = actionArray.map((item) => {
         return {
-          id: item.payload.doc.id,
-          ...(item.payload.doc.data() as object)
+          id: item.payload.doc.id, ...(item.payload.doc.data() as object)
         } as Song;
       });
     });
   }
 
-  onEdit(song: Song) {
-    this.songService.formData = Object.assign({}, song);
+  ngOnDestroy() {
+    this.songListSub.unsubscribe();
+  }
+
+  onSelect(song: Song) {
+    this.songService.updateSelectedSong(song);
     this.songService.editMode = true;
   }
 }
