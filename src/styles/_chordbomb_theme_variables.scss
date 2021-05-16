@@ -1,0 +1,82 @@
+/**
+ * Custom Chordbomb color theme designed using Material Theming
+ * (https://material.angular.io/guide/theming) with custom primary and accent palettes
+ * generated on http://mcg.mbitson.com
+ */
+@import '~@angular/material/theming';
+
+$cb-primary-palette: (
+  50: #eee4e4,
+  100: #d5bbbb,
+  200: #b98e8e,
+  300: #9d6060,
+  400: #883e3e,
+  500: #731c1c,
+  600: #6b1919,
+  700: #601414,
+  800: #561111,
+  900: #430909,
+  A100: #ff7a7a,
+  A200: #ff4747,
+  A400: #ff1414,
+  A700: #fa0000,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+
+$cb-accent-palette: (
+  50: #f6ece1,
+  100: #e9cfb4,
+  200: #daaf83,
+  300: #cb8f51,
+  400: #bf772b,
+  500: #b45f06,
+  600: #ad5705,
+  700: #a44d04,
+  800: #9c4303,
+  900: #8c3202,
+  A100: #ffccb8,
+  A200: #ffa785,
+  A400: #ff8252,
+  A700: #ff7039,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$cb-primary: mat-color($cb-primary-palette, 500);
+$cb-accent: mat-color($cb-accent-palette, 500);
+$cb-success: #22a31e;
+$cb-warning: #8a0303;
+$cb-select: #6799db;
+$cb-background: #dddddd;
+$cb-white: #e3e3e3;
+$cb-gray: #9e9e9e;
+$cb-black: #0e0e0e;

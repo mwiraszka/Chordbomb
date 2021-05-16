@@ -1,0 +1,67 @@
+@import '../../styles/chordbomb_theme.scss';
+
+nav {
+  background-color: $cb-accent;
+  padding: 0 1em;
+  height: 60px;
+  font-size: 1.1em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+a.nav-link,
+p {
+  display: inline;
+  padding: 0.2em 0.5em;
+}
+
+a.nav-link {
+  color: $cb-white;
+  text-decoration: none;
+  text-shadow: 0px 0px 4px $cb-black;
+  border-radius: 0.3em;
+}
+
+a.nav-link:hover {
+  text-shadow: 2px 2px 4px $cb-black;
+  background-color: darken($color: $cb-accent, $amount: 2%);
+  box-shadow: 0 0 5px 4px lighten($color: $cb-accent, $amount: 5%);
+}
+
+.active {
+  border: 2px solid $cb-black;
+  background-color: darken($color: $cb-accent, $amount: 2%);
+}
+
+.right {
+  margin-left: auto;
+}
+
+p#admin-welcome {
+  text-align: center;
+  font-weight: lighter;
+  color: darken($color: $cb-white, $amount: 8%);
+  text-shadow: 0 0 1px $cb-gray;
+
+  small#email {
+    font-size: 75%;
+  }
+}
+
+button#burger-menu {
+  display: none;
+  border: none;
+  background: none;
+}
+
+i#bars-icon {
+  color: $cb-white;
+}
+
+/* At narrow viewports, navigation bar has a burger menu layout */
+@media screen and (max-width: 700px) {
+  button#burger-menu {
+    display: inline;
+  }
+}

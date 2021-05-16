@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
-import { Song } from '@app/_models/song.model';
+import { Song } from '../_models/song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
@@ -27,8 +27,8 @@ export class SongService {
     return this.firestore.collection('songs').snapshotChanges();
   }
 
-  addSong(song: Song) {
-    this.firestore.collection('songs').add(song);
+  addSong(newSong: Song) {
+    this.firestore.collection('songs').add(newSong);
   }
 
   updateSong(id: string, updatedSong: Song) {

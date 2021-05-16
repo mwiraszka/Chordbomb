@@ -1,40 +1,78 @@
-<div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
-  <h1 class="display-4" style="display: inline">Edit Song</h1>
-  <button class="btn btn-dark" (click)="onNewEntry()">
-    <i class="fa fa-plus"></i> New Entry
+<section id="song-edit">
+  <h2>Edit Song</h2>
+  <button id="create-new-song" (click)="onAddNewSong()">
+    <i class="fa fa-plus"></i>&nbsp;&nbsp;Create New Song
   </button>
-</div>
-<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
-  <input type="hidden" name="id" #id="ngModel" class="form-control"
-    [(ngModel)]="selectedSong.id">
-  <div class="form-group">
-    <input name="artists" #artists="ngModel" class="form-control"
-      [(ngModel)]="selectedSong.artists" placeholder="Artist(s)" required>
-  </div>
-  <div class="validation-error" *ngIf="artists.invalid && artists.touched">Artist is
-    required</div>
-  <div class="form-group">
-    <input name="title" #title="ngModel" class="form-control"
-      [(ngModel)]="selectedSong.title" placeholder="Song Title" required>
-  </div>
-  <div class="validation-error" *ngIf="title.invalid && title.touched">Song Title is
-    required</div>
-  <div class="form-row">
-    <div class="form-group col-md-5">
-      <input name="timeSignature" #timeSignature="ngModel" class="form-control"
-        [(ngModel)]="selectedSong.timeSignature"
-        placeholder="Time Signature (e.g. 4/4)">
-    </div>
-    <div class="form-group col-md-7">
-      <input name="originalKey" #originalKey="ngModel" class="form-control"
-        [(ngModel)]="selectedSong.originalKey"
-        placeholder="Original Key (e.g. F# Minor)">
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-block btn-dark" type="submit" [disabled]="form.invalid">
+
+  <form id="songForm" [formGroup]="songForm" (ngSubmit)="onSubmit()">
+    <fieldset id="edition-details">
+      <legend>Edition</legend>
+      <div class="row">
+        <div class="form-field">
+          <input type="text" formControlName="editions[0].timestamp" class="medium" />
+          <label>Timestamp</label>
+        </div>
+        <div class="form-field">
+          <input type="text" formControlName="editions[0].author" class="medium" />
+          <label>Author</label>
+        </div>
+      </div>
+      <div class="form-field">
+        <input type="" formControlName="editions[0].note" class="xlarge" />
+        <label>Note</label>
+      </div>
+    </fieldset>
+    <fieldset id="general-details">
+      <legend>General Song Details</legend>
+      <div class="form-field">
+        <input type="text" formControlName="artists" class="large" />
+        <label>Artist(s)</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="title" class="large" />
+        <label>Title</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="album" class="large" />
+        <label>Album</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="albumYear" class="small" maxlength="4" />
+        <label>Album Year</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="albumCoverLink" class="xlarge" />
+        <label>Link to Album Cover Image</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="songwriters" class="large" />
+        <label>Songwriter(s)</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="producers" class="large" />
+        <label>Producer(s)</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="publishers" class="large" />
+        <label>Publisher(s)</label>
+      </div>
+    </fieldset>
+
+    <fieldset id="musical-details">
+      <legend>Musical Details</legend>
+      <div class="form-field">
+        <input type="text" formControlName="timeSignature" class="small" />
+        <label>Time Signature</label>
+      </div>
+      <div class="form-field">
+        <input type="text" formControlName="originalKey" class="medium" />
+        <label>Original Key</label>
+      </div>
+    </fieldset>
+
+    <button id="submit" type="submit" [disabled]="!songForm.valid">
       <span *ngIf="songService.editMode; else addMode">Update Song</span>
       <ng-template #addMode>Add Song</ng-template>
     </button>
-  </div>
-</form>
+  </form>
+</section>

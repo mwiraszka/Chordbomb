@@ -1,0 +1,50 @@
+@import '../styles/chordbomb_theme.scss';
+
+header {
+  height: 60px;
+  background-color: $cb-background;
+  display: block;
+
+  img {
+    padding: 0.5em 1em;
+    width: 280px;
+  }
+}
+
+// Push footer down (main height = 100% viewport height - header - navbar - footer)
+main {
+  min-height: calc(100vh - 60px - 40px - 32px);
+}
+
+footer {
+  display: block;
+  text-align: center;
+  height: 32px;
+
+  #copyright {
+    font-size: 0.9em;
+    color: $cb-black;
+  }
+
+  address {
+    display: inline;
+
+    a {
+      font-size: 90%;
+      margin-left: 0.1em;
+      text-decoration: none;
+      font-style: normal;
+      padding: 0.2em 0.4em;
+      margin-left: 0.5em;
+      background-color: $cb-accent;
+      color: $cb-white;
+      border-radius: 0.4em;
+    }
+
+    a:hover {
+      text-shadow: 2px 2px 4px $cb-black;
+      background-color: lighten($color: $cb-accent, $amount: 5%);
+      box-shadow: 0 0 1px 1px lighten($color: $cb-accent, $amount: 10%);
+    }
+  }
+}

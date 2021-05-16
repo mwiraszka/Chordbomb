@@ -1,0 +1,81 @@
+@import '../../../styles/chordbomb_theme.scss';
+
+section {
+  margin: 1em;
+}
+
+h2 {
+  color: $cb-black;
+}
+
+fieldset {
+  background-color: #dad2d2;
+  padding: 5px;
+  border: 2px solid lighten($color: $cb-gray, $amount: 10%);
+  border-radius: 0.3em;
+  margin: 2em 0;
+  box-shadow: 0 0 3px 2px lighten($color: $cb-gray, $amount: 15%);
+}
+
+legend {
+  font-size: 1.1em;
+  margin: 0 0 0.5em 0.5em;
+  padding: 0.1em 0.35em;
+  text-align: center;
+  background: $cb-gray;
+  background: linear-gradient(
+    270deg,
+    lighten($color: $cb-gray, $amount: 15%) 0%,
+    $cb-white 50%,
+    lighten($color: $cb-gray, $amount: 15%) 100%
+  );
+  border: 1px solid $cb-gray;
+  border-radius: 0.3em;
+  box-shadow: 0 0 3px 1px $cb-gray;
+  width: inherit;
+}
+
+div.form-field {
+  margin-left: 0.5em;
+}
+
+input {
+  border-radius: 0.3em;
+  font-size: 1.2em;
+  text-indent: 0.2em;
+}
+
+input.xlarge {
+  width: 95%;
+}
+
+input.large {
+  width: 20em;
+}
+
+input.medium {
+  width: 6em;
+}
+
+input.small {
+  width: 3em;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid $cb-select;
+  box-shadow: 0 0 3px 2px $cb-gray;
+}
+
+label {
+  display: block;
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
+
+button {
+  height: 30px;
+  color: $cb-white;
+  background-color: $cb-primary;
+  border-radius: 0.4em;
+}

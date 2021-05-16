@@ -6,7 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from '@app/login/login.component';
+
+import { LoginComponent } from '../login/login.component';
 
 @NgModule({
   declarations: [LoginComponent],

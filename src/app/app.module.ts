@@ -4,15 +4,17 @@ import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from '@app/app.component';
-import { appRoutingModule } from '@app/app.routing';
-import { LoginModule } from '@app/login/login.module';
-import { SongEditComponent } from '@app/song-manager/song-edit/song-edit.component';
-import { SongListComponent } from '@app/song-manager/song-list/song-list.component';
-import { SongManagerComponent } from '@app/song-manager/song-manager.component';
-import { SongSearchComponent } from '@app/song-search/song-search.component';
-import { environment } from '@environments/environment';
 import { ToastrModule } from 'ngx-toastr';
+
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { appRoutingModule } from './app.routing';
+import { LoginModule } from './login/login.module';
+import { NavComponent } from './nav/nav.component';
+import { SongEditComponent } from './song-manager/song-edit/song-edit.component';
+import { SongListComponent } from './song-manager/song-list/song-list.component';
+import { SongManagerComponent } from './song-manager/song-manager.component';
+import { SongSearchComponent } from './song-search/song-search.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
     SongManagerComponent,
     SongEditComponent,
     SongListComponent,
-    SongSearchComponent
+    SongSearchComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

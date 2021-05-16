@@ -5,7 +5,7 @@ class Edition {
 }
 
 class Node {
-  timeMarker: string = ''; //
+  timeMarker: string = '';
   bpm?: number | '' = '';
   chord?: string | '' = '';
   lyric?: string | '' = '';
@@ -17,9 +17,9 @@ export class Song {
   editions: Edition[] | '' = '';
   artists: string = '';
   title: string = '';
-  albumTitle?: string = '';
+  album?: string = '';
   albumYear?: number | '' = '';
-  albumArtwork?: string = '';
+  albumCoverLink?: string = '';
   songwriters?: string = '';
   producers?: string = '';
   publishers?: string = '';
