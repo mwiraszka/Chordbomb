@@ -1,19 +1,29 @@
 <nav>
-  <a class="nav-link" routerLink="/" routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }">Search</a>
-  <a class="nav-link" routerLink="/edit" routerLinkActive="active"
-    *ngIf="auth.user | async">Song Manager</a>
-  <p id="admin-welcome" class="right" *ngIf="auth.user | async as user; else loggedOut">
-    <i class="fa fa-user-cog"></i> Logged in<br>
-    <small id="email">{{ user.email }}</small>
-  </p>
-  <a class="nav-link" routerLink="/" *ngIf="auth.user | async"
-    (click)="onLogout()">Log Out</a>
-  <ng-template #loggedOut>
-    <a class="nav-link right" routerLink="/login"
-      routerLinkActive="active">Admin Login</a>
+  <ul id="main-nav-section">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">Search</a>
+    </li>
+    <li class="nav-item" *ngIf="auth.user | async">
+      <a class="nav-link" routerLink="/edit" routerLinkActive="active">Song Manager</a>
+    </li>
+  </ul>
+
+  <span class="nav-item" *ngIf="auth.user | async as user; else loggedOut">
+    <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
+    <p id="admin-welcome">
+      <i class="fa fa-user-cog"></i> Logged in<br>
+      <small id="email">{{ user.email }}</small>
+    </p>
+  </span>
+
+  <ng-template #loggedOut class="nav-item">
+    <a class="nav-link" routerLink="/login" routerLinkActive="active">Admin Login</a>
   </ng-template>
-  <button id="burger-menu">
-    <i id="bars-icon" class="fa fa-bars fa-3x"></i>
+
+  <button id="burger" (click)="menuActive=!menuActive">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
   </button>
 </nav>

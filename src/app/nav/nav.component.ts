@@ -8,8 +8,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
+  menuActive = false;
+
   constructor(public auth: AngularFireAuth, private toastr: ToastrService) {}
-  menuClicked = false;
+
   onLogout() {
     this.auth.signOut();
     this.toastr.success('', 'Successfully logged out', {

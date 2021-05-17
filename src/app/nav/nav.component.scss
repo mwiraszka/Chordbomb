@@ -1,67 +1,92 @@
 @import '../../styles/chordbomb_theme.scss';
 
 nav {
-  background-color: $cb-accent;
-  padding: 0 1em;
-  height: 60px;
-  font-size: 1.1em;
+  background-color: $cb-black;
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  height: 45px;
+  font-size: 1.1em;
 }
 
-a.nav-link,
-p {
-  display: inline;
-  padding: 0.2em 0.5em;
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.5em;
 }
 
 a.nav-link {
-  color: $cb-white;
-  text-decoration: none;
-  text-shadow: 0px 0px 4px $cb-black;
-  border-radius: 0.3em;
-}
+	position: relative;
+	color: $cb-white;
 
-a.nav-link:hover {
-  text-shadow: 2px 2px 4px $cb-black;
-  background-color: darken($color: $cb-accent, $amount: 2%);
-  box-shadow: 0 0 5px 4px lighten($color: $cb-accent, $amount: 5%);
-}
+	&:after {
+		content: '';
+		height: 2px;
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 0%;
+		background: $cb-accent;
+		transition: ease-out 0.15s;
+	}
 
-.active {
-  border: 2px solid $cb-black;
-  background-color: darken($color: $cb-accent, $amount: 2%);
-}
+	&:hover:after {
+		width: 100%;
+	}
 
-.right {
-  margin-left: auto;
-}
+  &.active {
+    text-shadow: 0px 0px 3px $cb-white;
+  }
 
-p#admin-welcome {
-  text-align: center;
-  font-weight: lighter;
-  color: darken($color: $cb-white, $amount: 8%);
-  text-shadow: 0 0 1px $cb-gray;
-
-  small#email {
-    font-size: 75%;
+  &.active:after {
+    width: 100%;
   }
 }
 
-button#burger-menu {
+p#admin-welcome {
+  font-size: 0.8em;
+  text-align: center;
+  margin-left: 1em;
+  color: lighten($color: $cb-gray, $amount: 5%);
+  text-shadow: 0 0 1px $cb-gray;
+
+  small#email {
+    font-size: 90%;
+    font-weight: lighter;
+  }
+}
+
+button#burger {
   display: none;
-  border: none;
-  background: none;
 }
 
-i#bars-icon {
-  color: $cb-white;
+span.bar {
+  background-color: $cb-white;
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/* At narrow viewports, navigation bar has a burger menu layout */
-@media screen and (max-width: 700px) {
-  button#burger-menu {
-    display: inline;
+
+@media only screen and (max-width: 768px) {
+
+  button#burger {
+    display: block;
+
+    &.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    &.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    &.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
   }
 }
