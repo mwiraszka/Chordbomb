@@ -1,63 +1,59 @@
 @import '../styles/chordbomb_theme.scss';
 
 header {
-  height: 120px;
-  background-color: $cb-accent;
-  background:
-    linear-gradient(
-      -2deg,
-      $cb-black 0%,
-      $cb-black 10%,
-    rgba(0, 0, 0, 0.6) 20%,
-    rgba(100, 10, 10, 0.5) 50%,
-    rgba(156, 10, 10, 0.2) 100%
-    ),
-    repeating-linear-gradient(
-      -2deg,
-      lighten($color: $cb-accent, $amount: 28%) 0px,
-      lighten($color: $cb-accent, $amount: 30%) 5px,
-      lighten($color: $cb-accent, $amount: 28%) 5px,
-      lighten($color: $cb-accent, $amount: 26%) 10px
-    );
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+	width: 100%;
+  height: 50px;
+  background: $cb-white;
 
   img#logo {
-    margin: 20px;
-    width: 250px;
+    margin-left: 30px;
+    width: 210px;
   }
 }
 
 // Push footer down (main height = 100% viewport height - header - navbar - footer)
 main {
-  min-height: calc(100vh - 80px - 45px - 32px);
+  min-height: calc(100vh - 50px - 45px - 80px);
 }
 
 footer {
-  display: block;
+  padding: 0.8em;
+  background: $cb-black;
+  color: $cb-white;
   text-align: center;
-  height: 32px;
-
-  #copyright {
-    font-size: 0.8em;
-    color: $cb-black;
-  }
+  font-size: 0.8em;
+  height: 80px;
 
   address {
     display: inline;
 
     a#chordbomb-readme {
-      font-size: 0.8em;
-      margin-left: 0.1em;
-      padding: 0.2em 0.4em;
-      margin-left: 0.5em;
-      background-color: $cb-black;
+      margin-left: 0.2em;
+      line-height: 2em;
+      padding: 0.1em 0.2em;
+      background: $cb-black;
       color: $cb-white;
-      border-radius: 0.4em;
+      border: 1px solid $cb-accent;
+      border-radius: 50%;
 
       &:hover {
         text-shadow: 0 0 1px $cb-white;
-        background-color: lighten($color: $cb-black, $amount: 5%);
-        box-shadow: 0 0 8px 4px darken($color: $cb-background, $amount: 10%);
+        border: 1px solid $cb-white;
+        box-shadow: 0 0 4px 1px $cb-white;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  header {
+    justify-content: center;
+
+    img#logo {
+      margin-left: 0;
     }
   }
 }

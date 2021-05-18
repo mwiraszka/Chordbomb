@@ -1,29 +1,33 @@
-<nav>
-  <ul id="main-nav-section">
+<nav id="top-nav">
+  <button id="menu" (click)="toggleDropdownMenu()">
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+  </button>
+
+  <ul id="nav-items">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/" routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">Search</a>
+      <a class="nav-link top-in-dropdown" routerLink="/" routerLinkActive="link-active"
+        (click)="closeDropdownMenu()" [routerLinkActiveOptions]="{ exact: true }">Search</a>
     </li>
+
     <li class="nav-item" *ngIf="auth.user | async">
-      <a class="nav-link" routerLink="/edit" routerLinkActive="active">Song Manager</a>
+      <a class="nav-link" routerLink="/edit" routerLinkActive="link-active"
+        (click)="closeDropdownMenu()">Song Manager</a>
+    </li>
+
+    <li class="nav-item">
+      <span *ngIf="auth.user | async as user; else loggedOut">
+        <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
+        <p id="user-info">
+          <i class="fa fa-user-cog"></i> Logged in<br>
+          <small id="email">{{ user.email }}</small>
+        </p>
+      </span>
+      <ng-template #loggedOut>
+        <a class="nav-link" (click)="closeDropdownMenu()" routerLink="/login"
+          routerLinkActive="link-active">Admin Login</a>
+      </ng-template>
     </li>
   </ul>
-
-  <span class="nav-item" *ngIf="auth.user | async as user; else loggedOut">
-    <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
-    <p id="admin-welcome">
-      <i class="fa fa-user-cog"></i> Logged in<br>
-      <small id="email">{{ user.email }}</small>
-    </p>
-  </span>
-
-  <ng-template #loggedOut class="nav-item">
-    <a class="nav-link" routerLink="/login" routerLinkActive="active">Admin Login</a>
-  </ng-template>
-
-  <button id="burger" (click)="menuActive=!menuActive">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-  </button>
 </nav>

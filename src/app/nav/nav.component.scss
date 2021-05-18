@@ -1,55 +1,59 @@
 @import '../../styles/chordbomb_theme.scss';
 
-nav {
+nav#top-nav {
   background-color: $cb-black;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1em;
   height: 45px;
+  padding-left: 20px;
   font-size: 1.1em;
 }
 
-.nav-item {
-  display: inline-flex;
+button#menu {
+  display: none;
+}
+
+ul#nav-items {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+li.nav-item {
   margin: 0 0.5em;
+
+  /* Keep 'Log Out' and 'Logged In' text side-by-side and centred vertically */
+  & > span {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Push user login info to right side of navbar */
+  &:last-of-type {
+    margin-left: auto;
+  }
 }
 
 a.nav-link {
-	position: relative;
-	color: $cb-white;
+  display: block;
+  position: relative;
+  color: $cb-white;
 
-	&:after {
-		content: '';
-		height: 2px;
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 0%;
-		background: $cb-accent;
-		transition: ease-out 0.15s;
-	}
-
-	&:hover:after {
-		width: 100%;
-	}
-
-  &.active {
-    text-shadow: 0px 0px 3px $cb-white;
-  }
-
-  &.active:after {
-    width: 100%;
+  &.link-active {
+    cursor: default;
   }
 }
 
-p#admin-welcome {
+p#user-info {
+  height: inherit;
   font-size: 0.8em;
   text-align: center;
-  margin-left: 1em;
+  margin: 0.3em 1em;
   color: lighten($color: $cb-gray, $amount: 5%);
   text-shadow: 0 0 1px $cb-gray;
+  cursor: default;
 
   small#email {
     font-size: 90%;
@@ -57,36 +61,110 @@ p#admin-welcome {
   }
 }
 
-button#burger {
-  display: none;
+/* On wide viewports with links showing, use underline animation to highlight links */
+@media only screen and (min-width: 601px) {
+  a.nav-link {
+    /* Underline animation on hover */
+    &:after {
+      content: '';
+      height: 2px;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      background: $cb-accent;
+      transition: ease-out 0.15s;
+    }
+
+    /* Keep underline visible once animation completes on hover and when link is active */
+    &:hover:after,
+    &.link-active:after {
+      width: 100%;
+    }
+
+    /* Add glow behind text when link is active */
+    &.link-active {
+      text-shadow: 0px 0px 3px $cb-white;
+    }
+  }
 }
 
-span.bar {
-  background-color: $cb-white;
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px auto;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-
-@media only screen and (max-width: 768px) {
-
-  button#burger {
+@media only screen and (max-width: 600px) {
+  button#menu {
     display: block;
+    /* Manually centre vertically with top nav item so that the button does not move when
+    the dropdown is opened */
+    margin: 9px auto auto 0;
 
-    &.active .bar:nth-child(2) {
-      opacity: 0;
+    .burger-line {
+      display: block;
+      background-color: $cb-white;
+      width: 25px;
+      height: 2px;
+      margin: 5px auto;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  a.nav-link:not(.link-active) {
+    display: none;
+  }
+
+  /* All styles that are added when dropdown navigation menu is opened */
+  nav#top-nav.open {
+    height: auto;
+
+    /* Transition menu icon from three horizontal lines to an X when dropdown opens */
+    .burger-line {
+      &:nth-child(1) {
+        transform: translateY(8px) rotate(225deg);
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.5s ease-in-out;
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-7px) rotate(-225deg);
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.5s ease-in-out;
+      }
     }
 
-    &.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
+    ul#nav-items {
+      flex-direction: column;
     }
 
-    &.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
+    li.nav-item {
+      text-align: center;
+      width: calc(100% - 1em);
+
+      & > span {
+        display: block;
+      }
+
+      &:last-child {
+        margin-bottom: 0.2em;
+      }
+    }
+
+    a.nav-link {
+      display: block;
+      padding: 0.5em;
+
+      &:hover {
+        background: $cb-primary;
+        border-bottom-left-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+
+        &:not(.top-in-dropdown) {
+          border-top-left-radius: 0.5em;
+          border-top-right-radius: 0.5em;
+        }
+      }
     }
   }
 }

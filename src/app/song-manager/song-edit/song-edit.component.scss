@@ -9,16 +9,15 @@ h2 {
 }
 
 fieldset {
-  background-color: #dad2d2;
+  background: darkslategray;
   padding: 5px;
   border: 2px solid lighten($color: $cb-gray, $amount: 10%);
-  border-radius: 0.3em;
   margin: 2em 0;
   box-shadow: 0 0 3px 2px lighten($color: $cb-gray, $amount: 15%);
 }
 
 legend {
-  font-size: 1.1em;
+  font-size: 1.3em;
   margin: 0 0 0.5em 0.5em;
   padding: 0.1em 0.35em;
   text-align: center;
@@ -69,8 +68,9 @@ input:focus {
 
 label {
   display: block;
-  font-size: 0.9em;
-  line-height: 1.5em;
+  margin: 0.1em 0 1.2em 0.2em;
+  color: $cb-white;
+  font-size: 0.8em;
 }
 
 button {
