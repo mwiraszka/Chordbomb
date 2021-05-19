@@ -2,10 +2,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '../environments/environment';
@@ -38,8 +39,13 @@ import { SongSearchComponent } from './song-search/song-search.component';
     MatSidenavModule,
     appRoutingModule,
     ToastrModule.forRoot(),
+    FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: { color: 'primary' },
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

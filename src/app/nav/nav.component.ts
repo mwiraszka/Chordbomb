@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { faUserCog } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent {
   menuOpen = false;
+  userCog = faUserCog;
 
   constructor(public auth: AngularFireAuth, private toastr: ToastrService) {}
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-song-search',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./song-search.component.scss']
 })
 export class SongSearchComponent {
+  faCog = faCog;
+
   fontSize: string = 'regular';
   chordType: string = 'full';
 

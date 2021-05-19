@@ -20,7 +20,7 @@
       <span *ngIf="auth.user | async as user; else loggedOut">
         <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
         <p id="user-info">
-          <i class="fa fa-user-cog"></i> Logged in<br>
+          <fa-icon [icon]="userCog"></fa-icon> Logged in<br>
           <small id="email">{{ user.email }}</small>
         </p>
       </span>

@@ -1,11 +1,6 @@
-/* Lato as global font family (fallback to any sans-serif) imported from Google */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&display=swap');
-* {
-  font-family: 'Lato', sans-serif;
-}
-
-@import './chordbomb_theme.scss';
-
+/**
+ * GLOBAL CHORDBOMB DEFAULT ELEMENT STYLES
+ */
 html,
 body {
   height: 100%;
@@ -14,7 +9,7 @@ body {
 }
 
 body {
-  background-color: $cb-background;
+  background-color: lightsalmon;
 }
 
 button {
