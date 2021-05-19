@@ -4,9 +4,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  height: $header-height;
   width: 100%;
-  height: 50px;
-  background: $cb-white;
+  background: $cb-background;
 
   img#logo {
     margin-left: 30px;
@@ -14,18 +14,17 @@ header {
   }
 }
 
-// Push footer down (main height = 100% viewport height - header - navbar - footer)
 main {
-  min-height: calc(100vh - 50px - 45px - 80px);
+  min-height: $main-height;
 }
 
 footer {
+  height: $footer-height;
   padding: 0.8em;
   background: $cb-black;
   color: $cb-white;
   text-align: center;
   font-size: 0.8em;
-  height: 80px;
 
   address {
     display: inline;
@@ -36,7 +35,7 @@ footer {
       padding: 0.1em 0.2em;
       background: $cb-black;
       color: $cb-white;
-      border: 1px solid $cb-accent;
+      border: 1px solid $cb-accent-main;
       border-radius: 50%;
 
       &:hover {

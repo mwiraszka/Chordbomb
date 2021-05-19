@@ -1,8 +1,8 @@
 @import '../_styles/variables.scss';
 
 #login-container {
-  margin: 10px;
   display: flex;
+  margin: 10px;
   justify-content: center;
   text-align: center;
 }
@@ -10,7 +10,7 @@
 mat-card.main {
   min-width: 350px;
   max-width: 400px;
-  width: calc(100% - 2em); // Leave a minimum of 2em of margin (total) on sides of screen
+  width: calc(100% - 2em);  // Leave a minimum of 2em of margin (total) on sides of screen
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

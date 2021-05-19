@@ -72,7 +72,7 @@ p#user-info {
       bottom: -2px;
       left: 0;
       width: 0%;
-      background: $cb-accent;
+      background: $cb-accent-main;
       transition: ease-out 0.15s;
     }
 
@@ -156,7 +156,7 @@ p#user-info {
       padding: 0.5em;
 
       &:hover {
-        background: $cb-primary;
+        background: $cb-primary-main;
         border-bottom-left-radius: 0.5em;
         border-bottom-right-radius: 0.5em;
 
