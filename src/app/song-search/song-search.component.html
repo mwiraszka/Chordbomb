@@ -1,6 +1,36 @@
-<div style="padding: 20px;">
-  <h2 class="card-header">
-    Search
-  </h2>
-  song search component will go here
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <h2>
+      Settings
+      <button mat-button (click)="sidenav.toggle()">
+        <i class="fa fa-cog fa-2x"></i>
+      </button>
+    </h2>
+
+    <label id="font-size">Font Size:</label>
+    <mat-radio-group aria-labelledby="font-size" [(ngModel)]="fontSize">
+      <mat-radio-button class="setting" *ngFor="let size of fontSizeOptions" [value]="size">
+        {{ size }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <label id="chord-type">Chord Type:</label>
+    <mat-radio-group aria-labelledby="chord-type" [(ngModel)]="chordType">
+      <mat-radio-button class="setting" *ngFor="let type of chordTypeOptions" [value]="type">
+        {{ type }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <h2>Song Search</h2>
+    <div>
+      <button mat-button (click)="sidenav.toggle()">
+        <i class="fa fa-cog fa-2x"></i>
+      </button>
+      <mat-radio-button value="1">test radio button</mat-radio-button>
+      (song search component goes here)
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

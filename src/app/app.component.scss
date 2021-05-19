@@ -4,7 +4,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-	width: 100%;
+  width: 100%;
   height: 50px;
   background: $cb-white;
 
@@ -41,7 +41,7 @@ footer {
 
       &:hover {
         text-shadow: 0 0 1px $cb-white;
-        border: 1px solid $cb-white;
+        border: 1px solid transparent;
         box-shadow: 0 0 4px 1px $cb-white;
       }
     }

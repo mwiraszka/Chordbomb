@@ -20,7 +20,7 @@ export class NavComponent {
   toggleDropdownMenu() {
     this.menuOpen = !this.menuOpen;
     let topNav = document.getElementById('top-nav');
-    this.menuOpen ? topNav?.classList.add('open') : topNav?.classList.remove('open')
+    this.menuOpen ? topNav?.classList.add('open') : topNav?.classList.remove('open');
   }
 
   onLogout() {
