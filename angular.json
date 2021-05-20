@@ -41,10 +41,8 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/chordbomb_theme.scss",
-              "src/app/_styles/_default_element_styles.scss",
-              "src/app/_styles/_fonts.scss",
-              "src/app/_styles/variables.scss",
+              "src/app/_styles/chordbomb_theme.scss",
+              "src/app/_styles/defaults.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []

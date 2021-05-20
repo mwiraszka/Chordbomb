@@ -1,6 +1,8 @@
-/**
- * GLOBAL CHORDBOMB DEFAULT ELEMENT STYLES
- */
+/*** GLOBAL CHORDBOMB ELEMENT STYLE DEFAULTS ***/
+
+ * {
+  font-family: 'Lato', sans-serif;
+}
 
 html,
 body {

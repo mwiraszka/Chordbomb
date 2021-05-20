@@ -1,9 +1,36 @@
 @import '../_styles/variables';
 
 mat-sidenav-container {
-  height: 200px;
+  height: $main-height;
 }
 
 mat-sidenav {
-  width: 15em;
+  padding: 2em;
+  width: 25em;
+}
+
+button {
+  padding: 2em;
+  display: inline;
+}
+
+h2 {
+  display: inline;
+}
+
+label {
+  font-weight: bold;
+
+  &:not(:first-child) {
+    margin-top: 2em;
+  }
+}
+
+mat-radio-group.setting {
+  border: 2px solid blue;
+}
+
+mat-radio-button.option {
+  border: 1px solid orange;
+  display: block;
 }
