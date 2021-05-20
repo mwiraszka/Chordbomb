@@ -1,36 +1,51 @@
-@import '../_styles/variables';
+@import '../shared/variables';
 
 mat-sidenav-container {
   height: $main-height;
+  border: 1px solid yellow;
 }
 
 mat-sidenav {
-  padding: 2em;
-  width: 25em;
+  width: 14em;
+
+  section.content-container {
+    padding: 1em;
+  }
 }
 
-button {
-  padding: 2em;
+button.settings-button {
+  margin-top: 2em;
   display: inline;
+  border: 1px solid orange;
 }
 
 h2 {
   display: inline;
+  margin-right: 1em;
+  border: 1px solid blue;
 }
 
 label {
+  display: block;
   font-weight: bold;
 
   &:not(:first-child) {
     margin-top: 2em;
+    border: 1px solid salmon;
   }
 }
 
-mat-radio-group.setting {
-  border: 2px solid blue;
+mat-radio-button.option {
+  display: block;
+
+  &:hover {
+    text-shadow: 0 0 2px $cb-black;
+  }
 }
 
-mat-radio-button.option {
-  border: 1px solid orange;
-  display: block;
+:host ::ng-deep .mat-radio-button .mat-radio-ripple{
+  height: 24px; /* 2x circle radius */
+  width: 24px;  /* 2x circle radius */
+  left: calc(50% - 12px);
+  top: calc(50% - 12px);
 }

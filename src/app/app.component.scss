@@ -1,4 +1,4 @@
-@import './_styles/variables.scss';
+@import './shared/variables';
 
 header {
   display: flex;
@@ -6,11 +6,11 @@ header {
   justify-content: flex-start;
   height: $header-height;
   width: 100%;
-  background: $cb-background;
+  background: $cb-white;
 
   img#logo {
     margin-left: 30px;
-    width: 210px;
+    width: 300px;
   }
 }
 
@@ -35,7 +35,7 @@ footer {
       padding: 0.1em 0.2em;
       background: $cb-black;
       color: $cb-white;
-      border: 1px solid $cb-accent-main;
+      border: 1px solid $cb-accent;
       border-radius: 50%;
 
       &:hover {

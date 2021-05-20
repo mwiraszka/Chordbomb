@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
-import { Song } from '../_models/song.model';
+import { Song } from './song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {

@@ -1,4 +1,4 @@
-@import '../../_styles/variables.scss';
+@import "../../shared/variables";
 
 section {
   margin: 1em;
@@ -9,7 +9,7 @@ h2 {
 }
 
 fieldset {
-  background: darkslategray;
+  background: $cb-accent;
   padding: 5px;
   border: 2px solid lighten($color: $cb-gray, $amount: 10%);
   margin: 2em 0;
@@ -76,6 +76,6 @@ label {
 button {
   height: 30px;
   color: $cb-white;
-  background-color: $cb-primary-main;
+  background-color: $cb-primary;
   border-radius: 0.4em;
 }

@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Song } from '../../_models/song.model';
-import { SongService } from '../../_services/song.service';
+import { Song } from '../../shared/song.model';
+import { SongService } from '../../shared/song.service';
 
 @Component({
   selector: 'app-song-list',

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
+    "hmr": "ng serve -o --configuration hmr",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",
@@ -18,6 +19,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^12.0.1",
     "@angular/animations": "~12.0.1",
     "@angular/cdk": "^12.0.1",
     "@angular/common": "~12.0.1",
@@ -34,6 +36,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "firebase": "^8.4.3",
+    "fsevents": "^2.3.2",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -44,9 +47,9 @@
     "@angular-devkit/build-angular": "^12.0.1",
     "@angular/cli": "~12.0.0",
     "@angular/compiler-cli": "~12.0.1",
+    "@angularclass/hmr": "^3.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
-    "angular-unit-test-helper": "^11.0.2",
     "codelyzer": "^6.0.0",
     "cross-conf-env": "^1.2.1",
     "firebase-tools": "^8.0.0",
@@ -76,6 +79,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-etc": "^1.13.9",
     "tslint-plugin-prettier": "^2.3.0",
+    "tsutils": "^3.21.0",
     "typescript": "~4.2.4"
   },
   "importSort": {

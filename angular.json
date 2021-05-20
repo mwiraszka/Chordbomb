@@ -8,6 +8,9 @@
       "schematics": {
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular:component": {
+          "style": "scss"
         }
       },
       "root": "",
@@ -20,6 +23,7 @@
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "inlineStyleLanguage": "scss",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
@@ -41,13 +45,20 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/app/_styles/chordbomb_theme.scss",
-              "src/app/_styles/defaults.css",
+              "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
           "configurations": {
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -57,7 +68,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -83,6 +94,10 @@
             "browserTarget": "chordbomb:build"
           },
           "configurations": {
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "chordbomb:build:hmr"
+            },
             "production": {
               "browserTarget": "chordbomb:build:production"
             }
@@ -98,6 +113,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
+            "inlineStyleLanguage": "scss",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
@@ -105,7 +121,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": []
           }
         },
