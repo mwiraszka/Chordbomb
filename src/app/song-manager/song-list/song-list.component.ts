@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Song } from '../../shared/song.model';
@@ -9,7 +9,7 @@ import { SongService } from '../../shared/song.service';
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.scss']
 })
-export class SongListComponent implements OnDestroy {
+export class SongListComponent implements OnInit, OnDestroy {
   songList!: Song[];
   private songListSub: Subscription;
 
@@ -22,6 +22,10 @@ export class SongListComponent implements OnDestroy {
         } as Song;
       });
     });
+  }
+
+  ngOnInit() {
+
   }
 
   ngOnDestroy() {

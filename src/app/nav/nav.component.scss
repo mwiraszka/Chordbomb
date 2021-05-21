@@ -44,6 +44,12 @@ a.nav-link {
   &.link-active {
     cursor: default;
   }
+
+  /* Brighten and add glow behind text when link is active */
+  &.link-active {
+    color: #fff;
+    text-shadow: 0px 0px 1px $cb-white;
+  }
 }
 
 p#user-info {
@@ -81,22 +87,16 @@ p#user-info {
     &.link-active:after {
       width: 100%;
     }
-
-    /* Brighten and add glow behind text when link is active */
-    &.link-active {
-      color: #fff;
-      text-shadow: 0px 0px 1px $cb-white;
-    }
   }
 }
+
 
 @media only screen and (max-width: 600px) {
   button#menu {
     display: block;
-    /* Manually centre vertically with top nav item so that the button does not move when
-    the dropdown is opened */
-    margin: 11px auto auto;
-    border: 1px solid green;
+    /* (Hacky) hard-coded distance from top of nav-bar to vertically centre menu button
+    inside top nav bar row, regardless of how many rows displayed (when opened) */
+    margin: 8px 0 auto;
 
     .burger-line {
       display: block;
@@ -113,13 +113,10 @@ p#user-info {
     display: none;
   }
 
-  nav#app-nav {
-    padding: 0;
-  }
-
   /* All styles that are added when dropdown navigation menu is opened */
   nav#app-nav.open {
-    height: auto;
+    height: auto;  // automatically extend nav height to fit its contents
+    padding-right: 0;  // ensure clickable nav items reach right edge of dropdown nav bar
 
     /* Transition menu icon from three horizontal lines to an X when dropdown opens */
     .burger-line {
@@ -128,11 +125,9 @@ p#user-info {
         -webkit-transition: all 0.4s ease-in-out;
         transition: all 0.5s ease-in-out;
       }
-
       &:nth-child(2) {
         opacity: 0;
       }
-
       &:nth-child(3) {
         transform: translateY(-7px) rotate(-225deg);
         -webkit-transition: all 0.4s ease-in-out;
@@ -155,10 +150,10 @@ p#user-info {
 
     a.nav-link {
       display: block;
-      padding: 0.5em;
+      padding: 0.5em 0;
 
       &:hover {
-        background: $cb-primary;
+        background: $cb-accent;
       }
     }
   }

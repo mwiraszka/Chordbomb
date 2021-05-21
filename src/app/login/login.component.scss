@@ -2,9 +2,8 @@
 
 section#login-container {
   display: flex;
-  padding: 10px;
   justify-content: center;
-  text-align: center;
+  margin-top: 50px;
 }
 
 mat-card#admin-login {
@@ -17,6 +16,7 @@ mat-card#admin-login {
 }
 
 mat-card#login-credentials {
+  text-align: center;
   box-sizing: border-box;
   margin: 10px 0 30px 0;
 

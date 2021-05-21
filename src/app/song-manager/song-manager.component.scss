@@ -1,18 +1,15 @@
 @import '../shared/variables';
 
 section#song-manager {
-  min-height: $main-height;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 app-song-edit {
-  flex: 2 0 60%;
-  border: 1px solid purple;
+  flex-basis: 60%;
 }
 
 app-song-list {
-  flex: 1 0 30%;
-  border: 1px solid olive;
+  flex-basis: 40%;
 }
