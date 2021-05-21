@@ -1,37 +1,49 @@
 <mat-sidenav-container>
+
   <mat-sidenav #sidenav>
-    <section class="content-container">
-      <h2>
-        Settings
+    <div id="inner-sidenav-container">
+      <header id="settings-header">
+        <h2>Settings</h2>
         <button class="settings-button" mat-button (click)="sidenav.toggle()">
           <fa-icon [icon]="faCog" class="fa-3x"></fa-icon>
         </button>
-      </h2>
+      </header>
 
-      <label id="font-size">Font Size:</label>
-      <mat-radio-group class="setting" aria-labelledby="font-size" [(ngModel)]="fontSize">
-        <mat-radio-button class="option" *ngFor="let size of fontSizeOptions" [value]="size">
-          {{ size }}
-        </mat-radio-button>
-      </mat-radio-group>
+      <div id="settings-container">
+        <mat-radio-group class="setting" aria-labelledby="font-size" [(ngModel)]="fontSize">
+          <label class="setting-label" id="font-size">Font Size:</label>
+          <mat-radio-button class="option" *ngFor="let size of fontSizeOptions" [value]="size">
+            {{ size }}
+          </mat-radio-button>
+        </mat-radio-group>
 
-      <label id="chord-type">Chord Type:</label>
-      <mat-radio-group class="setting" aria-labelledby="chord-type" [(ngModel)]="chordType">
-        <mat-radio-button class="option" *ngFor="let type of chordTypeOptions" [value]="type">
-          {{ type }}
-        </mat-radio-button>
-      </mat-radio-group>
-    </section>
+        <mat-radio-group class="setting" aria-labelledby="chord-type" [(ngModel)]="chordType">
+          <label class="setting-label" id="chord-type">Chord Type:</label>
+          <mat-radio-button class="option" *ngFor="let type of chordTypeOptions" [value]="type">
+            {{ type }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <button class="settings-button" mat-button (click)="sidenav.toggle()">
       <fa-icon [icon]="faCog" class="fa-3x"></fa-icon>
     </button>
-    <div>
-      (song search component goes here)<br>
-      Font Size selected: {{ fontSize }}<br>
-      Chord Type selected: {{ chordType }}
-    </div>
+    <main id="main-content">
+      <form autocomplete="off" action="/action_page.php">
+        <div class="autocomplete">
+          <input id="myInput" type="text" name="song" placeholder="Search song">
+        </div>
+      </form>
+      <span id="temp">
+        This component is currently in development...<br>
+        check out the nifty sidebar in the meantime though!<br><br>
+        Font size selected: <em>{{ fontSize }}</em><br>
+        Chord type selected: <em>{{ chordType }}</em>
+      </span>
+    </main>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

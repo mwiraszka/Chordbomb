@@ -2,50 +2,95 @@
 
 mat-sidenav-container {
   height: $main-height;
-  border: 1px solid yellow;
 }
 
 mat-sidenav {
-  width: 14em;
+  width: 12em;
 
-  section.content-container {
+  div#inner-sidenav-container {
     padding: 1em;
+
+    header#settings-header {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button.settings-button {
+        padding-right: 0;
+      }
+    }
+
+    div#settings-container {
+      padding-left: 1.5em;
+
+      label.setting-label {
+        margin: 1.5em 0 0.3em;
+        display: block;
+        font-weight: bold;
+      }
+
+      mat-radio-button.option {
+        display: table;
+        padding: 0.1em 0;
+
+        &:hover {
+          color: $cb-primary;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
 
-button.settings-button {
-  margin-top: 2em;
-  display: inline;
-  border: 1px solid orange;
-}
-
-h2 {
-  display: inline;
-  margin-right: 1em;
-  border: 1px solid blue;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-
-  &:not(:first-child) {
-    margin-top: 2em;
-    border: 1px solid salmon;
-  }
-}
-
-mat-radio-button.option {
-  display: block;
-
-  &:hover {
-    text-shadow: 0 0 2px $cb-black;
-  }
-}
-
+/* Reduce default radius of the animated ripple around radio buttons */
 :host ::ng-deep .mat-radio-button .mat-radio-ripple{
-  height: 24px; /* 2x circle radius */
-  width: 24px;  /* 2x circle radius */
-  left: calc(50% - 12px);
-  top: calc(50% - 12px);
+  height: 30px;  // 2x circle radius
+  width: 30px;  // 2x circle radius
+  left: calc(50% - 15px);
+  top: calc(50% - 15px);
+  border-radius: 50%;  // include circular boundary to prevent clipping
+}
+
+mat-sidenav-content {
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1em;
+
+  button.settings-button {
+    margin-bottom: auto;
+  }
+
+  main#main-content {
+    flex: 1;
+
+    form > div.autocomplete {
+      display: block;
+      margin: auto;
+      width: 500px;
+
+      input {
+        text-indent: 1em;
+        font-size: 1.5em;
+        width: 500px;
+      }
+    }
+
+    span#temp {
+      display: block;
+      color: $cb-black;
+      padding: 2em;
+
+      em {
+        font-weight: bold;
+        font-size: 110%;
+        font-style: normal;
+        color: $cb-black;
+        margin-left: 0.5em;
+        text-shadow: 0 0 2px $cb-accent;
+      }
+    }
+  }
 }

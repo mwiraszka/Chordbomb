@@ -23,7 +23,6 @@
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "inlineStyleLanguage": "scss",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
@@ -113,7 +112,6 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "inlineStyleLanguage": "scss",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
