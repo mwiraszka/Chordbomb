@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <app-header></app-header>
+    <app-nav></app-nav>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  `,
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  faGithub = faGithub;
-}
+export class AppComponent {}

@@ -1,13 +1,13 @@
 @import '../shared/variables';
 
-nav#top-nav {
-  background-color: $cb-black;
+nav#app-nav {
+  height: $nav-height;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 45px;
-  padding-left: 20px;
   font-size: 1.1em;
+  padding: 0 1em;
+  background-color: $cb-black;
 }
 
 button#menu {
@@ -95,7 +95,8 @@ p#user-info {
     display: block;
     /* Manually centre vertically with top nav item so that the button does not move when
     the dropdown is opened */
-    margin: 9px auto auto 0;
+    margin: 11px auto auto;
+    border: 1px solid green;
 
     .burger-line {
       display: block;
@@ -112,8 +113,12 @@ p#user-info {
     display: none;
   }
 
+  nav#app-nav {
+    padding: 0;
+  }
+
   /* All styles that are added when dropdown navigation menu is opened */
-  nav#top-nav.open {
+  nav#app-nav.open {
     height: auto;
 
     /* Transition menu icon from three horizontal lines to an X when dropdown opens */
@@ -141,14 +146,10 @@ p#user-info {
 
     li.nav-item {
       text-align: center;
-      width: calc(100% - 1em);
+      width: 100%;
 
       & > span {
         display: block;
-      }
-
-      &:last-child {
-        margin-bottom: 0.2em;
       }
     }
 
@@ -158,13 +159,6 @@ p#user-info {
 
       &:hover {
         background: $cb-primary;
-        border-bottom-left-radius: 0.5em;
-        border-bottom-right-radius: 0.5em;
-
-        &:not(.top-in-dropdown) {
-          border-top-left-radius: 0.5em;
-          border-top-right-radius: 0.5em;
-        }
       }
     }
   }

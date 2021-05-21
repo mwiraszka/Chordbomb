@@ -10,23 +10,27 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from '../environments/environment';
-import { AppComponent } from './app.component';
 import { appRoutingModule } from './app.routing';
 import { LoginModule } from './login/login.module';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
+import { SongManagerComponent } from './song-manager/song-manager.component';
 import { SongEditComponent } from './song-manager/song-edit/song-edit.component';
 import { SongListComponent } from './song-manager/song-list/song-list.component';
-import { SongManagerComponent } from './song-manager/song-manager.component';
 import { SongSearchComponent } from './song-search/song-search.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     NavComponent,
+    SongSearchComponent,
     SongManagerComponent,
     SongEditComponent,
     SongListComponent,
-    SongSearchComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,

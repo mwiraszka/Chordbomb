@@ -4,30 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-song-manager',
   template: `
     <section id="song-manager">
-      <div id="col-left">
-        <app-song-edit></app-song-edit>
-      </div>
-      <div id="col-right">
-        <app-song-list></app-song-list>
-      </div>
+      <app-song-edit></app-song-edit>
+      <app-song-list></app-song-list>
     </section>
   `,
-  styles: [
-    `
-      #song-manager {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-      #col-left {
-        width: 60%;
-      }
-      #col-right {
-        width: 30%;
-      }
-    `
-  ]
+  styleUrls: ['./song-manager.component.scss']
 })
-export class SongManagerComponent {
-  constructor() {}
-}
+export class SongManagerComponent {}

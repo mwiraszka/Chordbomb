@@ -5,7 +5,7 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: 12em;
+  width: 11em;
 
   div#inner-sidenav-container {
     padding: 1em;
@@ -17,7 +17,7 @@ mat-sidenav {
       justify-content: center;
 
       button.settings-button {
-        padding-right: 0;
+        padding-left: 0;
       }
     }
 
@@ -32,7 +32,7 @@ mat-sidenav {
 
       mat-radio-button.option {
         display: table;
-        padding: 0.1em 0;
+        padding: 0.2em 0;
 
         &:hover {
           color: $cb-primary;
@@ -69,12 +69,12 @@ mat-sidenav-content {
     form > div.autocomplete {
       display: block;
       margin: auto;
-      width: 500px;
+      width: 300px;
 
       input {
-        text-indent: 1em;
+        text-indent: 0.5em;
         font-size: 1.5em;
-        width: 500px;
+        width: 300px;
       }
     }
 

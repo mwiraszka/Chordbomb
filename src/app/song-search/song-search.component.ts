@@ -12,8 +12,8 @@ export class SongSearchComponent {
   fontSize: string = 'regular';
   chordType: string = 'full';
 
-  fontSizeOptions: string[] = ['regular', 'large'];
-  chordTypeOptions: string[] = ['full', 'basic', 'none'];
+  fontSizes: string[] = ['regular', 'large'];
+  chordTypes: string[] = ['full', 'basic', 'none'];
 
   constructor() {}
 }

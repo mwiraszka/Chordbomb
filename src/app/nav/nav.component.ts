@@ -16,12 +16,12 @@ export class NavComponent {
 
   closeDropdownMenu() {
     this.menuOpen = false;
-    document.getElementById('top-nav')?.classList.remove('open');
+    document.getElementById('app-nav')?.classList.remove('open');
   }
 
   toggleDropdownMenu() {
     this.menuOpen = !this.menuOpen;
-    let topNav = document.getElementById('top-nav');
+    let topNav = document.getElementById('app-nav');
     this.menuOpen ? topNav?.classList.add('open') : topNav?.classList.remove('open');
   }
 
