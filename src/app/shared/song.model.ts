@@ -1,6 +1,6 @@
 class Edition {
   timestamp: string = '';
-  author: string = '';
+  author: string = 'Michal';
   note: string = '';
 }
 
@@ -14,9 +14,9 @@ class Node {
 
 export class Song {
   id: string = '';
-  editions: Edition[] | '' = '';
-  artists: string = '';
-  title: string = '';
+  // editions: Edition[] = [new Edition()];
+  artists: string = 'new artist';
+  title: string = 'new title';
   album?: string = '';
   albumYear?: number | '' = '';
   albumCoverLink?: string = '';

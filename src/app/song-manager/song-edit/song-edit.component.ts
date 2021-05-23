@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
@@ -11,71 +12,94 @@ import { SongService } from '../../shared/song.service';
   templateUrl: './song-edit.component.html',
   styleUrls: ['./song-edit.component.scss']
 })
-export class SongEditComponent implements OnDestroy {
-  // Get song that user selected from displayed song list
-  private selectedSongSub: Subscription;
-  selectedSong!: Song;
+export class SongEditComponent implements OnInit, OnDestroy {
+  // Font Awesome icons
+  faPlus = faPlus;
+  faMinus = faMinus;
 
-  // Set control names and validators for each of the form's fields
-  songForm = this.formBuilder.group({
-    editions: this.formBuilder.group({
-      timestamp: [
-        {
-          value: new Date(Date.now()),
-          disabled: true
-        }
-      ],
-      author: ['', [Validators.required, Validators.pattern(/Michal/)]]
-    }),
-    artists: ['', Validators.required],
-    songTitle: ['', Validators.required],
-    albumTitle: [''],
-    albumYear: ['', [Validators.min(1700), Validators.max(2021)]],
-    albumArtworkLink: [''],
-    songwriters: [''],
-    producers: [''],
-    publishers: [''],
-    timeSignature: ['', Validators.required],
-    originalKey: ['', Validators.required],
-    node: this.formBuilder.array([
-      this.formBuilder.group({
-        timeMarker: [
-          '',
-          Validators.required,
-          Validators.pattern(/^\d{1-3}-\d{1-2}-[1-4]$/)
-        ],
-        bpm: ['', [Validators.min(40), Validators.max(250)]],
-        chord: ['', Validators.maxLength(6)],
-        lyric: ['', Validators.pattern(/w-/)],
-        label: ['']
-      })
-    ])
-  });
+  private songSub: Subscription;
+  songData!: Song
+
+  songForm!: FormGroup;
 
   constructor(
-    public songService: SongService,
+    private songService: SongService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder
+    private fb: FormBuilder
   ) {
-    // Populate form with selected song's data; if no song selected, use default values
-    // from song model by instantiating new song-type
-    this.selectedSongSub = this.songService.getSelectedSong().subscribe((song) => {
-      this.selectedSong = song ? song : new Song();
+    // Subscribe to user-selected song through private song service and store song data
+    // locally to be able to populate the form in this component
+    this.songSub = this.songService.selectedSong.subscribe((song) => {
+      this.songData = song;
     });
   }
 
+  ngOnInit() {
+    this.initForm();
+  }
+
   ngOnDestroy() {
-    this.selectedSongSub.unsubscribe();
+    this.songSub.unsubscribe();
+  }
+
+  // Set control names and validators for each of the form's fields
+  private initForm() {
+    this.songForm = this.fb.group({
+      // editionTimestamp: [],  // field hidden from form; automatically added on submission
+      // editionAuthor: ['', [Validators.required, Validators.pattern(/Michal/)]],
+      // editionNote: ['', Validators.required],
+      artists: [Validators.required],
+      title: [Validators.required],
+      album: [],
+      albumYear: [[Validators.min(1700), Validators.max(2021)]],
+      albumCoverLink: [],
+      songwriters: [],
+      producers: [],
+      publishers: [],
+      timeSignature: [Validators.required],
+      originalKey: [Validators.required],
+      nodes: this.fb.array([])
+    });
+  }
+
+  addNode() {
+    console.log('adding new node')
+    let nodeArray = this.songForm.controls.nodes as FormArray;
+    const newNode: FormGroup = this.fb.group({
+      timeMarker: [
+        '',
+        Validators.required,
+        Validators.pattern(/^\d{1-3}-\d{1-2}-[1-4]$/)
+      ],
+      bpm: ['', [Validators.min(40), Validators.max(250)]],
+      chord: ['', Validators.maxLength(6)],
+      lyric: ['', Validators.pattern(/w-/)],
+      label: ['']
+    });
+
+    nodeArray.push(newNode);
+  }
+
+  removeNode(index: number) {
+    console.log('removing index ' + index)
+    let nodeArray = this.songForm.controls.nodes as FormArray;
+    nodeArray.removeAt(index);
+  }
+
+  isEditMode() {
+    return this.songService.editMode;
   }
 
   onAddNewSong() {
-    this.songService.clearSelectedSong();
+    this.songService.selectSong(new Song());
     this.songService.editMode = false;
   }
 
   onSubmit() {
+    const timestamp = new Date(Date.now());
+
     if (this.songService.editMode) {
-      this.songService.updateSong(this.selectedSong.id, this.songForm.value);
+      this.songService.updateSong(this.songData.id, this.songForm.value);
       this.toastr.success(
         'Changes saved',
         `${this.songForm.value.artists} - ${this.songForm.value.title}`,

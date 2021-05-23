@@ -1,59 +1,59 @@
 <section id="song-edit">
   <h2>Edit Song</h2>
   <button id="create-new-song" (click)="onAddNewSong()">
-    <i class="fa fa-plus"></i>&nbsp;&nbsp;Create New Song
+    <fa-icon [icon]="faPlus"></fa-icon>Create New Song
   </button>
 
   <form id="songForm" [formGroup]="songForm" (ngSubmit)="onSubmit()">
+
     <fieldset id="edition-details">
       <legend>Edition</legend>
-      <div class="row">
-        <div class="form-field">
-          <input type="text" formControlName="editions[0].timestamp" class="medium" />
-          <label>Timestamp</label>
-        </div>
-        <div class="form-field">
-          <input type="text" formControlName="editions[0].author" class="medium" />
-          <label>Author</label>
-        </div>
+      <!-- <aside *ngIf="songData.editions.slice(-1)[0].author && songData.editions.slice(-1)[0].note">
+        <p>Last edited by {{ songData.editions.slice(-1)[0].author }}</p>
+        <p>{{ songData.editions.slice(-1)[0].note }}</p>
+      </aside>
+      <div class="form-field">
+        <input type="text" formControlName="editionsAuthor" class="medium">
+        <label>Author</label>
       </div>
       <div class="form-field">
-        <input type="" formControlName="editions[0].note" class="xlarge" />
+        <input type="text" formControlName="editionNote" class="xlarge">
         <label>Note</label>
-      </div>
+      </div> -->
     </fieldset>
+
     <fieldset id="general-details">
       <legend>General Song Details</legend>
       <div class="form-field">
-        <input type="text" formControlName="artists" class="large" />
+        <input type="text" formControlName="artists" class="large" [ngModel]="songData.artists">
         <label>Artist(s)</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="title" class="large" />
+        <input type="text" formControlName="title" class="large" [ngModel]="songData.title">
         <label>Title</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="album" class="large" />
+        <input type="text" formControlName="album" class="large" [ngModel]="songData.album">
         <label>Album</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="albumYear" class="small" maxlength="4" />
+        <input type="text" formControlName="albumYear" class="small" maxlength="4" [ngModel]="songData.albumYear">
         <label>Album Year</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="albumCoverLink" class="xlarge" />
+        <input type="text" formControlName="albumCoverLink" class="xlarge" [ngModel]="songData.albumCoverLink">
         <label>Link to Album Cover Image</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="songwriters" class="large" />
+        <input type="text" formControlName="songwriters" class="large" [ngModel]="songData.songwriters">
         <label>Songwriter(s)</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="producers" class="large" />
+        <input type="text" formControlName="producers" class="large" [ngModel]="songData.producers">
         <label>Producer(s)</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="publishers" class="large" />
+        <input type="text" formControlName="publishers" class="large" [ngModel]="songData.publishers">
         <label>Publisher(s)</label>
       </div>
     </fieldset>
@@ -61,17 +61,47 @@
     <fieldset id="musical-details">
       <legend>Musical Details</legend>
       <div class="form-field">
-        <input type="text" formControlName="timeSignature" class="small" />
+        <input type="text" formControlName="timeSignature" class="small" [ngModel]="songData.timeSignature">
         <label>Time Signature</label>
       </div>
       <div class="form-field">
-        <input type="text" formControlName="originalKey" class="medium" />
+        <input type="text" formControlName="originalKey" class="medium" [ngModel]="songData.originalKey">
         <label>Original Key</label>
+      </div>
+      <div formArrayName="nodeArray" *ngFor="let nodeForm of songForm.get('nodes')!.value; let i = index">
+        <div class="node-form-row" [formGroup]="nodeForm">
+          <div class="form-field">
+            <input type="text" formControlName="timeMarker" class="small">
+            <label>Time Marker</label>
+          </div>
+          <div class="form-field">
+            <input type="text" formControlName="bpm" class="small">
+            <label>BPM</label>
+          </div>
+          <div class="form-field">
+            <input type="text" formControlName="chord" class="small">
+            <label>Chord</label>
+          </div>
+          <div class="form-field">
+            <input type="text" formControlName="lyric" class="small">
+            <label>Lyric</label>
+          </div>
+          <div class="form-field">
+            <input type="text" formControlName="label" class="small">
+            <label>Label</label>
+          </div>
+        </div>
+        <button (click)="addNode()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+        <button (click)="removeNode(i)">
+          <fa-icon [icon]="faMinus"></fa-icon>
+        </button>
       </div>
     </fieldset>
 
     <button id="submit" type="submit" [disabled]="!songForm.valid">
-      <span *ngIf="songService.editMode; else addMode">Update Song</span>
+      <span *ngIf="isEditMode(); else addMode">Update Song</span>
       <ng-template #addMode>Add Song</ng-template>
     </button>
   </form>

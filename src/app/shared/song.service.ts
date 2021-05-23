@@ -1,33 +1,35 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Song } from './song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
-  editMode = false;
-  private selectedSong = new BehaviorSubject<Song>(new Song());
+  private readonly _selectedSong$: BehaviorSubject<Song>;
+  editMode: boolean;
 
-  constructor(private firestore: AngularFirestore) {}
-
-  getSelectedSong() {
-    return this.selectedSong.asObservable();
+  constructor(private firestore: AngularFirestore) {
+    // Initialize selected song to default values declared in song.model class
+    this._selectedSong$ = new BehaviorSubject<Song>(new Song());
+    this.editMode = false;
   }
 
-  updateSelectedSong(song: Song) {
-    this.selectedSong.next(song);
+  // In-app state: the song the user selected in song list
+  get selectedSong(): Observable<Song> {
+    return this._selectedSong$.asObservable();
   }
 
-  clearSelectedSong() {
-    this.selectedSong.next(new Song());
+  selectSong(song: Song): void {
+    this._selectedSong$.next(song);
   }
 
+  // Database state: CRUD for the songs stored in Firestore
   getSongs() {
     return this.firestore.collection('songs').snapshotChanges();
   }
 
-  addSong(newSong: Song) {
+  addSong(newSong: Song): void {
     this.firestore.collection('songs').add(newSong);
   }
 

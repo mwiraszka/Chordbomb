@@ -11,35 +11,39 @@ h2 {
 
 button {
   height: 30px;
-  font-size: 1em;
+  font-size: 1.3em;
   color: $cb-white;
   background-color: $cb-primary;
   border-radius: 0.4em;
+
+  fa-icon {
+    margin-right: 0.3em;
+  }
 }
 
-
 fieldset {
-  background: #123d69;
+  background: #7084b1;
   padding: 5px;
-  border: 2px solid lighten($color: $cb-gray, $amount: 10%);
+  border: 2px solid lighten($color: $cb-black, $amount: 10%);
   margin: 2em 0;
   box-shadow: 0 0 3px 2px lighten($color: $cb-gray, $amount: 15%);
 }
 
 legend {
-  font-size: 1.3em;
+  font-size: 1.1em;
+  font-weight: bold;
   margin: 0 0 0.5em 0.5em;
   padding: 0.1em 0.35em;
   text-align: center;
-  background: $cb-gray;
+  background: $cb-accent;
   background: linear-gradient(
     270deg,
-    lighten($color: $cb-gray, $amount: 15%) 0%,
-    $cb-white 50%,
-    lighten($color: $cb-gray, $amount: 15%) 100%
+    lighten($color: $cb-accent, $amount: 25%) 0%,
+    $cb-white 30%,
+    $cb-white 70%,
+    lighten($color: $cb-accent, $amount: 25%) 100%
   );
-  border: 1px solid $cb-gray;
-  border-radius: 0.3em;
+  border: 1px solid $cb-black;
   box-shadow: 0 0 3px 1px $cb-gray;
   width: inherit;
 }
@@ -79,8 +83,8 @@ input:focus {
 label {
   display: block;
   margin: 0.1em 0 1.2em 0.2em;
-  color: $cb-white;
-  font-size: 0.8em;
+  color: $cb-black;
+  font-size: 0.9em;
 }
 
 

@@ -17,8 +17,8 @@ table#songs {
     padding: 0.4em 0.2em;
     border: 1px solid $cb-gray;
     text-align: center;
-    background-color: $cb-primary;
-    color: $cb-white;
+    background-color: $cb-accent;
+    color: $cb-black;
 
     &:first-child {
       border-top-left-radius: 0.6em;
@@ -36,6 +36,7 @@ table#songs {
     }
     &:hover {
       background-color: $cb-select;
+      cursor: pointer;
     }
   }
 

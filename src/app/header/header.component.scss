@@ -5,10 +5,13 @@ header {
   align-items: center;
   justify-content: flex-start;
   padding: 1em;
-  background: $cb-white;
+  border-bottom: 2px solid lighten($color: $cb-black, $amount: 10%);
+  background: $cb-primary;
 
-  img#logo {
+  svg#chordbomb-logo {
     width: 300px;
+    stroke: $cb-gray;
+    fill: $cb-white;
   }
 }
 
