@@ -1,10 +1,10 @@
 class Edition {
   timestamp: string = '';
-  author: string = 'Michal';
+  author: string = '';
   note: string = '';
 }
 
-class Node {
+export class Node {
   timeMarker: string = '';
   bpm?: number | '' = '';
   chord?: string | '' = '';
@@ -14,9 +14,9 @@ class Node {
 
 export class Song {
   id: string = '';
-  // editions: Edition[] = [new Edition()];
-  artists: string = 'new artist';
-  title: string = 'new title';
+  editions: Edition[] = [new Edition()];
+  artists: string = '';
+  title: string = '';
   album?: string = '';
   albumYear?: number | '' = '';
   albumCoverLink?: string = '';
@@ -26,5 +26,5 @@ export class Song {
 
   timeSignature: string = '';
   originalKey: string = '';
-  nodes: Node[] | '' = '';
+  nodes: Node[] = [new Node()];
 }

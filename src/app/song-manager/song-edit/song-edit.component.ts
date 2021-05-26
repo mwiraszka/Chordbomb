@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
-import { Song } from '../../shared/song.model';
+import { Node, Song } from '../../shared/song.model';
 import { SongService } from '../../shared/song.service';
 
 @Component({
@@ -17,37 +17,36 @@ export class SongEditComponent implements OnInit, OnDestroy {
   faPlus = faPlus;
   faMinus = faMinus;
 
+  // Subscription to the user-selected song from song list
   private songSub: Subscription;
-  songData!: Song
+  song!: Song;
 
   songForm!: FormGroup;
 
   constructor(
     private songService: SongService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    // Subscribe to user-selected song through private song service and store song data
-    // locally to be able to populate the form in this component
     this.songSub = this.songService.selectedSong.subscribe((song) => {
-      this.songData = song;
+      this.song = song;
+      this.resetForm();
     });
   }
 
   ngOnInit() {
-    this.initForm();
+    this.resetForm();
   }
 
   ngOnDestroy() {
     this.songSub.unsubscribe();
   }
 
-  // Set control names and validators for each of the form's fields
-  private initForm() {
-    this.songForm = this.fb.group({
-      // editionTimestamp: [],  // field hidden from form; automatically added on submission
-      // editionAuthor: ['', [Validators.required, Validators.pattern(/Michal/)]],
-      // editionNote: ['', Validators.required],
+  resetForm() {
+    this.songForm = this.formBuilder.group({
+      editionTimestamp: [],
+      editionAuthor: ['Michal', [Validators.required, Validators.pattern(/Michal/)]],
+      editionNote: ['', Validators.required],
       artists: [Validators.required],
       title: [Validators.required],
       album: [],
@@ -58,48 +57,63 @@ export class SongEditComponent implements OnInit, OnDestroy {
       publishers: [],
       timeSignature: [Validators.required],
       originalKey: [Validators.required],
-      nodes: this.fb.array([])
+      nodes: this.getNodeFormArray()
     });
   }
 
-  addNode() {
-    console.log('adding new node')
-    let nodeArray = this.songForm.controls.nodes as FormArray;
-    const newNode: FormGroup = this.fb.group({
-      timeMarker: [
-        '',
-        Validators.required,
-        Validators.pattern(/^\d{1-3}-\d{1-2}-[1-4]$/)
-      ],
-      bpm: ['', [Validators.min(40), Validators.max(250)]],
-      chord: ['', Validators.maxLength(6)],
-      lyric: ['', Validators.pattern(/w-/)],
-      label: ['']
-    });
-
-    nodeArray.push(newNode);
+  getNodeFormArray(): FormArray {
+    let nodeFormArray: FormArray = new FormArray([]);
+    for (let i = 0; i < this.song.nodes.length; i++) {
+      nodeFormArray.push(this.getNodeFormGroup());
+    }
+    return nodeFormArray;
   }
 
-  removeNode(index: number) {
-    console.log('removing index ' + index)
-    let nodeArray = this.songForm.controls.nodes as FormArray;
-    nodeArray.removeAt(index);
+  getNodeFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      timeMarker: ['1', [Validators.required, Validators.pattern(/^\d{1-3}-\d{1-2}-[1-4]$/)]],
+      bpm: ['2', [Validators.min(40), Validators.max(250)]],
+      chord: ['3', Validators.maxLength(6)],
+      lyric: ['4', Validators.pattern(/w-/)],
+      label: ['5']
+    });
+  }
+
+  get nodeArray(): FormArray {
+    return (<FormArray>this.songForm.get('nodes'));
+  }
+
+  insertNodeFormGroup(index: number): void {
+    // Insert a new node row directly after the row of the clicked button (so index + 1);
+    // this means a new group of controls is added to the overall song form group, and
+    // also that all nodes in the song data node array need to be shifted by one
+    this.nodeArray.insert(index + 1, this.getNodeFormGroup());
+    this.song.nodes.splice(index + 1, 0, new Node());
+  }
+
+  removeNodeFormGroup(index: number): void {
+    // Ensure at least one row is always present; again, reflect the change in both the
+    // displayed form (removing a node form group from the song form) and in the song data
+    // (splicing the item out of the node array)
+    if (this.nodeArray.length > 1) {
+      this.nodeArray.removeAt(index);
+      this.song.nodes.splice(index, 1);
+    }
   }
 
   isEditMode() {
     return this.songService.editMode;
   }
 
-  onAddNewSong() {
+  onCreateNewSong() {
     this.songService.selectSong(new Song());
+    this.resetForm();
     this.songService.editMode = false;
   }
 
   onSubmit() {
-    const timestamp = new Date(Date.now());
-
     if (this.songService.editMode) {
-      this.songService.updateSong(this.songData.id, this.songForm.value);
+      this.songService.updateSong(this.song.id, this.songForm.value);
       this.toastr.success(
         'Changes saved',
         `${this.songForm.value.artists} - ${this.songForm.value.title}`,

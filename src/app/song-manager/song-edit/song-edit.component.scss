@@ -1,4 +1,4 @@
-@import "../../shared/variables";
+@import '../../shared/variables';
 
 section#song-edit {
   margin: 1em;
@@ -9,24 +9,38 @@ h2 {
   padding-bottom: 0.3em;
 }
 
+aside#latest-edition-note {
+  display: inline-block;
+  border: 1px solid darken($color: $cb-gray, $amount: 20%);
+  padding: 0.1em 0.5em;
+  margin-left: 0.5em;
+}
+
 button {
-  height: 30px;
   font-size: 1.3em;
+  margin: 0.1em;
   color: $cb-white;
   background-color: $cb-primary;
-  border-radius: 0.4em;
+  border: 2px solid $cb-gray;
+  border-radius: 0.2em;
 
-  fa-icon {
+  &#create-new-song fa-icon {
     margin-right: 0.3em;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: $cb-gray;
+    background-color: lighten($color: $cb-gray, $amount: 20%);
+    cursor: default;
   }
 }
 
 fieldset {
-  background: #7084b1;
-  padding: 5px;
-  border: 2px solid lighten($color: $cb-black, $amount: 10%);
+  background: #99a0af;
+  padding: 0.1em;
+  border: 1px solid lighten($color: $cb-black, $amount: 40%);
   margin: 2em 0;
-  box-shadow: 0 0 3px 2px lighten($color: $cb-gray, $amount: 15%);
 }
 
 legend {
@@ -48,43 +62,51 @@ legend {
   width: inherit;
 }
 
-div.form-field {
-  margin-left: 0.5em;
+
+div.form-row {
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+div.form-field,
+label#node-label {
+  margin: 0 0.4em;
 }
 
 input {
+  display: block;
   border-radius: 0.3em;
   font-size: 1.2em;
   text-indent: 0.2em;
+
+  &.xlarge {
+    width: 37em;
+  }
+  &.large {
+    width: 18em;
+  }
+  &.medium {
+    width: 7em;
+  }
+  &.small {
+    width: 3em;
+  }
+
+  &:focus {
+    outline: none;
+    border: 2px solid $cb-select;
+    box-shadow: 0 0 3px 2px $cb-gray;
+  }
 }
 
-input.xlarge {
-  width: 95%;
+label#node-label {
+  width: 5em;  // fixed width to keep form fields aligned if node number > 1 digit
+  font-weight: bold;
 }
 
-input.large {
-  width: 20em;
+// Push plus and minus buttons to the right end of row
+button#insert-node {
+  margin-left: auto;
 }
-
-input.medium {
-  width: 6em;
-}
-
-input.small {
-  width: 3em;
-}
-
-input:focus {
-  outline: none;
-  border: 2px solid $cb-select;
-  box-shadow: 0 0 3px 2px $cb-gray;
-}
-
-label {
-  display: block;
-  margin: 0.1em 0 1.2em 0.2em;
-  color: $cb-black;
-  font-size: 0.9em;
-}
-
-

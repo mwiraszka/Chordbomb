@@ -3,13 +3,9 @@
 section#song-manager {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-app-song-edit {
-  flex-basis: 60%;
+  justify-content: center;
 }
 
 app-song-list {
-  flex-basis: 40%;
+  flex-basis: 600px;
 }

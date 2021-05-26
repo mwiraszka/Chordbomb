@@ -5,9 +5,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   selector: 'app-footer',
   template: `
     <footer>
-      <small id="copyright">
-        &copy; 2021 Copyright: Michal Wiraszka
-      </small>
+      <small id="copyright"> &copy; 2021 Copyright: Michal Wiraszka </small>
       <small id="version" class="lighter">
         Currently in development (version 0.2.0)
       </small>

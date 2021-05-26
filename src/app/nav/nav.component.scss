@@ -90,7 +90,6 @@ p#user-info {
   }
 }
 
-
 @media only screen and (max-width: 600px) {
   button#menu {
     display: block;
@@ -115,8 +114,8 @@ p#user-info {
 
   /* All styles that are added when dropdown navigation menu is opened */
   nav#app-nav.open {
-    height: auto;  // automatically extend nav height to fit its contents
-    padding-right: 0;  // ensure clickable nav items reach right edge of dropdown nav bar
+    height: auto; // automatically extend nav height to fit its contents
+    padding-right: 0; // ensure clickable nav items reach right edge of dropdown nav bar
 
     /* Transition menu icon from three horizontal lines to an X when dropdown opens */
     .burger-line {

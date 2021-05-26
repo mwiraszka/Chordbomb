@@ -7,9 +7,9 @@ section#login-container {
 }
 
 mat-card#admin-login {
-  min-width: 320px;  // when first line ('login credentials') breaks
+  min-width: 320px; // when first line ('login credentials') breaks
   max-width: 500px;
-  width: calc(100% - 2em);  // leave a minimum of 2em of margin (total) on sides of screen
+  width: calc(100% - 2em); // leave a minimum of 2em of margin (total) on sides of screen
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
