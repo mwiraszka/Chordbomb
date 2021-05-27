@@ -33,7 +33,7 @@ export class SongService {
     this.firestore.collection('songs').add(newSong);
   }
 
-  updateSong(updatedSong: Song): void {
-    this.firestore.doc(`songs/${updatedSong.id}`).update(updatedSong);
+  updateSong(editedSong: Song): void {
+    this.firestore.doc(`songs/${editedSong.id}`).update(editedSong);
   }
 }

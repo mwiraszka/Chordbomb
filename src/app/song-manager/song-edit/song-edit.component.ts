@@ -59,6 +59,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
   newForm() {
     this.songForm = this.formBuilder.group({
       id: [this.song.id], // not displayed to user
+      backup: [''], // not displayed to user
       newEdition: this.formBuilder.group({
         timestamp: [''], // not displayed to user
         author: ['Michal', [
@@ -188,8 +189,20 @@ export class SongEditComponent implements OnInit, OnDestroy {
     // song-type parameters (songData)
     const { newEdition, ...songData } = formData;
 
+    // Convert custom objects used in project to JS objects
+    songData.editions = songData.editions.map((obj: any) => {
+      return Object.assign({}, obj)
+    });
+    songData.nodes = songData.nodes.map((obj: any) => {
+      return Object.assign({}, obj)
+    });
+
     // Pass completed song data to service's update or add method depending on edit mode
     if (this.songService.editMode) {
+      // Save stringified pre-edit version as a backup
+      this.song.backup = '';
+      songData.backup = JSON.stringify(this.song);
+
       this.songService.updateSong(songData);
       this.toastr.success(
         'Successfully updated',
@@ -204,5 +217,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
         { positionClass: 'toast-bottom-right' }
       );
     }
+
+    this.onCreateNewSong(); // simultaneously reset song data and form
   }
 }
