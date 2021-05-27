@@ -55,38 +55,18 @@ export class SongEditComponent implements OnInit, OnDestroy {
     this.newForm();
   }
 
-  /* Compile all song form data and additional data such as timestamp, and call service's
-  updateSong or addSong method with completed song (depending on mode user is in) */
-  onSubmit() {
-    if (this.songService.editMode) {
-      this.songService.updateSong(this.song.id, this.songForm.value);
-      this.toastr.success(
-        'Changes saved',
-        `${this.songForm.value.artists} - ${this.songForm.value.title}`,
-        {
-          positionClass: 'toast-bottom-right'
-        }
-      );
-    } else {
-      this.songService.addSong(this.songForm.value);
-      this.toastr.success(
-        'Added to database',
-        `${this.songForm.value.artists} - ${this.songForm.value.title}`,
-        {
-          positionClass: 'toast-bottom-right'
-        }
-      );
-    }
-  }
-
   /* Form is initialized to empty values and validators defined for each control */
   newForm() {
     this.songForm = this.formBuilder.group({
-      edAuthor: ['Michal', [
-        Validators.required,
-        Validators.pattern(/^Michal$/)
-      ]],
-      edNote: ['', Validators.required],
+      id: [this.song.id], // not displayed to user
+      newEdition: this.formBuilder.group({
+        timestamp: [''], // not displayed to user
+        author: ['Michal', [
+          Validators.required,
+          Validators.pattern(/^Michal$/)
+        ]],
+        note: ['', Validators.required]
+      }),
       artists: ['', Validators.required],
       title: ['', Validators.required],
       album: ['', Validators.required],
@@ -113,6 +93,14 @@ export class SongEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  getNodeFormArray(): FormArray {
+    let nodeFormArray: FormArray = new FormArray([]);
+    for (let i = 0; i < this.song.nodes.length; i++) {
+      nodeFormArray.push(this.newNodeFormGroup());
+    }
+    return nodeFormArray;
+  }
+
   newNodeFormGroup(): FormGroup {
     return this.formBuilder.group({
       timeMarker: ['', [
@@ -129,7 +117,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
       chord: ['',
         Validators.pattern(/^[abcdefgABCDEFG#5791imus\/]+$/)
       ], // letters, sharp, flat included as a 'b', superscripts, dim, aug, sus, slash
-      lyric: [''],  // all inputs allowed for now
+      lyric: [''], // all inputs allowed for now
       label: ['']
     });
   }
@@ -137,6 +125,10 @@ export class SongEditComponent implements OnInit, OnDestroy {
   /* Convenience getters to keep code cleaner, particularly with validation in template */
   get f() {
     return this.songForm.controls;
+  }
+
+  get ed() {
+    return (<FormGroup>this.songForm.controls['newEdition']).controls;
   }
 
   get nodes(): FormArray {
@@ -163,15 +155,6 @@ export class SongEditComponent implements OnInit, OnDestroy {
     return (<FormGroup>this.nodes.controls[index]).controls['label'];
   }
 
-  /* Inserting and removing nodes */
-  getNodeFormArray(): FormArray {
-    let nodeFormArray: FormArray = new FormArray([]);
-    for (let i = 0; i < this.song.nodes.length; i++) {
-      nodeFormArray.push(this.newNodeFormGroup());
-    }
-    return nodeFormArray;
-  }
-
   /* Insert a new node row directly after the row of the clicked button (so index + 1);
   this means a new group of controls is added to the overall song form group, and
   also that all nodes in the song data node array need to be shifted by one */
@@ -187,6 +170,39 @@ export class SongEditComponent implements OnInit, OnDestroy {
     if (this.nodes.length > 1) {
       this.nodes.removeAt(index);
       this.song.nodes.splice(index, 1);
+    }
+  }
+
+  /* Compile all song form data and additional data such as timestamp, and  */
+  onSubmit() {
+    // Get submission date and time and use as edition timestamp value
+    this.songForm.patchValue({'newEdition': {
+      timestamp: new Date(Date.now()).toLocaleString()
+    }});
+
+    // Copy form data over to variable and add previous edition information back in
+    let formData = { ...this.songForm.value };
+    formData.editions = [...this.song.editions, this.songForm.value.newEdition];
+
+    // Destructure form data variable to remove new edition variable and retain only
+    // song-type parameters (songData)
+    const { newEdition, ...songData } = formData;
+
+    // Pass completed song data to service's update or add method depending on edit mode
+    if (this.songService.editMode) {
+      this.songService.updateSong(songData);
+      this.toastr.success(
+        'Successfully updated',
+        `${songData.artists} - ${songData.title}`,
+        { positionClass: 'toast-bottom-right' }
+      );
+    } else {
+      this.songService.addSong(songData);
+      this.toastr.success(
+        'Successfully added',
+        `${songData.artists} - ${songData.title}`,
+        { positionClass: 'toast-bottom-right' }
+      );
     }
   }
 }

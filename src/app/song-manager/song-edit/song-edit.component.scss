@@ -12,12 +12,16 @@ header#song-edit-header {
     color: $cb-black;
     padding-bottom: 0.3em;
   }
+
 }
 
 div#latest-ed-container {
-  display: flex;
-  text-align: left;
-  justify-content: center;
+  /* Centre text based on length of its longest line (the email line, in this case) */
+  mat-card#latest-ed-details {
+    display: table;
+    text-align: left;
+    margin: 0.6em auto 0;
+  }
 
   mat-card#latest-ed-details {
     padding: 0.6em 1.5em;
@@ -28,6 +32,13 @@ div#latest-ed-container {
       font-style: oblique;
     }
   }
+}
+
+div#submit-button-container {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {
@@ -46,6 +57,7 @@ button {
   &#create-new-song,
   &#submit {
     font-size: $font-m;
+    height: 2em;
     border-radius: $border-radius-button;
     padding: 0 0.8em;
     fa-icon {
@@ -77,11 +89,11 @@ button {
 }
 
 fieldset {
-  background-color: #b6bcc9;
+  background-color: $cb-fieldset;
   padding: 0.1em;
   border: 1px solid lighten($color: $cb-black, $amount: 40%);
   border-radius: $border-radius-form;
-  margin: 2em 0;
+  margin: 2em 0 0;
 
   legend {
     font-size: $font-l;

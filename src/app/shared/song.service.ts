@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Song } from './song.model';
@@ -25,7 +25,7 @@ export class SongService {
   }
 
   // Database state: CRUD for the songs stored in Firestore
-  getSongs() {
+  getSongs(): Observable<DocumentChangeAction<unknown>[]> {
     return this.firestore.collection('songs').snapshotChanges();
   }
 
@@ -33,7 +33,7 @@ export class SongService {
     this.firestore.collection('songs').add(newSong);
   }
 
-  updateSong(id: string, updatedSong: Song) {
-    this.firestore.doc(`songs/${id}`).update(updatedSong);
+  updateSong(updatedSong: Song): void {
+    this.firestore.doc(`songs/${updatedSong.id}`).update(updatedSong);
   }
 }

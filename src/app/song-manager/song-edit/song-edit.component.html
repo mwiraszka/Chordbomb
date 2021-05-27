@@ -18,30 +18,25 @@
         </mat-card>
       </div>
 
-      <div class="form-row with-textarea">
+      <div class="form-row with-textarea" formGroupName="newEdition">
         <div class="form-field">
-          <label for="edAuthor">Author</label>
-          <input type="text" name="edAuthor" formControlName="edAuthor"
+          <label for="author">Author</label>
+          <input type="text" name="author" formControlName="author"
             class="width-s" maxlength="6" />
           <div class="error-message-area">
-            <div *ngIf="f.edAuthor.touched && f.edAuthor.invalid">
-              <small *ngIf="f.edAuthor.errors?.required">
-                Author is required
-              </small>
-              <small *ngIf="f.edAuthor.errors?.pattern">
-                Invalid author
-              </small>
+            <div *ngIf="ed.author.touched && ed.author.invalid">
+              <small *ngIf="ed.author.errors?.required">Author is required</small>
+              <small *ngIf="ed.author.errors?.pattern">Invalid author</small>
             </div>
           </div>
         </div>
         <div class="form-field">
-          <label for="edNote">Note</label>
-          <textarea name="edNote" formControlName="edNote" class="width-l"></textarea>
+          <label for="note">Note</label>
+          <textarea name="note" formControlName="note" class="width-l">
+          </textarea>
           <div class="error-message-area">
-            <div *ngIf="f.edNote.touched && f.edNote.invalid">
-              <small *ngIf="f.edNote.errors?.required">
-                Note is required
-              </small>
+            <div *ngIf="ed.note.touched && ed.note.invalid">
+              <small>Note is required</small>
             </div>
           </div>
         </div>
@@ -60,9 +55,7 @@
             class="width-m" maxlength="100" [ngModel]="song.artists" />
           <div class="error-message-area">
             <div *ngIf="f.artists.touched && f.artists.invalid">
-              <small *ngIf="f.artists.errors?.required">
-                At least one artist is required
-              </small>
+              <small>At least one artist is required</small>
             </div>
           </div>
         </div>
@@ -72,9 +65,7 @@
             class="width-m" maxlength="100" [ngModel]="song.title" />
           <div class="error-message-area">
             <div *ngIf="f.title.touched && f.title.invalid">
-              <small>
-                Song title is required
-              </small>
+              <small>Song title is required</small>
             </div>
           </div>
         </div>
@@ -87,9 +78,7 @@
             class="width-l" maxlength="100" [ngModel]="song.album" />
           <div class="error-message-area">
             <div *ngIf="f.album.touched && f.album.invalid">
-              <small>
-                Album is required
-              </small>
+              <small>Album is required</small>
             </div>
           </div>
         </div>
@@ -99,9 +88,7 @@
             class="width-xs" maxlength="4" [ngModel]="song.albumYear" />
           <div class="error-message-area">
             <div *ngIf="f.albumYear.touched && f.albumYear.invalid">
-              <small>
-                Invalid year
-              </small>
+              <small>Invalid year</small>
             </div>
           </div>
         </div>
@@ -143,12 +130,8 @@
             class="width-s" maxlength="8" [ngModel]="song.key" />
           <div class="error-message-area">
             <div *ngIf="f.key.touched && f.key.invalid">
-              <small *ngIf="f.key.errors?.required">
-                Key is required
-              </small>
-              <small *ngIf="f.key.errors?.pattern">
-                Invalid key
-              </small>
+              <small *ngIf="f.key.errors?.required">Key is required</small>
+              <small *ngIf="f.key.errors?.pattern">Invalid key</small>
             </div>
           </div>
         </div>
@@ -170,7 +153,9 @@
       </div>
 
       <div formArrayName="nodes">
-        <div class="form-row" *ngFor="let node of nodes.controls; let i=index;" [formGroupName]="i">
+        <div class="form-row"[formGroupName]="i"
+          *ngFor="let node of nodes.controls; let i=index;"
+        >
           <label id="node-label">NODE {{ i + 1 }}:</label>
 
           <div class="form-field">
@@ -179,12 +164,8 @@
               class="width-s" maxlength="8" [ngModel]="song.nodes[i].timeMarker" />
             <div class="error-message-area">
               <div *ngIf="timeMarker(i).touched && timeMarker(i).invalid">
-                <small *ngIf="timeMarker(i).errors?.required">
-                  A marker is required
-                </small>
-                <small *ngIf="timeMarker(i).errors?.pattern">
-                  Invalid
-                </small>
+                <small *ngIf="timeMarker(i).errors?.required">Marker is required</small>
+                <small *ngIf="timeMarker(i).errors?.pattern">Invalid</small>
               </div>
             </div>
           </div>
@@ -243,13 +224,12 @@
       </div>
     </fieldset>
 
-
-    <button id="submit" type="submit" [disabled]="!songForm.valid">
-      <span *ngIf="isEditMode(); else addMode">Update Song</span>
-      <ng-template #addMode>Add Song</ng-template>
-    </button>
+    <div id="submit-button-container">
+      <button id="submit" type="submit" [disabled]="!songForm.valid">
+        <span *ngIf="isEditMode(); else addMode">Update Song</span>
+        <ng-template #addMode>Add Song</ng-template>
+      </button>
+    </div>
 
   </form>
 </section>
-
-<pre>SONG:<br>{{ song | json }}</pre>
