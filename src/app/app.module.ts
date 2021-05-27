@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +43,7 @@ import { SongSearchComponent } from './song-search/song-search.component';
     HttpClientModule,
     LoginModule,
     MatRadioModule,
+    MatCardModule,
     MatSidenavModule,
     NgxAbstractControlAsModule,
     FormsModule,

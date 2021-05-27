@@ -6,22 +6,22 @@ import { Song } from './song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
-  private readonly _selectedSong$: BehaviorSubject<Song>;
+  private readonly _songToEdit$: BehaviorSubject<Song>;
   editMode: boolean;
 
   constructor(private firestore: AngularFirestore) {
-    // Initialize selected song to default values declared in song.model class
-    this._selectedSong$ = new BehaviorSubject<Song>(new Song());
+    // Initialize song to be edited with default values declared in song.model class
+    this._songToEdit$ = new BehaviorSubject<Song>(new Song());
     this.editMode = false;
   }
 
   // In-app state: the song the user selected in song list
-  get selectedSong(): Observable<Song> {
-    return this._selectedSong$.asObservable();
+  get songToEdit(): Observable<Song> {
+    return this._songToEdit$.asObservable();
   }
 
-  selectSong(song: Song): void {
-    this._selectedSong$.next(song);
+  changeSongToEdit(song: Song): void {
+    this._songToEdit$.next(song);
   }
 
   // Database state: CRUD for the songs stored in Firestore

@@ -6,6 +6,7 @@ mat-sidenav-container {
 
 mat-sidenav {
   width: 11em;
+  font-size: $font-m;
 
   div#inner-sidenav-container {
     padding: 1em;
@@ -37,6 +38,21 @@ mat-sidenav {
         &:hover {
           color: $cb-primary;
           font-weight: bold;
+        }
+
+        /* Hidden bold text ensures there's no layout shift when bold applied on hover */
+        &::after {
+          content: attr(data-text);
+          content: attr(data-text) / '';
+          visibility: hidden;
+          overflow: hidden;
+          user-select: none;
+          pointer-events: none;
+          font-weight: bold;
+
+          @media speech {
+            display: none;
+          }
         }
       }
     }
@@ -73,12 +89,13 @@ mat-sidenav-content {
 
       input {
         text-indent: 0.5em;
-        font-size: 1.5em;
+        font-size: $font-xl;
         width: 300px;
       }
     }
 
     span#temp {
+      font-size: $font-m;
       display: block;
       color: $cb-black;
       padding: 2em;

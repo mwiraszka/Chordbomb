@@ -29,7 +29,7 @@ export class SongListComponent implements OnDestroy {
   }
 
   onSelect(song: Song) {
-    this.songService.selectSong(song);
+    this.songService.changeSongToEdit(song);
     this.songService.editMode = true;
   }
 }

@@ -6,8 +6,8 @@ footer {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 0.8em;
   padding: 1em;
+  font-size: $font-s;
   color: $cb-white;
   background: $cb-black;
 }
@@ -29,7 +29,7 @@ address#github-repo {
   margin-top: 1em;
 
   a#about-chordbomb {
-    font-size: 1em;
+    font-size: $font-m;
     color: $cb-white;
 
     fa-icon#github-icon {
@@ -41,6 +41,7 @@ address#github-repo {
 
   &:hover {
     color: #fff;
+    letter-spacing: 1px;
     text-shadow: 0 0 1px $cb-white;
 
     fa-icon {

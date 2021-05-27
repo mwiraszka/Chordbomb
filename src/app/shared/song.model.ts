@@ -1,4 +1,4 @@
-class Edition {
+export class Edition {
   timestamp: string = '';
   author: string = '';
   note: string = '';
@@ -25,6 +25,6 @@ export class Song {
   publishers?: string = '';
 
   timeSignature: string = '';
-  originalKey: string = '';
+  key: string = '';
   nodes: Node[] = [new Node()];
 }

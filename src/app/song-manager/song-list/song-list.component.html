@@ -3,14 +3,17 @@
   <table id="songs">
     <thead>
       <th>Song</th>
-      <th>Time Signature</th>
-      <th>Original Key</th>
+      <th>Last Edited</th>
+      <th>Nodes</th>
     </thead>
     <tbody>
       <tr *ngFor="let song of songList" (click)=onSelect(song)>
         <td>{{ song.artists }} - {{ song.title }}</td>
-        <td>{{ song.timeSignature }}</td>
-        <td>{{ song.originalKey }}</td>
+        <td>
+          {{ song.editions.slice(-1)[0].timestamp }} by
+          {{ song.editions.slice(-1)[0].author }}
+        </td>
+        <td>{{ song.nodes.length }}</td>
       </tr>
     </tbody>
   </table>

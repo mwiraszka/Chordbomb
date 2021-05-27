@@ -46,14 +46,15 @@ mat-form-field {
   }
 
   input {
+    font-size: $font-l;
     text-indent: 0.5em;
-    font-size: 1.2em;
   }
 }
 
 mat-error {
-  font-size: 0.9em;
+  font-size: $font-s;
   margin-bottom: 10px;
+  margin-left: 10px; // Manually align with field labels above
 }
 
 button {
