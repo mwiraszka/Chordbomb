@@ -1,0 +1,47 @@
+/*** GLOBAL CHORDBOMB VARIABLES ***/
+
+$cb-primary: #030636;
+$cb-accent: #a9dc89;
+
+$cb-primary-palette: (
+  Main: $cb-primary,
+  Light: #804b85,
+  Dark: #28002f,
+  contrast: (
+    Main: #eee,
+    Light: #000,
+    Dark: #fff
+  )
+);
+
+$cb-accent-palette: (
+  Main: $cb-accent,
+  Light: #ffc453,
+  Dark: #be6500,
+  contrast: (
+    Main: #fff,
+    Light: #fff,
+    Dark: #fff
+  )
+);
+
+$cb-success: #22a31e;
+$cb-select: #adbcff;
+$cb-warn: #f00;
+$cb-background: #dfecf1;
+$cb-fieldset: #b6bcc9;
+$cb-white: #e3e3e3;
+$cb-gray: #9e9e9e;
+$cb-black: #0e0e0e;
+
+$nav-height: 50px;
+
+$font-xs: 8px;
+$font-s: 12px;
+$font-m: 14px;
+$font-l: 18px;
+$font-xl: 22px;
+
+$border-radius-input: 6px;
+$border-radius-form: 8px;
+$border-radius-button: 25px;

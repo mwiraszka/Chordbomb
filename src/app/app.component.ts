@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { ToastrService } from 'ngx-toastr';
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
-export class AppComponent {
-  constructor(public auth: AngularFireAuth, private toastr: ToastrService) {}
-
-  onLogout() {
-    this.auth.signOut();
-    this.toastr.success('', 'Successfully logged out', {
-      positionClass: 'toast-bottom-right'
-    });
-  }
-
-  onFooterVersion() {
-    window.location.href = 'https://github.com/mwiraszka/Chordbomb#readme';
-  }
-}
+@Component({
+  selector: 'app-root',
+  template: `
+    <div id="app-container">
+      <app-header></app-header>
+      <app-nav></app-nav>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <app-footer></app-footer>
+    </div>
+  `,
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {}

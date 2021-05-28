@@ -1,34 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Song } from '@app/song.model';
-import { SongService } from '@app/song.service';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { Song } from '../../shared/song.model';
+import { SongService } from '../../shared/song.service';
 
 @Component({
   selector: 'app-song-list',
-  templateUrl: './song-list.component.html'
+  templateUrl: './song-list.component.html',
+  styleUrls: ['./song-list.component.scss']
 })
-export class SongListComponent implements OnInit {
-  songList: Song[] = [];
-  constructor(
-    private songService: SongService,
-    private firestore: AngularFirestore,
-    private toastr: ToastrService
-  ) {}
+export class SongListComponent implements OnDestroy {
+  songList!: Song[];
+  private songListSub: Subscription;
 
-  ngOnInit() {
-    this.songService.getSongs().subscribe((actionArray) => {
+  currentSongId: string = '';
+
+  constructor(private songService: SongService) {
+    this.songListSub = this.songService.getSongs().subscribe((actionArray) => {
       this.songList = actionArray.map((item) => {
-        return {
-          id: item.payload.doc.id,
-          ...(item.payload.doc.data() as object)
-        } as Song;
+        return { ...(item.payload.doc.data() as object) } as Song;
       });
     });
   }
 
-  onEdit(song: Song) {
-    this.songService.formData = Object.assign({}, song);
-    this.songService.editMode = true;
+  ngOnDestroy() {
+    this.songListSub.unsubscribe();
+  }
+
+  onSelect(song: Song) {
+    if (this.currentSongId !== song.id || !this.songService.editMode) {
+      this.songService.changeSongToEdit(song);
+      this.songService.editMode = true;
+      // Keep a record of the current song ID to prevent this method from being called
+      // needlessly when song wouldn't change anyway
+      this.currentSongId = song.id;
+    }
   }
 }

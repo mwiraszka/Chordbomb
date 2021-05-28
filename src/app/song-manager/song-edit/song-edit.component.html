@@ -1,40 +1,239 @@
-<div style="margin-bottom: 20px; display: flex; justify-content: space-between;">
-  <h1 class="display-4" style="display: inline">Edit Song</h1>
-  <button class="btn btn-dark" (click)="onNewEntry()">
-    <i class="fa fa-plus"></i> New Entry
-  </button>
-</div>
-<form #form="ngForm" autocomplete="off" (submit)="onSave(form)">
-  <input type="hidden" name="id" #id="ngModel" class="form-control"
-    [(ngModel)]="songService.formData.id">
-  <div class="form-group">
-    <input name="artist" #artist="ngModel" class="form-control"
-      [(ngModel)]="songService.formData.artist" placeholder="Artist(s)" required>
-  </div>
-  <div class="validation-error" *ngIf="artist.invalid && artist.touched">Artist is
-    required</div>
-  <div class="form-group">
-    <input name="title" #title="ngModel" class="form-control"
-      [(ngModel)]="songService.formData.title" placeholder="Song Title" required>
-  </div>
-  <div class="validation-error" *ngIf="title.invalid && title.touched">Song Title is
-    required</div>
-  <div class="form-row">
-    <div class="form-group col-md-5">
-      <input name="timeSignature" #timeSignature="ngModel" class="form-control"
-        [(ngModel)]="songService.formData.timeSignature"
-        placeholder="Time Signature (e.g. 4/4)">
-    </div>
-    <div class="form-group col-md-7">
-      <input name="originalKey" #originalKey="ngModel" class="form-control"
-        [(ngModel)]="songService.formData.originalKey"
-        placeholder="Original Key (e.g. F# Minor)">
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-block btn-dark" type="submit" [disabled]="form.invalid">
-      <span *ngIf="songService.editMode; else addMode">Update Song</span>
-      <ng-template #addMode>Add Song</ng-template>
+<section id="song-edit">
+  <header id="song-edit-header">
+    <h2>Edit Song</h2>
+    <button id="create-new-song" (click)="onCreateNewSong()">
+      <fa-icon [icon]="faPlus"></fa-icon>Create New Song
     </button>
-  </div>
-</form>
+  </header>
+
+  <form id="songForm" [formGroup]="songForm" (ngSubmit)="onSubmit()">
+
+    <fieldset id="edition-details">
+      <legend>Edition</legend>
+
+      <div id="latest-ed-container" *ngIf="isEditMode()">
+        <mat-card id="latest-ed-details">
+          <h4>Last edited by {{ latestEd.author }} on {{ latestEd.timestamp }}</h4>
+          <p id="latest-ed-note">{{ latestEd.note }}</p>
+        </mat-card>
+      </div>
+
+      <div class="form-row with-textarea" formGroupName="newEdition">
+        <div class="form-field">
+          <label for="author">Author</label>
+          <input type="text" name="author" formControlName="author"
+            class="width-s" maxlength="6" />
+          <div class="error-message-area">
+            <div *ngIf="ed.author.touched && ed.author.invalid">
+              <small *ngIf="ed.author.errors?.required">Author is required</small>
+              <small *ngIf="ed.author.errors?.pattern">Invalid author</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="note">Note</label>
+          <textarea name="note" formControlName="note" class="width-l" maxlength="200">
+          </textarea>
+          <div class="error-message-area">
+            <div *ngIf="ed.note.touched && ed.note.invalid">
+              <small>Note is required</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </fieldset>
+
+
+    <fieldset id="general-details">
+      <legend>General Song Details</legend>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="artists">Artist(s)</label>
+          <input type="text" name="artists" formControlName="artists"
+            class="width-m" maxlength="100" [ngModel]="song.artists" />
+          <div class="error-message-area">
+            <div *ngIf="f.artists.touched && f.artists.invalid">
+              <small>At least one artist is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="title">Title</label>
+          <input type="text" name="title" formControlName="title"
+            class="width-m" maxlength="100" [ngModel]="song.title" />
+          <div class="error-message-area">
+            <div *ngIf="f.title.touched && f.title.invalid">
+              <small>Song title is required</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="album">Album</label>
+          <input type="text" name="album" formControlName="album"
+            class="width-l" maxlength="100" [ngModel]="song.album" />
+          <div class="error-message-area">
+            <div *ngIf="f.album.touched && f.album.invalid">
+              <small>Album is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="albumYear">Album Year</label>
+          <input type="text" name="albumYear" formControlName="albumYear"
+            class="width-xs" maxlength="4" [ngModel]="song.albumYear" />
+          <div class="error-message-area">
+            <div *ngIf="f.albumYear.touched && f.albumYear.invalid">
+              <small>Invalid year</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row form-field">
+        <label for="albumCoverLink">Link to Album Cover Image</label>
+        <input type="text" name="albumCoverLink" formControlName="albumCoverLink"
+          class="width-xl" maxlength="200" [ngModel]="song.albumCoverLink" />
+      </div>
+
+      <div class="form-row form-field">
+        <label for="songwriters">Songwriter(s)</label>
+        <input type="text" name="songwriters" formControlName="songwriters"
+          class="width-xl" maxlength="200" [ngModel]="song.songwriters" />
+      </div>
+
+      <div class="form-row form-field">
+        <label for="producers">Producer(s)</label>
+        <input type="text" name="producers" formControlName="producers"
+          class="width-xl" maxlength="200" [ngModel]="song.producers" />
+      </div>
+
+      <div class="form-row form-field">
+        <label for="publishers">Publisher(s)</label>
+        <input type="text" name="publishers" formControlName="publishers"
+          class="width-xl" maxlength="200" [ngModel]="song.publishers" />
+      </div>
+    </fieldset>
+
+
+    <fieldset id="musical-details">
+      <legend>Musical Details</legend>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="key">Key</label>
+          <input type="text" name="key" formControlName="key"
+            class="width-s" maxlength="8" [ngModel]="song.key" />
+          <div class="error-message-area">
+            <div *ngIf="f.key.touched && f.key.invalid">
+              <small *ngIf="f.key.errors?.required">Key is required</small>
+              <small *ngIf="f.key.errors?.pattern">Invalid key</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="timeSignature">Time Signature</label>
+          <input type="text" name="timeSignature" formControlName="timeSignature"
+            class="width-xs" maxlength="5" [ngModel]="song.timeSignature" />
+          <div class="error-message-area">
+            <div *ngIf="f.timeSignature.touched && f.timeSignature.invalid">
+              <small *ngIf="f.timeSignature.errors?.required">
+                Time signature is required
+              </small>
+              <small *ngIf="f.timeSignature.errors?.pattern">
+                Invalid time signature
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div formArrayName="nodes">
+        <div class="form-row"[formGroupName]="i"
+          *ngFor="let node of nodes.controls; let i=index;"
+        >
+          <label id="node-label">
+            <span class="full-text">NODE {{ i + 1 }}:</span>
+            <span class="short-text">N. {{ i + 1 }}:</span>
+          </label>
+
+
+          <div class="form-field">
+            <label for="timeMarker">Time Marker</label>
+            <input type="text" name="timeMarker" formControlName="timeMarker"
+              class="width-s" maxlength="8" [ngModel]="song.nodes[i].timeMarker" />
+            <div class="error-message-area">
+              <div *ngIf="timeMarker(i).touched && timeMarker(i).invalid">
+                <small *ngIf="timeMarker(i).errors?.required">Marker is required</small>
+                <small *ngIf="timeMarker(i).errors?.pattern">Invalid</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bpm">BPM</label>
+            <input type="text" name="bpm" formControlName="bpm"
+              class="width-xs" maxlength="3" [ngModel]="song.nodes[i].bpm" />
+            <div class="error-message-area">
+              <div *ngIf="bpm(i).touched && bpm(i).invalid">
+                <small>Invalid</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="chord">Chord</label>
+            <input type="text" name="chord" formControlName="chord"
+              class="width-xs" maxlength="10" [ngModel]="song.nodes[i].chord" />
+            <div class="error-message-area">
+              <div *ngIf="chord(i).touched && chord(i).invalid">
+                <small>Invalid</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="lyric">Lyric</label>
+            <input type="text" name="lyric" formControlName="lyric"
+              class="width-s" maxlength="12" [ngModel]="song.nodes[i].lyric" />
+            <div class="error-message-area">
+              <!-- placeholder for now to level out layout -->
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="label">Label</label>
+            <input type="text" name="label" formControlName="label"
+              class="width-s" maxlength="10" [ngModel]="song.nodes[i].label" />
+            <div class="error-message-area">
+              <div *ngIf="label(i).touched && label(i).invalid">
+                <small>Invalid</small>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="insert-node" (click)="insertNodeFormGroup(i)">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+
+          <button type="button" id="remove-node" (click)="removeNodeFormGroup(i)">
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
+
+        </div>
+      </div>
+    </fieldset>
+
+    <div id="submit-button-container">
+      <button id="submit" type="submit" [disabled]="!songForm.valid">
+        <span *ngIf="isEditMode(); else addMode">Update Song</span>
+        <ng-template #addMode>Add Song</ng-template>
+      </button>
+    </div>
+
+  </form>
+</section>
