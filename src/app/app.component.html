@@ -1,0 +1,32 @@
+<header>
+  <img src="../assets/chordbomb.svg" alt="Chordbomb Logo">
+</header>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="navbar-nav mr-auto">
+    <a class="nav-item nav-link" routerLink="/">Home</a>
+    <a class="nav-item nav-link" routerLink="/edit" *ngIf="auth.user | async">
+      Song Manager
+    </a>
+  </div>
+  <div class="navbar-nav ml-auto">
+    <p id="admin-welcome" *ngIf="auth.user | async as user">
+      <i class="fa fa-user-cog"></i> Logged in ({{ user.email }})
+    </p>
+    <a class="nav-item nav-link" routerLink="/" *ngIf="auth.user | async; else loggedOut"
+      (click)="onLogout()">Log Out
+    </a>
+    <ng-template #loggedOut>
+      <a class="nav-item nav-link" routerLink="/login">Admin Login</a>
+    </ng-template>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <small>© 2021 Chordbomb</small>
+  <address><button (click)="onFooterVersion()">version 0.1.1</button></address>
+</footer>
