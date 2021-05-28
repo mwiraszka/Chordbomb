@@ -24,7 +24,6 @@ export class Song {
   songwriters?: string = '';
   producers?: string = '';
   publishers?: string = '';
-
   timeSignature: string = '';
   key: string = '';
   nodes: Node[] = [new Node()];

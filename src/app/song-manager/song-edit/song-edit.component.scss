@@ -12,15 +12,13 @@ header#song-edit-header {
     color: $cb-black;
     padding-bottom: 0.3em;
   }
-
 }
 
 div#latest-ed-container {
-  /* Centre text based on length of its longest line (the email line, in this case) */
   mat-card#latest-ed-details {
-    display: table;
+    width: 320px; // hard-coded width for now to fit h4 header text roughly exactly
     text-align: left;
-    margin: 0.6em auto 0;
+    margin: 0 auto;
   }
 
   mat-card#latest-ed-details {
@@ -130,14 +128,16 @@ label#node-label {
   margin: 0 0.2em;
 }
 
-label#node-label {
-  width: 5em; // fixed width to keep form fields aligned if node number > 1 digit
-  font-weight: bold;
-}
-
 label {
   font-size: $font-m;
   margin-left: 0.5em;
+
+  &#node-label {
+    .full-text { display: inline; }
+    .short-text { display: none; }
+    width: 5em; // fixed width to keep form fields aligned if node number > 1 digit
+    font-weight: bold;
+  }
 }
 
 input,
@@ -148,21 +148,11 @@ textarea {
   font-size: $font-l;
   margin-top: 0.1em;
 
-  &.width-xl {
-    width: 33.5em;
-  }
-  &.width-l {
-    width: 26.5em;
-  }
-  &.width-m {
-    width: 16.5em;
-  }
-  &.width-s {
-    width: 6em;
-  }
-  &.width-xs {
-    width: 3em;
-  }
+  &.width-xl { width: 33.5em; }
+  &.width-l { width: 26.5em; }
+  &.width-m { width: 16.5em; }
+  &.width-s { width: 6em; }
+  &.width-xs { width: 3em; }
 
   &:focus {
     outline: none;
@@ -186,11 +176,48 @@ textarea {
 }
 
 div.error-message-area {
-  height: 0.7em;
+  height: 0.8em;
   font-size: $font-s;
   color: $cb-warn;
 
   small {
     margin-left: 0.5em;
+  }
+}
+
+
+@media only screen and (max-width: 680px) {
+  div.form-row {
+    padding: 0.2em 0.5em;
+  }
+
+  div.form-field,
+  label#node-label {
+    margin: 0 0.1em;
+  }
+
+  input,
+  textarea {
+    font-size: $font-l;
+    &.width-xl { width: 21.5em; }
+    &.width-l { width: 17em; }
+    &.width-m { width: 10.5em; }
+    &.width-s { width: 3.5em; }
+    &.width-xs { width: 2em; }
+  }
+
+  div.error-message-area {
+    font-size: $font-xs;
+  }
+
+  label {
+    font-size: $font-s;
+    margin-left: 0.2em;
+
+    &#node-label {
+      .full-text { display: none; }
+      .short-text { display: inline; }
+      width: 3.5em;
+    }
   }
 }

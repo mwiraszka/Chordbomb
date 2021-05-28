@@ -32,7 +32,7 @@
         </div>
         <div class="form-field">
           <label for="note">Note</label>
-          <textarea name="note" formControlName="note" class="width-l">
+          <textarea name="note" formControlName="note" class="width-l" maxlength="200">
           </textarea>
           <div class="error-message-area">
             <div *ngIf="ed.note.touched && ed.note.invalid">
@@ -97,25 +97,25 @@
       <div class="form-row form-field">
         <label for="albumCoverLink">Link to Album Cover Image</label>
         <input type="text" name="albumCoverLink" formControlName="albumCoverLink"
-          class="width-xl" maxlength="100" [ngModel]="song.albumCoverLink" />
+          class="width-xl" maxlength="200" [ngModel]="song.albumCoverLink" />
       </div>
 
       <div class="form-row form-field">
         <label for="songwriters">Songwriter(s)</label>
         <input type="text" name="songwriters" formControlName="songwriters"
-          class="width-xl" maxlength="100" [ngModel]="song.songwriters" />
+          class="width-xl" maxlength="200" [ngModel]="song.songwriters" />
       </div>
 
       <div class="form-row form-field">
         <label for="producers">Producer(s)</label>
         <input type="text" name="producers" formControlName="producers"
-          class="width-xl" maxlength="100" [ngModel]="song.producers" />
+          class="width-xl" maxlength="200" [ngModel]="song.producers" />
       </div>
 
       <div class="form-row form-field">
         <label for="publishers">Publisher(s)</label>
         <input type="text" name="publishers" formControlName="publishers"
-          class="width-xl" maxlength="100" [ngModel]="song.publishers" />
+          class="width-xl" maxlength="200" [ngModel]="song.publishers" />
       </div>
     </fieldset>
 
@@ -156,7 +156,11 @@
         <div class="form-row"[formGroupName]="i"
           *ngFor="let node of nodes.controls; let i=index;"
         >
-          <label id="node-label">NODE {{ i + 1 }}:</label>
+          <label id="node-label">
+            <span class="full-text">NODE {{ i + 1 }}:</span>
+            <span class="short-text">N. {{ i + 1 }}:</span>
+          </label>
+
 
           <div class="form-field">
             <label for="timeMarker">Time Marker</label>
@@ -195,7 +199,7 @@
           <div class="form-field">
             <label for="lyric">Lyric</label>
             <input type="text" name="lyric" formControlName="lyric"
-              class="width-s" [ngModel]="song.nodes[i].lyric" />
+              class="width-s" maxlength="12" [ngModel]="song.nodes[i].lyric" />
             <div class="error-message-area">
               <!-- placeholder for now to level out layout -->
             </div>

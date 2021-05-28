@@ -14,6 +14,7 @@ table#songs {
   width: 100%;
 
   th {
+    font-size: $font-m;
     padding: 0.4em 0.2em;
     border: 1px solid $cb-gray;
     text-align: center;
@@ -30,10 +31,13 @@ table#songs {
   }
 
   tr {
+    font-size: $font-s;
     background-color: $cb-white;
+
     &:nth-child(even) {
       background-color: lighten($color: $cb-white, $amount: 10%);
     }
+
     &:hover {
       background-color: lighten($color: $cb-select, $amount: 10%);
       cursor: pointer;
@@ -41,7 +45,11 @@ table#songs {
   }
 
   td {
-    padding: 0.2em 0.5em;
+    padding: 0.2em 0.3em;
     border: 1px solid $cb-gray;
+
+    &.align-right {
+      text-align: right;
+    }
   }
 }

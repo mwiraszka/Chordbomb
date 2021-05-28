@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { SongService } from '../../shared/song.service';
   templateUrl: './song-edit.component.html',
   styleUrls: ['./song-edit.component.scss']
 })
-export class SongEditComponent implements OnInit, OnDestroy {
+export class SongEditComponent implements OnDestroy {
   /* Font Awesome icons */
   faPlus = faPlus;
   faMinus = faMinus;
@@ -32,10 +32,6 @@ export class SongEditComponent implements OnInit, OnDestroy {
       this.song = song;
       this.newForm();
     });
-  }
-
-  ngOnInit() {
-    this.newForm();
   }
 
   /* Unsubscribe on destroy to avoid memory leaks */
@@ -58,37 +54,42 @@ export class SongEditComponent implements OnInit, OnDestroy {
   /* Form is initialized to empty values and validators defined for each control */
   newForm() {
     this.songForm = this.formBuilder.group({
-      id: [this.song.id], // not displayed to user
       backup: [''], // not displayed to user
       newEdition: this.formBuilder.group({
         timestamp: [''], // not displayed to user
         author: ['Michal', [
           Validators.required,
+          Validators.maxLength(6),
           Validators.pattern(/^Michal$/)
         ]],
-        note: ['', Validators.required]
+        note: ['', [Validators.required, Validators.maxLength(200)]]
       }),
-      artists: ['', Validators.required],
-      title: ['', Validators.required],
-      album: ['', Validators.required],
+      artists: ['', [Validators.required, Validators.maxLength(100)]],
+      title: ['', [Validators.required, Validators.maxLength(100)]],
+      album: ['', [Validators.required, Validators.maxLength(100)]],
       albumYear: ['', [
+        Validators.maxLength(4),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(1700),
         Validators.max(2021)
       ]],
-      albumCoverLink: [''],
-      songwriters: [''],
-      producers: [''],
-      publishers: [''],
-      timeSignature: ['', [
-          Validators.required,
-          Validators.pattern(/^(2|3|4|5|6|7|9|10|11|12|13|14|15|17)\/(2|4|8|16)$/)
-      ]],
+      albumCoverLink: ['', Validators.maxLength(200)],
+      songwriters: ['', Validators.maxLength(200)],
+      producers: ['', Validators.maxLength(200)],
+      publishers: ['', Validators.maxLength(200)],
       key: ['', [
-          Validators.required,
-          Validators.pattern(
-            /^(C|C#|Db|D|D#|Eb|E|F|F#|Gb|G|G#|Ab|A|A#|Bb|B) (M|m)(ajor|inor)$/
-          )
+        Validators.required,
+        Validators.maxLength(8),
+        Validators.pattern(
+          /^(C|C#|Db|D|D#|Eb|E|F|F#|Gb|G|G#|Ab|A|A#|Bb|B) (M|m)(ajor|inor)$/
+        )
+      ]],
+      timeSignature: ['', [
+        Validators.required,
+        Validators.maxLength(5),
+        Validators.pattern(
+          /^(2|3|4|5|6|7|9|10|11|12|13|14|15|17)\/(2|4|8|16)$/
+        )
       ]],
       nodes: this.getNodeFormArray()
     });
@@ -106,20 +107,23 @@ export class SongEditComponent implements OnInit, OnDestroy {
     return this.formBuilder.group({
       timeMarker: ['', [
         Validators.required,
+        Validators.maxLength(8),
         Validators.pattern(
           /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-(1|2|3|4)$/
         )
       ]],
       bpm: ['', [
+        Validators.maxLength(3),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(40),
         Validators.max(300)
       ]],
-      chord: ['',
+      chord: ['', [
+        Validators.maxLength(10),
         Validators.pattern(/^[abcdefgABCDEFG#5791imus\/]+$/)
-      ], // letters, sharp, flat included as a 'b', superscripts, dim, aug, sus, slash
-      lyric: [''], // all inputs allowed for now
-      label: ['']
+      ]], // letters, sharp, flat included as a 'b', superscripts, dim, aug, sus, slash
+      lyric: ['', Validators.maxLength(12)],
+      label: ['', Validators.maxLength(10)]
     });
   }
 
@@ -199,16 +203,24 @@ export class SongEditComponent implements OnInit, OnDestroy {
 
     // Pass completed song data to service's update or add method depending on edit mode
     if (this.songService.editMode) {
-      // Save stringified pre-edit version as a backup
+      // Save stringified pre-edit version as a backup (after removing old backup)
       this.song.backup = '';
       songData.backup = JSON.stringify(this.song);
 
-      this.songService.updateSong(songData);
-      this.toastr.success(
-        'Successfully updated',
-        `${songData.artists} - ${songData.title}`,
-        { positionClass: 'toast-bottom-right' }
-      );
+      if (this.song.id != null) {
+        this.songService.updateSong(this.song.id, songData);
+        this.toastr.success(
+          'Successfully updated',
+          `${songData.artists} - ${songData.title}`,
+          { positionClass: 'toast-bottom-right' }
+        );
+      } else {
+        this.toastr.warning(
+          'Oops! Could not locate',
+          `${songData.artists} - ${songData.title}`,
+          { positionClass: 'toast-bottom-right' }
+        );
+      }
     } else {
       this.songService.addSong(songData);
       this.toastr.success(
@@ -218,6 +230,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
       );
     }
 
-    this.onCreateNewSong(); // simultaneously reset song data and form
+    // Simultaneously reset form, song to edit, and also default back to 'add' mode
+    this.onCreateNewSong();
   }
 }

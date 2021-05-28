@@ -152,7 +152,8 @@ p#user-info {
       padding: 0.5em 0;
 
       &:hover {
-        background: $cb-accent;
+        color: #fff;
+        background: darken($color: $cb-accent, $amount: 8%);
       }
     }
   }
