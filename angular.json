@@ -44,7 +44,7 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/app/shared/styles/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
@@ -120,7 +120,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/app/shared/styles/styles.scss"
             ],
             "scripts": []
           }
