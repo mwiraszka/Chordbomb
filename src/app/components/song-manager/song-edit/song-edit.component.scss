@@ -1,0 +1,220 @@
+@import '../../../shared/styles/variables';
+
+section#song-edit {
+  margin: 1em;
+}
+
+header#song-edit-header {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    color: $cb-black;
+    padding-bottom: 0.3em;
+  }
+}
+
+div#latest-ed-details {
+  width: 320px; // hard-coded width for now to fit h4 header text roughly exactly
+  border-radius: $border-radius-form;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0.6em 1.5em;
+  box-shadow: 1px 1px 2px 2px lighten($color: $cb-gray, $amount: 5%);
+
+  p#latest-ed-note {
+    font-size: $font-m;
+    margin-top: 0.5em;
+    font-style: oblique;
+  }
+}
+
+div#submit-button-container {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  box-sizing: content-box;
+  border: 2px solid darken($color: $cb-white, $amount: 10%);
+  color: $cb-white;
+  background-color: $cb-primary;
+
+  &:hover {
+    border: 2px solid darken($color: $cb-white, $amount: 5%);
+    color: #fff;
+    background-color: lighten($color: $cb-primary, $amount: 7%);
+    box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%);
+  }
+
+  &#create-new-song,
+  &#submit {
+    font-size: $font-m;
+    height: 2em;
+    border-radius: $border-radius-button;
+    padding: 0 0.8em;
+    fa-icon {
+      margin-left: -0.2em; // icon appears as if it adds extra padding, so compensate
+      margin-right: 0.3em;
+    }
+  }
+
+  &#submit:disabled,
+  &#submit[disabled] {
+    color: $cb-gray;
+    background-color: lighten($color: $cb-gray, $amount: 20%);
+    cursor: default;
+  }
+
+  &#insert-node,
+  &#remove-node {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  /* Force plus and minus buttons to the right end of row; space them out slighly */
+  &#insert-node {
+    margin-right: 0.1em;
+    margin-left: auto;
+  }
+}
+
+fieldset {
+  background-color: $cb-fieldset;
+  padding: 0.1em;
+  border: 1px solid lighten($color: $cb-black, $amount: 40%);
+  border-radius: $border-radius-form;
+  margin: 2em 0 0;
+
+  legend {
+    font-size: $font-l;
+    font-weight: bold;
+    margin-left: 0.5em;
+    padding: 0.1em 0.35em;
+    text-align: center;
+    background-color: $cb-white;
+    box-shadow: 0 0 3px 1px $cb-gray;
+    width: inherit;
+  }
+}
+
+div.form-row {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  justify-content: flex-start;
+
+  &.with-textarea {
+    align-items: flex-start;
+  }
+}
+
+/* A single form-field in the row: force input under label, and no flex needed */
+div.form-row.form-field {
+  display: block;
+}
+
+/* Shift form fields and node label text from each other and also away from the edge of
+the fieldset box */
+div.form-field,
+label#node-label {
+  margin: 0 0.2em;
+}
+
+label {
+  font-size: $font-m;
+  margin-left: 0.5em;
+
+  &#node-label {
+    .full-text { display: inline; }
+    .short-text { display: none; }
+    width: 5em; // fixed width to keep form fields aligned if node number > 1 digit
+    font-weight: bold;
+  }
+}
+
+input,
+textarea {
+  display: block;
+  border: 1px solid $cb-gray;
+  border-radius: $border-radius-input;
+  font-size: $font-l;
+  margin-top: 0.1em;
+
+  &.width-xl { width: 33.5em; }
+  &.width-l { width: 26.5em; }
+  &.width-m { width: 16.5em; }
+  &.width-s { width: 6em; }
+  &.width-xs { width: 3em; }
+
+  &:focus {
+    outline: none;
+    border: 1px solid darken($color: $cb-select, $amount: 10%);
+    box-shadow: 0 0 3px 2px lighten($color: $cb-select, $amount: 5%);
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid $cb-warn;
+  }
+}
+
+input {
+  text-indent: 0.25em;
+}
+
+textarea {
+  padding: 0.1em 0.25em;
+  width: 300px;
+  resize: none;
+}
+
+div.error-message-area {
+  height: 0.8em;
+  font-size: $font-s;
+  color: $cb-warn;
+
+  small {
+    margin-left: 0.5em;
+  }
+}
+
+
+@media only screen and (max-width: 680px) {
+  div.form-row {
+    padding: 0.2em 0.5em;
+  }
+
+  div.form-field,
+  label#node-label {
+    margin: 0 0.1em;
+  }
+
+  input,
+  textarea {
+    font-size: $font-l;
+    &.width-xl { width: 21.5em; }
+    &.width-l { width: 17em; }
+    &.width-m { width: 10.5em; }
+    &.width-s { width: 3.5em; }
+    &.width-xs { width: 2em; }
+  }
+
+  div.error-message-area {
+    font-size: $font-xs;
+  }
+
+  label {
+    font-size: $font-s;
+    margin-left: 0.2em;
+
+    &#node-label {
+      .full-text { display: none; }
+      .short-text { display: inline; }
+      width: 3.5em;
+    }
+  }
+}
