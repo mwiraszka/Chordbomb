@@ -6,7 +6,7 @@ mat-sidenav-container {
 
 mat-sidenav {
   padding-top: 0.2em; // keep 'Settings' buttons roughly at same height
-  width: 11em;
+  width: 15em;
   font-size: $font-m;
 
   div#inner-sidenav-container {
@@ -75,7 +75,7 @@ mat-sidenav-content {
   main#main-content {
     flex: 1;
 
-    form > div.autocomplete {
+    div#input-container {
       display: block;
       margin: auto;
       width: 300px;
@@ -110,20 +110,25 @@ button.settings-button {
   justify-content: center;
   text-align: center;
   align-items: center;
-  border: 2px solid darken($color: $cb-white, $amount: 10%);
+  padding: 0.2em 1em;
+  border: 1px solid darken($color: $cb-white, $amount: 10%);
   border-radius: $border-radius-button;
   color: $cb-white;
   background-color: $cb-primary;
   margin-bottom: auto;
 
   &:hover {
-    border: 2px solid darken($color: $cb-white, $amount: 5%);
+    border: 1px solid darken($color: $cb-white, $amount: 5%);
     color: #fff;
     background-color: lighten($color: $cb-primary, $amount: 7%);
     box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%);
   }
+}
 
-  h3 {
-    padding-left: 0.3em;
-  }
+h3 {
+  padding-left: 0.3em;
+}
+
+hr {
+  width: 85%;
 }

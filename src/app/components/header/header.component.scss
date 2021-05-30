@@ -8,9 +8,9 @@ header {
   border-bottom: 1px solid lighten($color: $cb-black, $amount: 10%);
   background-color: $cb-primary;
   background: radial-gradient(
-    at top left,
+    at top right,
     darken($color: $cb-primary, $amount: 5%),
-    lighten($color: $cb-primary, $amount: 8%)
+    lighten($color: $cb-primary, $amount: 12%)
   );
 
   svg#chordbomb-logo {

@@ -3,11 +3,10 @@
   <mat-sidenav #sidenav>
     <div id="inner-sidenav-container">
       <header id="settings-header">
-        <button class="settings-button" (click)="sidenav.toggle()">
           <fa-icon [icon]="faCog" class="fa-2x"></fa-icon>
           <h3>Settings</h3>
-        </button>
       </header>
+      <hr>
 
       <div id="settings-container">
         <mat-radio-group class="setting" aria-labelledby="font-size" [(ngModel)]="fontSize">
@@ -33,17 +32,10 @@
       <h3>Settings</h3>
     </button>
     <main id="main-content">
-      <form autocomplete="off" action="/action_page.php">
-        <div class="autocomplete">
-          <input id="myInput" type="text" name="song" placeholder="Search song">
-        </div>
-      </form>
-      <span id="temp">
-        This component is still in development...<br>
-        but hey, check out the nifty sidebar for now!<br><br>
-        Font size selected: <em>{{ fontSize }}</em><br>
-        Chord type selected: <em>{{ chordType }}</em>
-      </span>
+      <div id="input-container">
+        <input id="search" type="text" name="search" (keyup)="onKeyUp($event)"
+          placeholder="Search song" />
+      </div>
     </main>
   </mat-sidenav-content>
 

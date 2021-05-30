@@ -18,9 +18,9 @@ div#latest-ed-details {
   width: 320px; // hard-coded width for now to fit h4 header text roughly exactly
   border-radius: $border-radius-form;
   text-align: left;
-  margin: 0 auto;
+  margin: 0.5em auto;
   padding: 0.6em 1.5em;
-  box-shadow: 1px 1px 2px 2px lighten($color: $cb-gray, $amount: 5%);
+  box-shadow: 1px 1px 2px 2px darken($color: $cb-gray, $amount: 5%);
 
   p#latest-ed-note {
     font-size: $font-m;
