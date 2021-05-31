@@ -1,13 +1,18 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { SongService } from '@app/shared/services/song.service';
+import { Component } from '@angular/core';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import * as algoliasearch from 'algoliasearch/lite';
+
+const searchClient = algoliasearch(
+  'EGCKVSN4PS',
+  '1dfb51e5d328e2efcf769a74182ebf1e'
+);
 
 @Component({
   selector: 'app-song-search',
   templateUrl: './song-search.component.html',
   styleUrls: ['./song-search.component.scss']
 })
-export class SongSearchComponent implements AfterViewInit, OnDestroy {
+export class SongSearchComponent {
   faCog = faCog;
 
   fontSize: string = 'regular';
@@ -15,16 +20,17 @@ export class SongSearchComponent implements AfterViewInit, OnDestroy {
   fontSizes: string[] = ['regular', 'large'];
   chordTypes: string[] = ['full', 'basic', 'none'];
 
-  constructor(private songService: SongService) {}
+  // config = {
+  //   apiKey: '1dfb51e5d328e2efcf769a74182ebf1e',
+  //   appId: 'EGCKVSN4PS',
+  //   indexName: 'songs',
+  //   routing: true
+  // };
 
-  ngAfterViewInit() {
-  }
+  config = {
+    indexName: 'songs',
+    searchClient
+  };
 
-  ngOnDestroy() {
-  }
-
-  onKeyUp($event: any) {
-    const value = $event.target.value;
-    console.log(`input: %c${value}`, 'color: red;');
-  }
+  constructor() {}
 }

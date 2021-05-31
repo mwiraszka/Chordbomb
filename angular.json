@@ -20,6 +20,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "angular-instantsearch",
+              "algoliasearch/lite",
+              "hogan.js",
+              "prop-types",
+              "preact-context"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -45,6 +52,7 @@
             ],
             "styles": [
               "src/app/shared/styles/styles.scss",
+              "node_modules/angular-instantsearch/bundles/instantsearch-theme-algolia.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []

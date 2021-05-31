@@ -32,10 +32,37 @@
       <h3>Settings</h3>
     </button>
     <main id="main-content">
-      <div id="input-container">
-        <input id="search" type="text" name="search" (keyup)="onKeyUp($event)"
-          placeholder="Search song" />
+
+      <div class="ais-InstantSearch">
+        <ais-instantsearch [config]="config">
+          <div class="left-panel">
+            <ais-current-refinements></ais-current-refinements>
+            <h2>Artists</h2>
+            <ais-refinement-list attribute="artists"></ais-refinement-list>
+          </div>
+          <div class="right-panel">
+            <ais-search-box></ais-search-box>
+            <ais-hits>
+              <ng-template let-hits="hits">
+                <ol class="ais-Hits-list">
+                  <li *ngFor="let hit of hits" class="ais-Hits-item">
+                    <img src="{{hit.albumCoverLink}}" alt="{{hit.album}}" align="left" />
+                    <div class="hit-name">
+                      <ais-highlight attribute="name" [hit]="hit"></ais-highlight>
+                    </div>
+                    <div class="hit-description">
+                      <ais-highlight attribute="hit.artists" [hit]="hit"></ais-highlight>
+                    </div>
+                    <div class="hit-songwriters">{{hit.songwriters}}</div>
+                    <div class="hit-producers">{{hit.producers}}</div>
+                  </li>
+                </ol>
+              </ng-template>
+            </ais-hits>
+          </div>
+        </ais-instantsearch>
       </div>
+
     </main>
   </mat-sidenav-content>
 

@@ -10,15 +10,31 @@ const index = client.initIndex('songs');
 exports.addToIndex = functions.firestore.document('songs/{songId}')
   .onCreate((snapshot) => {
     const data = snapshot.data();
-    const objectID = snapshot.id;
-    return index.saveObject({ ...data, objectID });
+
+    return index.saveObject({
+      objectID: snapshot.id,
+      artists: data.artists,
+      title: data.title,
+      album: data.album,
+      albumCoverLink: data.albumCoverLink,
+      songwriters: data.songwriters,
+      producers: data.producers
+    });
   });
 
 exports.updateIndex = functions.firestore.document('songs/{songId}')
   .onUpdate((change) => {
     const newData = change.after.data();
-    const objectID = change.after.id;
-    return index.saveObject({ ...newData, objectID });
+
+    return index.saveObject({
+      objectID: change.after.id,
+      artists: newData.artists,
+      title: newData.title,
+      album: newData.album,
+      albumCoverLink: newData.albumCoverLink,
+      songwriters: newData.songwriters,
+      producers: newData.producers
+    });
   });
 
 exports.deleteFromIndex = functions.firestore.document('songs/{songId}')
