@@ -52,7 +52,7 @@
         <div class="form-field">
           <label for="artists">Artist(s)</label>
           <input type="text" name="artists" formControlName="artists"
-            class="width-m" maxlength="100" [ngModel]="song.artists" />
+            class="width-m" maxlength="100" />
           <div class="error-message-area">
             <div *ngIf="f.artists.touched && f.artists.invalid">
               <small>At least one artist is required</small>
@@ -62,7 +62,7 @@
         <div class="form-field">
           <label for="title">Title</label>
           <input type="text" name="title" formControlName="title"
-            class="width-m" maxlength="100" [ngModel]="song.title" />
+            class="width-m" maxlength="100" />
           <div class="error-message-area">
             <div *ngIf="f.title.touched && f.title.invalid">
               <small>Song title is required</small>
@@ -75,7 +75,7 @@
         <div class="form-field">
           <label for="album">Album</label>
           <input type="text" name="album" formControlName="album"
-            class="width-l" maxlength="100" [ngModel]="song.album" />
+            class="width-l" maxlength="100" />
           <div class="error-message-area">
             <div *ngIf="f.album.touched && f.album.invalid">
               <small>Album is required</small>
@@ -85,7 +85,7 @@
         <div class="form-field">
           <label for="albumYear">Album Year</label>
           <input type="text" name="albumYear" formControlName="albumYear"
-            class="width-xs" maxlength="4" [ngModel]="song.albumYear" />
+            class="width-xs" maxlength="4" />
           <div class="error-message-area">
             <div *ngIf="f.albumYear.touched && f.albumYear.invalid">
               <small>Invalid year</small>
@@ -97,25 +97,25 @@
       <div class="form-row form-field">
         <label for="albumCoverLink">Link to Album Cover Image</label>
         <input type="text" name="albumCoverLink" formControlName="albumCoverLink"
-          class="width-xl" maxlength="200" [ngModel]="song.albumCoverLink" />
+          class="width-xl" maxlength="200" />
       </div>
 
       <div class="form-row form-field">
         <label for="songwriters">Songwriter(s)</label>
         <input type="text" name="songwriters" formControlName="songwriters"
-          class="width-xl" maxlength="200" [ngModel]="song.songwriters" />
+          class="width-xl" maxlength="200" />
       </div>
 
       <div class="form-row form-field">
         <label for="producers">Producer(s)</label>
         <input type="text" name="producers" formControlName="producers"
-          class="width-xl" maxlength="200" [ngModel]="song.producers" />
+          class="width-xl" maxlength="200" />
       </div>
 
       <div class="form-row form-field">
         <label for="publishers">Publisher(s)</label>
         <input type="text" name="publishers" formControlName="publishers"
-          class="width-xl" maxlength="200" [ngModel]="song.publishers" />
+          class="width-xl" maxlength="200" />
       </div>
     </fieldset>
 
@@ -127,7 +127,7 @@
         <div class="form-field">
           <label for="key">Key</label>
           <input type="text" name="key" formControlName="key"
-            class="width-s" maxlength="8" [ngModel]="song.key" />
+            class="width-s" maxlength="8" />
           <div class="error-message-area">
             <div *ngIf="f.key.touched && f.key.invalid">
               <small *ngIf="f.key.errors?.required">Key is required</small>
@@ -138,7 +138,7 @@
         <div class="form-field">
           <label for="timeSignature">Time Signature</label>
           <input type="text" name="timeSignature" formControlName="timeSignature"
-            class="width-xs" maxlength="5" [ngModel]="song.timeSignature" />
+            class="width-xs" maxlength="5" />
           <div class="error-message-area">
             <div *ngIf="f.timeSignature.touched && f.timeSignature.invalid">
               <small *ngIf="f.timeSignature.errors?.required">
