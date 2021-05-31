@@ -162,10 +162,10 @@ export class SongEditComponent implements OnDestroy {
     return (<FormGroup>this.nodes.controls[index]).controls['label'];
   }
 
-  /* Insert a new node row directly after the row of the clicked button (so index + 1);
+  /* Insert a new node form group directly after row of clicked button (so, index + 1);
   this means a new group of controls is added to the overall song form group, and
   also that all nodes in the song data node array need to be shifted by one */
-  insertNodeFormGroup(index: number): void {
+  insertNode(index: number): void {
     this.nodes.insert(index + 1, this.newNodeFormGroup());
     this.song.nodes.splice(index + 1, 0, new Node());
   }
@@ -173,7 +173,7 @@ export class SongEditComponent implements OnDestroy {
   /* Ensure at least one row is always present; again, reflect the change in both the
   displayed form (removing a node form group from the song form) and in the song data
   (splicing the item out of the node array) */
-  removeNodeFormGroup(index: number): void {
+  removeNode(index: number): void {
     if (this.nodes.length > 1) {
       this.nodes.removeAt(index);
       this.song.nodes.splice(index, 1);

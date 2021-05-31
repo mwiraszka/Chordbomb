@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables';
+@import 'abstracts/variables';
 
 nav#app-nav {
   height: $nav-height;
@@ -8,10 +8,6 @@ nav#app-nav {
   padding: 0 1em;
   font-size: $font-l;
   background-color: $cb-black;
-}
-
-button#menu {
-  display: none;
 }
 
 ul#nav-items {
@@ -68,7 +64,7 @@ p#user-info {
 }
 
 /* On wide viewports with links showing, use underline animation to highlight links */
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: ($nav-breakpoint + 1)) {
   a.nav-link {
     /* Underline animation on hover */
     &:after {
@@ -90,51 +86,15 @@ p#user-info {
   }
 }
 
-@media only screen and (max-width: 600px) {
-  button#menu {
-    display: block;
-    border: none;
-    background: none;
-    /* (Hacky) hard-coded distance from top of nav-bar to vertically centre menu button
-    inside top nav bar row, regardless of how many rows displayed (when opened) */
-    margin: 10px 0 auto;
-
-    .burger-line {
-      display: block;
-      background-color: $cb-white;
-      width: 25px;
-      height: 2px;
-      margin: 5px auto;
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
-    }
-  }
-
+@media only screen and (max-width: $nav-breakpoint) {
   a.nav-link:not(.link-active) {
     display: none;
   }
 
-  /* All styles that are added when dropdown navigation menu is opened */
+  /* Dropdown navigation menu is opened */
   nav#app-nav.open {
     height: auto; // automatically extend nav height to fit its contents
     padding-right: 0; // ensure clickable nav items reach right edge of dropdown nav bar
-
-    /* Transition menu icon from three horizontal lines to an X when dropdown opens */
-    .burger-line {
-      &:nth-child(1) {
-        transform: translateY(8px) rotate(225deg);
-        -webkit-transition: all 0.4s ease-in-out;
-        transition: all 0.5s ease-in-out;
-      }
-      &:nth-child(2) {
-        opacity: 0;
-      }
-      &:nth-child(3) {
-        transform: translateY(-7px) rotate(-225deg);
-        -webkit-transition: all 0.4s ease-in-out;
-        transition: all 0.5s ease-in-out;
-      }
-    }
 
     ul#nav-items {
       flex-direction: column;

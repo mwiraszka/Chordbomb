@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables';
+@import 'abstracts/variables';
 
 section#login-container {
   display: flex;
@@ -57,13 +57,4 @@ mat-error {
   margin-left: 10px; // Manually align with field labels above
 }
 
-button {
-  font-weight: bold;
-  /* Align right side of button with edge of form fields */
-  width: 80px;
-  margin-left: calc(100% - 80px);
 
-  &:hover {
-    background: lighten($color: $cb-white, $amount: 5%);
-  }
-}

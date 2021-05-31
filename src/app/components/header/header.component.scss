@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables';
+@import 'abstracts/variables';
 
 header {
   display: flex;
@@ -20,7 +20,7 @@ header {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: $nav-breakpoint) {
   header {
     justify-content: center;
   }

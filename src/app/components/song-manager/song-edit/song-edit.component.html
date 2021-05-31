@@ -1,7 +1,7 @@
 <section id="song-edit">
   <header id="song-edit-header">
     <h2>Edit Song</h2>
-    <button id="create-new-song" (click)="onCreateNewSong()">
+    <button id="create-new-song" class="primary" (click)="onCreateNewSong()">
       <fa-icon [icon]="faPlus"></fa-icon>Create New Song
     </button>
   </header>
@@ -216,11 +216,11 @@
             </div>
           </div>
 
-          <button type="button" id="insert-node" (click)="insertNodeFormGroup(i)">
+          <button type="button" id="insert-node" class="primary" (click)="insertNode(i)">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
 
-          <button type="button" id="remove-node" (click)="removeNodeFormGroup(i)">
+          <button type="button" id="remove-node" class="primary" (click)="removeNode(i)">
             <fa-icon [icon]="faMinus"></fa-icon>
           </button>
 
@@ -228,8 +228,8 @@
       </div>
     </fieldset>
 
-    <div id="submit-button-container">
-      <button id="submit" type="submit" [disabled]="!songForm.valid">
+    <div id="submit-song-container">
+      <button id="submit" type="submit" class="primary" [disabled]="!songForm.valid">
         <span *ngIf="isEditMode(); else addMode">Update Song</span>
         <ng-template #addMode>Add Song</ng-template>
       </button>

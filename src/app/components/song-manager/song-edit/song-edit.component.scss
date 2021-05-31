@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables';
+@import 'abstracts/variables';
 
 section#song-edit {
   margin: 1em;
@@ -29,58 +29,11 @@ div#latest-ed-details {
   }
 }
 
-div#submit-button-container {
+div#submit-song-container {
   margin-top: 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-button {
-  box-sizing: content-box;
-  border: 2px solid darken($color: $cb-white, $amount: 10%);
-  color: $cb-white;
-  background-color: $cb-primary;
-
-  &:hover {
-    border: 2px solid darken($color: $cb-white, $amount: 5%);
-    color: #fff;
-    background-color: lighten($color: $cb-primary, $amount: 7%);
-    box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%);
-  }
-
-  &#create-new-song,
-  &#submit {
-    font-size: $font-m;
-    height: 2em;
-    border-radius: $border-radius-button;
-    padding: 0 0.8em;
-    fa-icon {
-      margin-left: -0.2em; // icon appears as if it adds extra padding, so compensate
-      margin-right: 0.3em;
-    }
-  }
-
-  &#submit:disabled,
-  &#submit[disabled] {
-    color: $cb-gray;
-    background-color: lighten($color: $cb-gray, $amount: 20%);
-    cursor: default;
-  }
-
-  &#insert-node,
-  &#remove-node {
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-  }
-
-  /* Force plus and minus buttons to the right end of row; space them out slighly */
-  &#insert-node {
-    margin-right: 0.1em;
-    margin-left: auto;
-  }
 }
 
 fieldset {
@@ -183,7 +136,7 @@ div.error-message-area {
 }
 
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: $song-edit-breakpoint) {
   div.form-row {
     padding: 0.2em 0.5em;
   }

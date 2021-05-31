@@ -51,10 +51,15 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/app/shared/styles/styles.scss",
+              "src/styles/main.scss",
               "node_modules/angular-instantsearch/bundles/instantsearch-theme-algolia.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -128,7 +133,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/shared/styles/styles.scss"
+              "src/styles/main.scss",
+              "node_modules/angular-instantsearch/bundles/instantsearch-theme-algolia.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }
