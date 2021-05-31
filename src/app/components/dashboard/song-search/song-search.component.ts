@@ -16,7 +16,7 @@ const searchClient = algoliasearch(
 export class SongSearchComponent {
   config = {
     indexName: 'songs',
-    routing: true,  // test
+    routing: true,
     searchClient
   };
 
