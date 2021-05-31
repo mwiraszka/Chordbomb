@@ -16,7 +16,7 @@ import { SongService } from '@app/shared/services/song.service';
   styleUrls: ['./song-edit.component.scss']
 })
 export class SongEditComponent implements OnDestroy {
-  /* Font Awesome icons */
+  /* Declare Font Awesome icons */
   faPlus = faPlus;
   faMinus = faMinus;
 
@@ -54,7 +54,7 @@ export class SongEditComponent implements OnDestroy {
     this.newForm();
   }
 
-  /* Form is initialized to empty values and validators defined for each control */
+  /* Form is initialized and validators defined for each control */
   newForm() {
     this.songForm = this.formBuilder.group({
       backup: [''], // not displayed to user
@@ -67,27 +67,27 @@ export class SongEditComponent implements OnDestroy {
         ]],
         note: ['', [Validators.required, Validators.maxLength(200)]]
       }),
-      artists: ['', [Validators.required, Validators.maxLength(100)]],
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      album: ['', [Validators.required, Validators.maxLength(100)]],
-      albumYear: ['', [
+      artists: [this.song.artists, [Validators.required, Validators.maxLength(100)]],
+      title: [this.song.title, [Validators.required, Validators.maxLength(100)]],
+      album: [this.song.album, [Validators.required, Validators.maxLength(100)]],
+      albumYear: [this.song.albumYear, [
         Validators.maxLength(4),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(1700),
         Validators.max(2021)
       ]],
-      albumCoverLink: ['', Validators.maxLength(200)],
-      songwriters: ['', Validators.maxLength(200)],
-      producers: ['', Validators.maxLength(200)],
-      publishers: ['', Validators.maxLength(200)],
-      key: ['', [
+      albumCoverLink: [this.song.albumCoverLink, Validators.maxLength(200)],
+      songwriters: [this.song.songwriters, Validators.maxLength(200)],
+      producers: [this.song.producers, Validators.maxLength(200)],
+      publishers: [this.song.publishers, Validators.maxLength(200)],
+      key: [this.song.key, [
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
           /^(C|C#|Db|D|D#|Eb|E|F|F#|Gb|G|G#|Ab|A|A#|Bb|B) (M|m)(ajor|inor)$/
         )
       ]],
-      timeSignature: ['', [
+      timeSignature: [this.song.timeSignature, [
         Validators.required,
         Validators.maxLength(5),
         Validators.pattern(

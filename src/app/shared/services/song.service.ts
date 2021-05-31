@@ -30,9 +30,8 @@ export class SongService {
   }
 
   async addSong(newSong: Song) {
-    const { id } = await this.firestore.collection('songs').add(newSong)
-    console.log('id found: ' + id);
-    this.firestore.collection('songs').doc(id).update({ id: id })
+    const { id } = await this.firestore.collection('songs').add(newSong);
+    this.firestore.collection('songs').doc(id).update({ id: id });
   }
 
   updateSong(id: string, editedSong: Song): void {
