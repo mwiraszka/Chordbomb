@@ -16,6 +16,14 @@ embed, footer, header, nav, section, video {
   text-size-adjust: none;
 }
 
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
+
 a {
   text-decoration: none;
   font-style: normal;

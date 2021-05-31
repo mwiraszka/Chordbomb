@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 import { Edition } from '@app/shared/models/edition.model';
 import { Node } from '@app/shared/models/node.model';
@@ -184,7 +185,7 @@ export class SongEditComponent implements OnDestroy {
   onSubmit() {
     // Get submission date and time and use as edition timestamp value
     this.songForm.patchValue({'newEdition': {
-      timestamp: new Date(Date.now()).toLocaleString()
+      timestamp: formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US')
     }});
 
     // Copy form data over to variable and add previous edition information back in

@@ -6,7 +6,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   template: `
     <footer>
       <small id="copyright"> &copy; 2021 Copyright: Michal Wiraszka </small>
-      <small id="version" class="lighter">
+      <small id="version">
         Currently in development (version 0.4.0)
       </small>
       <address id="github-repo" class="bigger">

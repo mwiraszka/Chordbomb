@@ -1,5 +1,3 @@
-@import 'abstracts/variables';
-
 #app-container {
   height: 100vh;
   display: grid;
@@ -19,7 +17,7 @@
     grid-area: nav;
   }
 
-  main {
+  #main-container {
     grid-area: main;
     overflow: auto;
     display: grid;
