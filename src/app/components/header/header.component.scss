@@ -21,7 +21,9 @@ header {
 }
 
 svg#chordbomb-logo {
-  width: 300px;
+  min-width: 200px;
+  max-width: 300px;
+  width: auto;
   stroke: $cb-gray;
   fill: $cb-white;
 }

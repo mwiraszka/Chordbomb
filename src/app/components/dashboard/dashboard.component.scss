@@ -105,26 +105,6 @@ mat-sidenav-content {
   }
 }
 
-button.settings-button {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  padding: 0.2em 1em;
-  border: 1px solid darken($color: $cb-white, $amount: 10%);
-  border-radius: $border-radius-button;
-  color: $cb-white;
-  background-color: $cb-primary;
-  margin-bottom: auto;
-
-  &:hover {
-    border: 1px solid darken($color: $cb-white, $amount: 5%);
-    color: #fff;
-    background-color: lighten($color: $cb-primary, $amount: 7%);
-    box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%);
-  }
-}
-
 h3 {
   padding-left: 0.3em;
 }

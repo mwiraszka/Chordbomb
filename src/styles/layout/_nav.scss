@@ -19,11 +19,10 @@ ul#app-nav-items {
   align-items: center;
   justify-content: center;
   width: 100%;
+
 }
 
 li.nav-item {
-  margin: 0 $nav-item-spacing;
-
   /* Keep 'Log Out' and 'Logged In' text side-by-side and centred vertically */
   & > span {
     display: flex;
@@ -34,11 +33,17 @@ li.nav-item {
   &:last-of-type {
     margin-left: auto;
   }
+
+  /* Hide all nav items except the one with the currently active link */
+  & > a:not(.link-active) {
+    display: none;
+  }
 }
 
 a.nav-link {
   display: block;
   position: relative;
+  margin: 0 $nav-item-spacing;
   color: $cb-white;
 
   /* Brighten and add glow behind text when link is active */
@@ -46,10 +51,6 @@ a.nav-link {
     cursor: default;
     color: #fff;
     text-shadow: 0px 0px 1px $cb-white;
-  }
-  /* Hide all links except the currently active one */
-  &:not(.link-active) {
-    display: none;
   }
 }
 

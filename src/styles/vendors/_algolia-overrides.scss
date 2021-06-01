@@ -13,7 +13,7 @@
 .ais-InstantSearch {
   max-width: 700px;
   overflow: hidden;
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 .ais-SearchBox-input {
@@ -24,6 +24,15 @@
 .ais-Hits-item {
   justify-content: space-between;
   text-align: right;
-  margin-top: 0.5em;
-  width: 100%
+  width: 100%;
+  padding: 5px 10px;
+
+  margin-top: 4px; // spacing between items
+  @include respond-to('small') {
+    margin-top: 8px;
+  }
+}
+
+ais-highlight {
+  text-overflow: ellipsis !important;
 }
