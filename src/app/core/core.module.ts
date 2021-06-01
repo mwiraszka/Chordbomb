@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     SharedModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   exports: [
     AngularFireModule,

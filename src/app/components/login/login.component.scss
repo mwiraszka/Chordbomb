@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables';
+@import 'abstracts/variables';
 
 section#login-container {
   display: flex;
@@ -15,10 +15,19 @@ mat-card#admin-login {
   width: calc(100% - 2em); // leave a minimum of 2em of margin (total) on sides of screen
 }
 
+mat-card-title, mat-card-content {
+  width: 85%;
+}
+
+mat-card-subtitle {
+  font-size: $font-l;
+}
+
 mat-card#login-credentials {
   text-align: center;
   box-sizing: border-box;
   margin: 10px 0 30px 0;
+  font-size: ($font-l - 2px);
 
   /* Centre text based on length of its longest line (the email line, in this case) */
   p {
@@ -28,18 +37,12 @@ mat-card#login-credentials {
   }
 }
 
-mat-card-title,
-mat-card-content {
-  width: 85%;
-}
-
 mat-form-field {
   margin-bottom: -10px;
   width: 100%;
 
   /* Replace default black outline on hover and when active with a subtler gray */
-  &:hover,
-  &.mat-focused {
+  &:hover, &.mat-focused {
     ::ng-deep.mat-form-field-outline {
       color: lighten($color: $cb-gray, $amount: 5%);
     }
@@ -57,13 +60,6 @@ mat-error {
   margin-left: 10px; // Manually align with field labels above
 }
 
-button {
-  font-weight: bold;
-  /* Align right side of button with edge of form fields */
-  width: 80px;
-  margin-left: calc(100% - 80px);
-
-  &:hover {
-    background: lighten($color: $cb-white, $amount: 5%);
-  }
+mat-label {
+  font-size: $font-l;
 }

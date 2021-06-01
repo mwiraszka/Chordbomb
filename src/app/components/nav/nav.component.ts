@@ -5,8 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  templateUrl: './nav.component.html'
 })
 export class NavComponent {
   menuOpen = false;

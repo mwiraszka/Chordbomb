@@ -20,6 +20,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "angular-instantsearch",
+              "algoliasearch/lite",
+              "hogan.js",
+              "prop-types",
+              "preact-context"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -44,9 +51,13 @@
               "src/mstile-150x150.png"
             ],
             "styles": [
-              "src/app/shared/styles/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -120,8 +131,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/shared/styles/styles.scss"
+              "src/styles/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           }
         },

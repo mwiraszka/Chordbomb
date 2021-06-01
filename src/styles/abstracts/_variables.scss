@@ -1,7 +1,8 @@
-/*** GLOBAL CHORDBOMB VARIABLES ***/
-
+/*
+ * Chordbomb custom color palette
+ */
 $cb-primary: #030636;
-$cb-accent: #a9dc89;
+$cb-accent: #87bb67;
 
 $cb-primary-palette: (
   Main: $cb-primary,
@@ -34,14 +35,29 @@ $cb-white: #e3e3e3;
 $cb-gray: #9e9e9e;
 $cb-black: #0e0e0e;
 
-$nav-height: 50px;
-
-$font-xs: 8px;
+/*
+ * Font size variables
+ */
+$font-xs: 11px;
 $font-s: 12px;
 $font-m: 14px;
 $font-l: 18px;
 $font-xl: 22px;
 
+/*
+ * Border radius variables
+ */
 $border-radius-input: 6px;
 $border-radius-form: 8px;
 $border-radius-button: 25px;
+
+/*
+ * Viewport breakpoint map
+ */
+$breakpoints: (
+  'small': (min-width: 400px),
+  'less-than-medium': (max-width: 699px),
+  'medium': (min-width: 700px),
+  'large': (min-width: 1000px),
+  'x-large': (min-width: 1200px)
+);

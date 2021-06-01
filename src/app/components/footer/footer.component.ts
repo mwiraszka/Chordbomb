@@ -6,8 +6,8 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   template: `
     <footer>
       <small id="copyright"> &copy; 2021 Copyright: Michal Wiraszka </small>
-      <small id="version" class="lighter">
-        Currently in development (version 0.3.0)
+      <small id="version">
+        Currently in development (version 0.4.0)
       </small>
       <address id="github-repo" class="bigger">
         <a href="https://github.com/mwiraszka/Chordbomb#readme" id="about-chordbomb">

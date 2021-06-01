@@ -1,0 +1,153 @@
+$label-margin-left: 0.3em;
+
+section#song-edit {
+  margin: 1em;
+}
+
+header#song-edit-header {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    color: $cb-black;
+    padding-bottom: 0.3em;
+  }
+}
+
+div#latest-ed-details {
+  width: 320px; // hard-coded width for now to fit h4 header text roughly exactly
+  border-radius: $border-radius-form;
+  text-align: left;
+  margin: 0.5em auto;
+  padding: 0.6em 1.5em;
+  box-shadow: 1px 1px 2px 2px darken($color: $cb-gray, $amount: 5%);
+
+  p#latest-ed-note {
+    font-size: $font-m;
+    margin-top: 0.5em;
+    font-style: oblique;
+  }
+}
+
+fieldset {
+  min-width: 300px;
+  max-width: 700px;
+  background-color: $cb-fieldset;
+  padding: 0.1em;
+  border: 1px solid lighten($color: $cb-black, $amount: 40%);
+  border-radius: $border-radius-form;
+  margin: 2em 0 0;
+
+  legend {
+    font-size: $font-l;
+    font-weight: bold;
+    margin-left: 0.5em;
+    padding: 0.1em 0.35em;
+    text-align: center;
+    background-color: $cb-white;
+    box-shadow: 0 0 3px 1px $cb-gray;
+    width: inherit;
+  }
+}
+
+div.form-row {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* Reduce top-bottom padding on small viewports to better suit smaller font sizes */
+  @include respond-to('medium') {
+    padding: 0.2em 0.5em;
+  }
+
+  /* A single form-field in the row: force input under label, and no flex needed */
+  &.form-field {
+    display: block;
+  }
+
+  &.with-textarea {
+    align-items: flex-start;
+  }
+}
+
+div.form-field, label.node-number {
+  /* Leave small gap between form fields, node number text, and edges of fieldset box */
+  margin: 0 0.1em;
+
+  &.full-width {
+    width: 100%;
+  }
+  &.three-quarters-width {
+    width: 75%;
+  }
+  &.half-width {
+    width: 50%;
+  }
+  &.quarter-width {
+    width: 25%;
+  }
+  &.node-field-width {
+    width: 15%;
+  }
+}
+
+div.error-message-area {
+  /*
+   * Fixed height to ensure two side-by-side fields remain vertically aligned if one shows
+   * an error but the other doesn't (temporary and hacky, but works)
+   */
+  height: 20px;
+
+  small {
+    display: block;
+    margin-top: 0.1em;
+    padding: 0;
+    margin-left: $label-margin-left;
+    color: $cb-warn;
+    font-size: $font-xs;
+  }
+}
+
+label.field-name {
+  font-size: $font-m;
+  margin-left: $label-margin-left;
+}
+
+label.node-number {
+  font-weight: bold;
+  /* (Magic number) fixed width to keep form fields aligned if node number > 1 digit -
+  works well for up to 3-digits with regular browser font sizes selected */
+  width: 3.5em;
+
+  @include respond-to('medium') {
+    /* Increase label's box width to accomodate for full text when viewport is larger */
+    width: 5em;
+  }
+}
+
+div#submit-song-container {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Show abbreviated text when viewport is small; switch to full text when larger
+ */
+.full-text {
+  display: none;
+}
+.short-text {
+  display: inline;
+}
+
+@include respond-to('medium') {
+  .full-text {
+    display: inline;
+  }
+  .short-text {
+    display: none;
+  }
+}

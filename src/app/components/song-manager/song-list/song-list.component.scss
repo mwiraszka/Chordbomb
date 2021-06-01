@@ -1,7 +1,13 @@
-@import '../../../shared/styles/variables';
+@import 'abstracts/variables';
 
 section#song-list {
   padding: 1em;
+}
+
+#song-list-container {
+  // temp: matching song-edit component min and max widths
+  min-width: 300px;
+  max-width: 700px;
 }
 
 h2 {

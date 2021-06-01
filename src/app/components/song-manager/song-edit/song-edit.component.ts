@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 import { Edition } from '@app/shared/models/edition.model';
 import { Node } from '@app/shared/models/node.model';
@@ -11,11 +12,10 @@ import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-song-edit',
-  templateUrl: './song-edit.component.html',
-  styleUrls: ['./song-edit.component.scss']
+  templateUrl: './song-edit.component.html'
 })
 export class SongEditComponent implements OnDestroy {
-  /* Font Awesome icons */
+  /* Declare Font Awesome icons */
   faPlus = faPlus;
   faMinus = faMinus;
 
@@ -53,7 +53,7 @@ export class SongEditComponent implements OnDestroy {
     this.newForm();
   }
 
-  /* Form is initialized to empty values and validators defined for each control */
+  /* Form is initialized and validators defined for each control */
   newForm() {
     this.songForm = this.formBuilder.group({
       backup: [''], // not displayed to user
@@ -66,32 +66,37 @@ export class SongEditComponent implements OnDestroy {
         ]],
         note: ['', [Validators.required, Validators.maxLength(200)]]
       }),
-      artists: ['', [Validators.required, Validators.maxLength(100)]],
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      album: ['', [Validators.required, Validators.maxLength(100)]],
-      albumYear: ['', [
+      artists: [this.song.artists, [Validators.required, Validators.maxLength(100)]],
+      title: [this.song.title, [Validators.required, Validators.maxLength(100)]],
+      album: [this.song.album, [Validators.required, Validators.maxLength(100)]],
+      albumYear: [this.song.albumYear, [
         Validators.maxLength(4),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(1700),
         Validators.max(2021)
       ]],
-      albumCoverLink: ['', Validators.maxLength(200)],
-      songwriters: ['', Validators.maxLength(200)],
-      producers: ['', Validators.maxLength(200)],
-      publishers: ['', Validators.maxLength(200)],
-      key: ['', [
+      albumCoverLink: [this.song.albumCoverLink, Validators.maxLength(200)],
+      songwriters: [this.song.songwriters, Validators.maxLength(200)],
+      producers: [this.song.producers, Validators.maxLength(200)],
+      publishers: [this.song.publishers, Validators.maxLength(200)],
+      primaryKey: [this.song.primaryKey, [
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
           /^(C|C#|Db|D|D#|Eb|E|F|F#|Gb|G|G#|Ab|A|A#|Bb|B) (M|m)(ajor|inor)$/
         )
       ]],
-      timeSignature: ['', [
+      primaryTimeSig: [this.song.primaryTimeSig, [
         Validators.required,
         Validators.maxLength(5),
         Validators.pattern(
           /^(2|3|4|5|6|7|9|10|11|12|13|14|15|17)\/(2|4|8|16)$/
         )
+      ]],
+      songDuration: [this.song.songDuration, [
+        Validators.required,
+        Validators.maxLength(5),
+        Validators.pattern(/^\d{1,2}:(0|1|2|3|4|5)\d$/)
       ]],
       nodes: this.getNodeFormArray()
     });
@@ -162,10 +167,10 @@ export class SongEditComponent implements OnDestroy {
     return (<FormGroup>this.nodes.controls[index]).controls['label'];
   }
 
-  /* Insert a new node row directly after the row of the clicked button (so index + 1);
+  /* Insert a new node form group directly after row of clicked button (so, index + 1);
   this means a new group of controls is added to the overall song form group, and
   also that all nodes in the song data node array need to be shifted by one */
-  insertNodeFormGroup(index: number): void {
+  insertNode(index: number): void {
     this.nodes.insert(index + 1, this.newNodeFormGroup());
     this.song.nodes.splice(index + 1, 0, new Node());
   }
@@ -173,7 +178,7 @@ export class SongEditComponent implements OnDestroy {
   /* Ensure at least one row is always present; again, reflect the change in both the
   displayed form (removing a node form group from the song form) and in the song data
   (splicing the item out of the node array) */
-  removeNodeFormGroup(index: number): void {
+  removeNode(index: number): void {
     if (this.nodes.length > 1) {
       this.nodes.removeAt(index);
       this.song.nodes.splice(index, 1);
@@ -184,7 +189,7 @@ export class SongEditComponent implements OnDestroy {
   onSubmit() {
     // Get submission date and time and use as edition timestamp value
     this.songForm.patchValue({'newEdition': {
-      timestamp: new Date(Date.now()).toLocaleString()
+      timestamp: formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US')
     }});
 
     // Copy form data over to variable and add previous edition information back in

@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$cb-theme: mat-light-theme(
+  (
+    color: (
+      primary: mat-palette($cb-primary-palette, Main, Light, Dark),
+      accent: mat-palette($cb-accent-palette, Main, Light, Dark)
+    )
+  )
+);
+
+@include angular-material-theme($cb-theme);

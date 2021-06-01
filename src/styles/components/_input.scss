@@ -1,0 +1,25 @@
+/*
+ * Apply to all text inputs (including textarea elements), excluding matInput types
+ */
+input[type="text"]:not([matInput]), textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid $cb-gray;
+  border-radius: $border-radius-input;
+  font-size: $font-l;
+  padding: 0.1em 0.25em;
+
+  &:focus {
+    outline: none;
+    border: 1px solid darken($color: $cb-select, $amount: 10%);
+    box-shadow: 0 0 3px 2px lighten($color: $cb-select, $amount: 5%);
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid $cb-warn;
+  }
+}
+
+textarea {
+  resize: none;
+}

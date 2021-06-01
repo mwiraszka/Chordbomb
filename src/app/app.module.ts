@@ -7,7 +7,7 @@ import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { CoreModule } from '@app/core/core.module';
 import { LoginModule } from '@app/components/login/login.module';
-import { SongSearchModule } from '@app/components/song-search/song-search.module';
+import { DashboardModule } from '@app/components/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +20,10 @@ import { SongSearchModule } from '@app/components/song-search/song-search.module
     CoreModule,
     HttpClientModule,
     LoginModule,
-    SongSearchModule,
+    DashboardModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {}

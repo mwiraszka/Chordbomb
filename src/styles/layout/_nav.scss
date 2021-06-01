@@ -1,0 +1,162 @@
+$nav-item-spacing: 0.5em;
+
+/*
+ * Default navigation styling, either for small viewports of static styles
+ */
+nav#app-nav {
+  height: auto;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4em 0.8em;
+  font-size: $font-l;
+  background-color: $cb-black;
+}
+
+ul#app-nav-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+li.nav-item {
+  margin: 0 $nav-item-spacing;
+
+  /* Keep 'Log Out' and 'Logged In' text side-by-side and centred vertically */
+  & > span {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Push user login info to right side of navbar */
+  &:last-of-type {
+    margin-left: auto;
+  }
+}
+
+a.nav-link {
+  display: block;
+  position: relative;
+  color: $cb-white;
+
+  /* Brighten and add glow behind text when link is active */
+  &.link-active {
+    cursor: default;
+    color: #fff;
+    text-shadow: 0px 0px 1px $cb-white;
+  }
+  /* Hide all links except the currently active one */
+  &:not(.link-active) {
+    display: none;
+  }
+}
+
+
+/*
+ * Define user-info paragraph style but only display on viewports larger than 'small'
+ */
+p#user-info {
+  display: none;
+  @include respond-to('small') {
+    display: block;
+  }
+
+  height: inherit;
+  font-size: $font-m;
+  text-align: center;
+  color: lighten($color: $cb-gray, $amount: 15%);
+  text-shadow: 0 0 1px $cb-gray;
+  cursor: default;
+
+  /*
+   * Re-apply margin spacing between 'Log out' nav-item and this user info since it was
+   * removed when margin-left:auto was applied to force item to the right
+  */
+  margin-left: ($nav-item-spacing * 2);
+
+  small#email {
+    color: lighten($color: $cb-gray, $amount: 5%);
+    font-size: $font-s;
+  }
+}
+
+
+/*
+ * Styles for only when navigation is opened via burger menu button
+ * (only applicable when dropdown available, i.e. small viewports)
+ */
+@include respond-to('less-than-medium') {
+  nav#app-nav.open {
+    /* Ensure clickable nav items reach right edge of dropdown nav bar */
+    padding-right: 0;
+
+    /*
+    * Display user login info, even if viewport is smaller than 'small', since an open
+    * navbar allows for more space
+    */
+    p#user-info {
+      display: block;
+    }
+
+    ul#app-nav-items {
+      flex-direction: column;
+    }
+
+    li.nav-item {
+      text-align: center;
+      width: 100%;
+
+      & > span {
+        display: block;
+      }
+    }
+
+    a.nav-link {
+      display: block;
+      padding: $nav-item-spacing 0;
+
+      &:hover {
+        color: #fff;
+        background: darken($color: $cb-accent, $amount: 8%);
+      }
+
+      /* Display pointer despite link already being active (feels awkward otherwise) */
+      &.link-active {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+/*
+ * Styles for only when viewport size is large & above:
+ * add remainder of links to navbar and change events to animated underline effect
+ */
+@include respond-to('medium') {
+  a.nav-link {
+    /* Un-hide all non-active links now that there's room in navbar */
+    &:not(.link-active) {
+      display: block;
+    }
+
+    /* Underline animation on hover */
+    &:after {
+      content: '';
+      height: 2px;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      background: $cb-accent;
+      transition: ease-out 0.15s;
+    }
+
+    /* Keep underline visible once animation completes on hover and when link is active */
+    &:hover:after, &.link-active:after {
+      width: 100%;
+    }
+  }
+}

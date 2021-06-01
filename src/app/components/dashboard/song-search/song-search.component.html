@@ -1,0 +1,39 @@
+<div class="ais-InstantSearch">
+  <ais-instantsearch [config]="config">
+    <div class="left-panel">
+      <h3>Filter by Artist</h3>
+      <ais-refinement-list attribute="artists" [sortBy]="['count:desc', 'name:asc']">
+      </ais-refinement-list>
+      <ais-configure [searchParameters]="{ hitsPerPage: 8 }"></ais-configure>
+      <hr class="spacer" />
+      <ais-clear-refinements [autoHideContainer]="true"></ais-clear-refinements>
+    </div>
+    <div class="right-panel">
+      <ais-search-box></ais-search-box>
+      <ais-hits>
+        <ng-template let-hits="hits">
+          <ol class="ais-Hits-list">
+            <li *ngFor="let hit of hits" class="ais-Hits-item">
+              <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" />
+              <div class="details">
+                <label>Artist: </label>
+                <ais-highlight tagName="mark" attribute="artists" [hit]="hit"></ais-highlight><br>
+                <label>Title: </label>
+                <ais-highlight tagName="mark" attribute="title" [hit]="hit"></ais-highlight><br>
+                <label>Songwriters: </label>
+                <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight><br>
+                <label>Producers: </label>
+                <ais-highlight attribute="producers" [hit]="hit"></ais-highlight><br>
+              </div>
+            </li>
+          </ol>
+        </ng-template>
+      </ais-hits>
+      <div class="temp" style="border: 1px solid orangered; margin-top: 20px; width: 100%;">
+        <b>Heads up...</b><br>
+        Chordbomb's search feature is still a work in progress!<br>
+        Clicking doesn't take you anywhere just yet
+      </div>
+    </div>
+  </ais-instantsearch>
+</div>

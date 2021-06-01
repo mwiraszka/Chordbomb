@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables';
+@import 'abstracts/variables';
 
 footer {
   display: flex;
@@ -7,7 +7,7 @@ footer {
   justify-content: center;
   text-align: center;
   padding: 1.8em;
-  font-size: $font-s;
+  font-size: $font-m;
   color: $cb-white;
   background: $cb-black;
 }
@@ -16,8 +16,8 @@ small {
   line-height: 1.4em;
 }
 
-.lighter {
-  font-weight: lighter;
+#version {
+  font-size: 90%;
 }
 
 .bigger {

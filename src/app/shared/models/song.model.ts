@@ -13,7 +13,8 @@ export class Song {
   songwriters?: string = '';
   producers?: string = '';
   publishers?: string = '';
-  timeSignature: string = '';
-  key: string = '';
+  primaryKey: string = '';
+  primaryTimeSig: string = '';
+  songDuration: string = '';
   nodes: Node[] = [new Node()];
 }
