@@ -6,7 +6,7 @@ Check it out! Live development server: https://chordbomb.web.app
 
 <br><br>
 ## Version 1.0.0
-Currently in development, with `version 1.0.0` set to be deployed in May 2021. Features will include:
+Currently in development, with `version 1.0.0` set to be deployed by mid-June 2021. Features will include:
 * 10 songs stored in Firebase's Firestore Database, able to be retrieved and edited from the app
 * Admin login for editing songs in-app
 * Search-as-you-type functionality
