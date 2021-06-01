@@ -1,7 +1,7 @@
 <section id="song-edit">
   <header id="song-edit-header">
     <h2>Edit Song</h2>
-    <button id="create-new-song" class="primary" (click)="onCreateNewSong()">
+    <button id="create-new-song-btn" class="primary" (click)="onCreateNewSong()">
       <fa-icon [icon]="faPlus"></fa-icon>Create New Song
     </button>
   </header>
@@ -52,7 +52,12 @@
           <input type="text" name="artists" formControlName="artists" maxlength="100" />
           <div class="error-message-area">
             <div *ngIf="f.artists.touched && f.artists.invalid">
-              <small>At least one artist is required</small>
+              <span class="full-text">
+                <small>At least one artist is required</small>
+              </span>
+              <span class="short-text">
+                <small>Artist is required</small>
+              </span>
             </div>
           </div>
         </div>
@@ -78,7 +83,10 @@
           </div>
         </div>
         <div class="form-field quarter-width">
-          <label class="field-name" for="albumYear">Album Year</label>
+          <label class="field-name" for="albumYear">
+            <span class="full-text">Album Year</span>
+            <span class="short-text">Year</span>
+          </label>
           <input type="text" name="albumYear" formControlName="albumYear" maxlength="4" />
           <div class="error-message-area">
             <div *ngIf="f.albumYear.touched && f.albumYear.invalid">
@@ -174,19 +182,18 @@
         </div>
       </div>
 
+      <label class="node-number short-text">NODES:</label>
+
       <div formArrayName="nodes">
         <div class="form-row"[formGroupName]="i"
           *ngFor="let node of nodes.controls; let i=index;"
         >
-          <label class="node-number">
-            <span class="full-text">NODE {{ i + 1 }}:</span>
-            <span class="short-text">N. {{ i + 1 }}:</span>
-          </label>
+          <label class="node-number full-text">NODE {{ i + 1 }}:</label>
 
           <div class="form-field node-field-width">
             <label class="field-name" for="timeMarker">
               <span class="full-text">Time Marker</span>
-            <span class="short-text">Marker</span>
+            <span class="short-text">T.M.</span>
           </label>
             <input type="text" name="timeMarker" formControlName="timeMarker"
               maxlength="8" [ngModel]="song.nodes[i].timeMarker" />
@@ -240,11 +247,15 @@
             </div>
           </div>
 
-          <button type="button" id="insert-node" class="primary" (click)="insertNode(i)">
+          <button type="button" id="insert-node-btn" class="primary"
+            (click)="insertNode(i)"
+          >
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
 
-          <button type="button" id="remove-node" class="primary" (click)="removeNode(i)">
+          <button type="button" id="remove-node-btn" class="primary"
+            (click)="removeNode(i)"
+          >
             <fa-icon [icon]="faMinus"></fa-icon>
           </button>
 
@@ -253,7 +264,7 @@
     </fieldset>
 
     <div id="submit-song-container">
-      <button id="submit" type="submit" class="primary" [disabled]="!songForm.valid">
+      <button type="submit" id="submit-btn" class="primary" [disabled]="!songForm.valid">
         <span *ngIf="isEditMode(); else addMode">Update Song</span>
         <ng-template #addMode>Add Song</ng-template>
       </button>

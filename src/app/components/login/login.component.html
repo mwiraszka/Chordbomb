@@ -20,7 +20,7 @@
         </mat-form-field>
       </form>
       <mat-error *ngIf="error">{{ error }}</mat-error>
-      <button mat-raised-button class="login" [disabled]="!loginForm.valid"
+      <button mat-raised-button id="login-btn" [disabled]="!loginForm.valid"
         (click)="onLogin()"
       >
         Log in

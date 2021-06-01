@@ -1,25 +1,6 @@
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
 
-img {
-  width: 100px;
-  height: 100px;
-  padding-right: 20px;
-}
-
-label {
-  font-weight: bold;
-}
-
-h3 {
-  margin-top: 0.5em;
-  margin-bottom: 1em;
-}
-
-hr.spacer {
-  height: 10px;
-}
-
 .left-panel {
   display: none;
   width: 0;
@@ -32,9 +13,68 @@ hr.spacer {
 }
 
 .right-panel {
-  margin-left: 20px;
+  margin-left: 10px;
 
   @include respond-to('large') {
     margin-left: 260px;
   }
+}
+
+h3 {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+hr {
+ &.big-spacer { height: 20px; }
+ &.small-spacer { height: 10px; }
+}
+
+img {
+  align-self: flex-start;
+  width: 40px;
+  height: 40px;
+  padding-right: 5px;
+
+  @include respond-to('small') {
+    align-self: center;
+    width: 80px;
+    height: 80px;
+    padding-right: 10px;
+  }
+
+  @include respond-to('large') {
+    align-self: center;
+    width: 100px;
+    height: 100px;
+    padding-right: 10px;
+  }
+}
+
+label, #artist-and-title {
+  font-weight: bold;
+}
+
+#artist-and-title {
+  margin-bottom: 0;
+  font-size: $font-m;
+
+  @include respond-to('small') {
+    margin-bottom: 10px;
+    font-size: ($font-l - 2px);
+  }
+}
+
+#songwriters-and-producers {
+  display: none;
+
+  @include respond-to('small') {
+    display: block;
+    font-size: ($font-m);
+  }
+}
+
+#hit-details {
+  width: auto;
+  min-width: 150px;
 }

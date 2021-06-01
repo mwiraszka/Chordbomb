@@ -6,11 +6,16 @@ section#song-edit {
 
 header#song-edit-header {
   display: flex;
-  justify-content: space-between;
 
   h2 {
     color: $cb-black;
     padding-bottom: 0.3em;
+    margin-right: 0.5em;
+  }
+
+  justify-content: center;
+  @include respond-to('medium') {
+    justify-content: space-between;
   }
 }
 
@@ -97,7 +102,7 @@ div.error-message-area {
    * Fixed height to ensure two side-by-side fields remain vertically aligned if one shows
    * an error but the other doesn't (temporary and hacky, but works)
    */
-  height: 20px;
+  height: 10px;
 
   small {
     display: block;
@@ -109,19 +114,23 @@ div.error-message-area {
   }
 }
 
-label.field-name {
+label.field-name, label.node-number {
   font-size: $font-m;
   margin-left: $label-margin-left;
 }
 
 label.node-number {
   font-weight: bold;
-  /* (Magic number) fixed width to keep form fields aligned if node number > 1 digit -
-  works well for up to 3-digits with regular browser font sizes selected */
-  width: 3.5em;
 
-  @include respond-to('medium') {
-    /* Increase label's box width to accomodate for full text when viewport is larger */
+  /* Viewport very narrow, so remove individual node number labels and have a single
+  label above all the nodes - increase left margin to align with input box (estimate) */
+  &.short-text {
+    margin-left: ($label-margin-left + 0.7em);
+  }
+
+  &.full-text {
+    /* Increase label's box width to accomodate for full text when viewport is larger -
+    a little hacky, but 5em should comfortably allow for up to 3-digit numbers */
     width: 5em;
   }
 }
