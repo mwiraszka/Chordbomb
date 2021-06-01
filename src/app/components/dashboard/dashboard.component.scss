@@ -6,7 +6,7 @@ mat-sidenav-container {
 
 mat-sidenav {
   padding-top: 0.2em; // keep 'Settings' buttons roughly at same height
-  width: 15em;
+  min-width: 200px;
   font-size: $font-m;
 
   div#inner-sidenav-container {

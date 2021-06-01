@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Song } from '@app/shared/models/song.model';
@@ -9,13 +9,15 @@ import { SongService } from '@app/shared/services/song.service';
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.scss']
 })
-export class SongListComponent implements OnDestroy {
+export class SongListComponent implements OnInit, OnDestroy {
   songList!: Song[];
   private songListSub: Subscription;
 
   currentSongId: string = '';
 
-  constructor(private songService: SongService) {
+  constructor(private songService: SongService) {}
+
+  ngOnInit() {
     this.songListSub = this.songService.getSongs().subscribe((actionArray) => {
       this.songList = actionArray.map((item) => {
         return { ...(item.payload.doc.data() as object) } as Song;

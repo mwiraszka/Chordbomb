@@ -1,74 +1,16 @@
+/*
+ * Base button styling
+ */
 button {
   cursor: pointer;
-
-  &.primary:disabled, &.primary[disabled] {
-    cursor: default;
-    color: $cb-gray;
-    background-color: lighten($color: $cb-gray, $amount: 20%);
-  }
 }
 
-
-/* Admin Login **************************************************************************/
-button.login {
-  font-weight: bold;
-  /* Align right side of button with edge of form fields */
-  width: 80px;
-  margin-left: calc(100% - 80px);
-
-  &:hover {
-    background: lighten($color: $cb-white, $amount: 5%);
-  }
-}
-
-/* Navigation Bar ***********************************************************************/
-button.menu {
-  display: none;
-}
-
-@media only screen and (max-width: $nav-breakpoint) {
-  button.menu {
-    display: block;
-    border: none;
-    background: none;
-    /* (Hacky) hard-coded distance from top of nav-bar to vertically centre menu button
-    inside top nav bar row, regardless of how many rows displayed (when opened) */
-    margin: 10px 0 auto;
-
-    .burger-line {
-      display: block;
-      background-color: $cb-white;
-      width: 25px;
-      height: 2px;
-      margin: 5px auto;
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
-    }
-  }
-
-  /* Dropdown navigation menu is opened */
-  nav#app-nav.open {
-    /* Transition menu icon from three horizontal lines to an X when dropdown opens */
-    .burger-line {
-      &:nth-child(1) {
-        transform: translateY(8px) rotate(225deg);
-        -webkit-transition: all 0.4s ease-in-out;
-        transition: all 0.5s ease-in-out;
-      }
-      &:nth-child(2) {
-        opacity: 0;
-      }
-      &:nth-child(3) {
-        transform: translateY(-7px) rotate(-225deg);
-        -webkit-transition: all 0.4s ease-in-out;
-        transition: all 0.5s ease-in-out;
-      }
-    }
-  }
-}
-
-/* Song Edit ****************************************************************************/
+/*
+ * Chordbomb 'primary'-styled buttons
+ */
 button.primary {
+  border-radius: $border-radius-button;
+
   box-sizing: content-box;
   border: 2px solid darken($color: $cb-white, $amount: 10%);
   color: $cb-white;
@@ -103,5 +45,77 @@ button.primary {
   &#insert-node {
     margin-right: 0.1em;
     margin-left: auto;
+  }
+
+  &:disabled, &[disabled] {
+    cursor: default;
+    color: $cb-gray;
+    background-color: lighten($color: $cb-gray, $amount: 20%);
+  }
+}
+
+
+/*
+ * Admin login button
+ */
+button.login {
+  font-weight: bold;
+  /* Align right side of button with edge of form fields */
+  width: 80px;
+  margin-left: calc(100% - 80px);
+
+  &:hover {
+    background: lighten($color: $cb-white, $amount: 5%);
+  }
+}
+
+
+/*
+ * Navigation bar burger menu button
+ */
+button.menu {
+  display: block;
+  border: none;
+  background: none;
+  /* Keep button stationary in top of navbar when dropdown is opened */
+  margin-bottom: auto;
+
+  /*
+   * Button animation when dropdown closes: transition X icon back to three-line 'burger'
+   */
+  .burger-line {
+    display: block;
+    background-color: $cb-white;
+    width: 25px;
+    height: 2px;
+    margin: 5px auto;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* Don't display burger menu button on medium viewports of larger */
+  @include respond-to('medium') {
+    display: none;
+  }
+}
+
+/*
+ * Button animation when dropdown opens: transition icon from three lines to an X
+ */
+nav#app-nav.open button .burger-line {
+  &:nth-child(1) {
+    transform: translateY(8px) rotate(225deg);
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &:nth-child(2) {
+    opacity: 0;
+  }
+
+  &:nth-child(3) {
+    transform: translateY(-7px) rotate(-225deg);
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
 }

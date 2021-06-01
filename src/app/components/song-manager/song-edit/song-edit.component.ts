@@ -12,8 +12,7 @@ import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-song-edit',
-  templateUrl: './song-edit.component.html',
-  styleUrls: ['./song-edit.component.scss']
+  templateUrl: './song-edit.component.html'
 })
 export class SongEditComponent implements OnDestroy {
   /* Declare Font Awesome icons */
@@ -80,19 +79,24 @@ export class SongEditComponent implements OnDestroy {
       songwriters: [this.song.songwriters, Validators.maxLength(200)],
       producers: [this.song.producers, Validators.maxLength(200)],
       publishers: [this.song.publishers, Validators.maxLength(200)],
-      key: [this.song.key, [
+      primaryKey: [this.song.primaryKey, [
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
           /^(C|C#|Db|D|D#|Eb|E|F|F#|Gb|G|G#|Ab|A|A#|Bb|B) (M|m)(ajor|inor)$/
         )
       ]],
-      timeSignature: [this.song.timeSignature, [
+      primaryTimeSig: [this.song.primaryTimeSig, [
         Validators.required,
         Validators.maxLength(5),
         Validators.pattern(
           /^(2|3|4|5|6|7|9|10|11|12|13|14|15|17)\/(2|4|8|16)$/
         )
+      ]],
+      songDuration: [this.song.songDuration, [
+        Validators.required,
+        Validators.maxLength(5),
+        Validators.pattern(/^\d{1,2}:(0|1|2|3|4|5)\d$/)
       ]],
       nodes: this.getNodeFormArray()
     });

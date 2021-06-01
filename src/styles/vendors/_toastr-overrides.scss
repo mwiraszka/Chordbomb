@@ -1,0 +1,10 @@
+.toast-success {
+  background-color: $cb-accent;
+}
+
+/* Size toast width based on text size; slightly increase default 15px padding on the
+right to compensate the extra padding on the left of the toast (possibly due to icon) */
+.toast-container .ngx-toastr {
+  width: auto;
+  padding-right: 20px;
+}

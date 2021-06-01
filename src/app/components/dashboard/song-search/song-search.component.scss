@@ -1,15 +1,10 @@
 @import 'abstracts/variables';
-
-.ais-SearchBox-input { margin-bottom: 5em }
-.left-panel { display: block; float: left; width: 250px }
-.right-panel { margin-left: 260px }
-.ais-InstantSearch { max-width: 960px; overflow: hidden; margin: 0 auto }
-.ais-Hits-item { margin-bottom: 1em; width: 100% }
-.ais-Hits-item img { margin-right: 1em }
+@import 'abstracts/mixins';
 
 img {
   width: 100px;
   height: 100px;
+  padding-right: 20px;
 }
 
 label {
@@ -21,8 +16,25 @@ h3 {
   margin-bottom: 1em;
 }
 
-@media only screen and (max-width: $nav-breakpoint) {
-  .left-panel {
-    display: none;
+hr.spacer {
+  height: 10px;
+}
+
+.left-panel {
+  display: none;
+  width: 0;
+
+  @include respond-to('large') {
+    display: block;
+    float: left;
+    width: 250px;
+  }
+}
+
+.right-panel {
+  margin-left: 20px;
+
+  @include respond-to('large') {
+    margin-left: 260px;
   }
 }
