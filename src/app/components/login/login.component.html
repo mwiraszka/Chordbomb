@@ -12,17 +12,16 @@
       <form id="loginForm" [formGroup]="loginForm">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="text" name="email" />
+          <input matInput formControlName="email" type="text" name="email">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" />
+          <input matInput formControlName="password" type="password">
         </mat-form-field>
       </form>
       <mat-error *ngIf="error">{{ error }}</mat-error>
       <button mat-raised-button id="login-btn" [disabled]="!loginForm.valid"
-        (click)="onLogin()"
-      >
+        (click)="onLogin()">
         Log in
       </button>
     </mat-card-content>

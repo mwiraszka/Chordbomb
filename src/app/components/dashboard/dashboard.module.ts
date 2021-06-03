@@ -4,15 +4,15 @@ import { NgAisModule } from 'angular-instantsearch';
 
 import { MaterialModule } from '@app/shared/modules/material.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { AlgoliaLookupComponent } from '@app/components/song-search/algolia-lookup/algolia-lookup.component';
-import { SongSearchComponent } from '@app/components/song-search/song-search.component';
-import { SongDisplayComponent } from '@app/components/song-search/song-display/song-display.component';
+import { DashboardComponent } from '@dashboard/dashboard.component';
+import { SongDisplayComponent } from '@dashboard/song-display/song-display.component';
+import { SongSearchComponent } from '@dashboard/song-search/song-search.component';
 
 @NgModule({
   declarations: [
-    AlgoliaLookupComponent,
+    SongSearchComponent,
     SongDisplayComponent,
-    SongSearchComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,

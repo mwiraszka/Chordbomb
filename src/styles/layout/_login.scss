@@ -1,18 +1,21 @@
-@import 'abstracts/variables';
-
 section#login-container {
   display: flex;
   justify-content: center;
   margin-top: 50px;
 }
 
+/*
+ * Mat-card element, encompassing the whole login form
+ * 1 - below around 300px (and above 500px), the form just looks a little goofy
+ * 2 - leave a minimum of 2em of margin (total) on sides of screen
+ */
 mat-card#admin-login {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  min-width: 320px; // when first line ('login credentials') breaks
+  min-width: 300px; /* 1 */
   max-width: 500px;
-  width: calc(100% - 2em); // leave a minimum of 2em of margin (total) on sides of screen
+  width: calc(100% - 2em); /* 2 */
 }
 
 mat-card-title, mat-card-content {
@@ -46,11 +49,6 @@ mat-form-field {
     ::ng-deep.mat-form-field-outline {
       color: lighten($color: $cb-gray, $amount: 5%);
     }
-  }
-
-  input {
-    font-size: $font-l;
-    text-indent: 0.5em;
   }
 }
 

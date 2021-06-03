@@ -10,11 +10,10 @@ const searchClient = algoliasearch(
 );
 
 @Component({
-  selector: 'app-algolia-lookup',
-  templateUrl: './algolia-lookup.component.html',
-  styleUrls: ['./algolia-lookup.component.scss']
+  selector: 'app-song-search',
+  templateUrl: './song-search.component.html'
 })
-export class AlgoliaLookupComponent {
+export class SongSearchComponent {
   config = {
     indexName: 'songs',
     routing: true,

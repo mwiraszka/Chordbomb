@@ -6,7 +6,7 @@
           <fa-icon [icon]="faCog" class="fa-2x"></fa-icon>
           <h3>Settings</h3>
       </header>
-      <hr>
+      <hr id="settings-header-divider">
 
       <div id="settings-container">
         <mat-radio-group
@@ -46,7 +46,7 @@
       <h3>Settings</h3>
     </button>
     <main id="main-content">
-      <app-algolia-lookup *ngIf="!isSongToDisplay"></app-algolia-lookup>
+      <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
       <app-song-display *ngIf="isSongToDisplay"></app-song-display>
     </main>
   </mat-sidenav-content>

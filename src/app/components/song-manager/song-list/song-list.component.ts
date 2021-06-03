@@ -6,12 +6,11 @@ import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-song-list',
-  templateUrl: './song-list.component.html',
-  styleUrls: ['./song-list.component.scss']
+  templateUrl: './song-list.component.html'
 })
 export class SongListComponent implements OnInit, OnDestroy {
   songList!: Song[];
-  private songListSub: Subscription;
+  private songListSub!: Subscription;
 
   currentSongId: string = '';
 

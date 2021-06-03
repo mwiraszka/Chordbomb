@@ -5,6 +5,12 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@dashboard/*": ["src/app/components/dashboard/*"],
+      "@footer/*": ["src/app/components/footer/*"],
+      "@header/*": ["src/app/components/header/*"],
+      "@login/*": ["src/app/components/login/*"],
+      "@nav/*": ["src/app/components/nav/*"],
+      "@song-manager/*": ["src/app/components/song-manager/*"],
       "@environments/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",

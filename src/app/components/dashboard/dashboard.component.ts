@@ -7,11 +7,10 @@ import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
 
 @Component({
-  selector: 'app-song-search',
-  templateUrl: './song-search.component.html',
-  styleUrls: ['./song-search.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html'
 })
-export class SongSearchComponent {
+export class DashboardComponent {
   faCog = faCog;
 
   fontSizes: string[] = ['regular', 'large'];
@@ -22,7 +21,7 @@ export class SongSearchComponent {
   isSongToDisplaySub!: Subscription;
   fontSize!: string;
   chordType!: string;
-  isSongToDisplay: boolean;
+  isSongToDisplay!: boolean;
 
   constructor(
     private songService: SongService,
@@ -46,7 +45,7 @@ export class SongSearchComponent {
     this.chordTypeSub.unsubscribe();
   }
 
-  onSettingChange($event) {
+  onSettingChange($event: any): void {
     switch($event.source.name) {
       case('fontSize'):
         this.settingsService.changeFontSize($event.value);

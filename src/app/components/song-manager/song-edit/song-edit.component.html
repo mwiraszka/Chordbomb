@@ -21,7 +21,7 @@
       <div class="form-row with-textarea" formGroupName="newEdition">
         <div class="form-field quarter-width">
           <label class="field-name" for="author">Author</label>
-          <input type="text" name="author" formControlName="author" maxlength="6" />
+          <input type="text" name="author" formControlName="author" maxlength="6">
           <div class="error-message-area">
             <div *ngIf="ed.author.touched && ed.author.invalid">
               <small *ngIf="ed.author.errors?.required">Author is required</small>
@@ -49,7 +49,7 @@
       <div class="form-row">
         <div class="form-field half-width">
           <label class="field-name" for="artists">Artist(s)</label>
-          <input type="text" name="artists" formControlName="artists" maxlength="100" />
+          <input type="text" name="artists" formControlName="artists" maxlength="100">
           <div class="error-message-area">
             <div *ngIf="f.artists.touched && f.artists.invalid">
               <span class="full-text">
@@ -63,7 +63,7 @@
         </div>
         <div class="form-field half-width">
           <label class="field-name" for="title">Title</label>
-          <input type="text" name="title" formControlName="title" maxlength="100" />
+          <input type="text" name="title" formControlName="title" maxlength="100">
           <div class="error-message-area">
             <div *ngIf="f.title.touched && f.title.invalid">
               <small>Song title is required</small>
@@ -75,7 +75,7 @@
       <div class="form-row">
         <div class="form-field three-quarters-width">
           <label class="field-name" for="album">Album</label>
-          <input type="text" name="album" formControlName="album" maxlength="100" />
+          <input type="text" name="album" formControlName="album" maxlength="100">
           <div class="error-message-area">
             <div *ngIf="f.album.touched && f.album.invalid">
               <small>Album is required</small>
@@ -87,7 +87,7 @@
             <span class="full-text">Album Year</span>
             <span class="short-text">Year</span>
           </label>
-          <input type="text" name="albumYear" formControlName="albumYear" maxlength="4" />
+          <input type="text" name="albumYear" formControlName="albumYear" maxlength="4">
           <div class="error-message-area">
             <div *ngIf="f.albumYear.touched && f.albumYear.invalid">
               <small>Invalid year</small>
@@ -99,25 +99,25 @@
       <div class="form-row form-field full-width">
         <label class="field-name" for="albumCoverLink">Link to Album Cover Image</label>
         <input type="text" name="albumCoverLink" formControlName="albumCoverLink"
-          maxlength="200" />
+          maxlength="200">
       </div>
 
       <div class="form-row form-field full-width">
         <label class="field-name" for="songwriters">Songwriter(s)</label>
         <input type="text" name="songwriters" formControlName="songwriters"
-          maxlength="200" />
+          maxlength="200">
       </div>
 
       <div class="form-row form-field full-width">
         <label class="field-name" for="producers">Producer(s)</label>
         <input type="text" name="producers" formControlName="producers"
-          maxlength="200" />
+          maxlength="200">
       </div>
 
       <div class="form-row form-field full-width">
         <label class="field-name" for="publishers">Publisher(s)</label>
         <input type="text" name="publishers" formControlName="publishers"
-          maxlength="200" />
+          maxlength="200">
       </div>
     </fieldset>
 
@@ -132,7 +132,7 @@
             <span class="short-text">Key</span>
           </label>
           <input type="text" name="primaryKey" formControlName="primaryKey"
-            maxlength="8" />
+            maxlength="8">
           <div class="error-message-area">
             <div *ngIf="f.primaryKey.touched && f.primaryKey.invalid">
               <small *ngIf="f.primaryKey.errors?.required">Key is required</small>
@@ -146,7 +146,7 @@
             <span class="short-text">Time Sig.</span>
           </label>
           <input type="text" name="primaryTimeSig" formControlName="primaryTimeSig"
-            maxlength="5" />
+            maxlength="5">
           <div class="error-message-area">
             <div *ngIf="f.primaryTimeSig.touched && f.primaryTimeSig.invalid">
               <small *ngIf="f.primaryTimeSig.errors?.required">
@@ -166,7 +166,7 @@
             <span class="short-text">Duration</span>
           </label>
           <input type="text" name="songDuration" formControlName="songDuration"
-            maxlength="5" />
+            maxlength="5">
           <div class="error-message-area">
             <div *ngIf="f.songDuration.touched && f.songDuration.invalid">
               <small *ngIf="f.songDuration.errors?.required">
@@ -196,7 +196,7 @@
             <span class="short-text">T.M.</span>
           </label>
             <input type="text" name="timeMarker" formControlName="timeMarker"
-              maxlength="8" [ngModel]="song.nodes[i].timeMarker" />
+              maxlength="8" [ngModel]="song.nodes[i].timeMarker">
             <div class="error-message-area">
               <div *ngIf="timeMarker(i).touched && timeMarker(i).invalid">
                 <small *ngIf="timeMarker(i).errors?.required">Required</small>
@@ -208,7 +208,7 @@
           <div class="form-field node-field-width">
             <label class="field-name" for="bpm">BPM</label>
             <input type="text" name="bpm" formControlName="bpm"
-              maxlength="3" [ngModel]="song.nodes[i].bpm" />
+              maxlength="3" [ngModel]="song.nodes[i].bpm">
             <div class="error-message-area">
               <div *ngIf="bpm(i).touched && bpm(i).invalid">
                 <small>Invalid</small>
@@ -219,7 +219,7 @@
           <div class="form-field node-field-width">
             <label class="field-name" for="chord">Chord</label>
             <input type="text" name="chord" formControlName="chord"
-              maxlength="10" [ngModel]="song.nodes[i].chord" />
+              maxlength="10" [ngModel]="song.nodes[i].chord">
             <div class="error-message-area">
               <div *ngIf="chord(i).touched && chord(i).invalid">
                 <small>Invalid</small>
@@ -230,7 +230,7 @@
           <div class="form-field node-field-width">
             <label class="field-name" for="lyric">Lyric</label>
             <input type="text" name="lyric" formControlName="lyric"
-              maxlength="12" [ngModel]="song.nodes[i].lyric" />
+              maxlength="12" [ngModel]="song.nodes[i].lyric">
             <div class="error-message-area">
               <!-- placeholder for now to level out layout -->
             </div>
@@ -239,7 +239,7 @@
           <div class="form-field node-field-width">
             <label class="field-name" for="label">Label</label>
             <input type="text" name="label" formControlName="label"
-              maxlength="10" [ngModel]="song.nodes[i].label" />
+              maxlength="10" [ngModel]="song.nodes[i].label">
             <div class="error-message-area">
               <div *ngIf="label(i).touched && label(i).invalid">
                 <small>Invalid</small>

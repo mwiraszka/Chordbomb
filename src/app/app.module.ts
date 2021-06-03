@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { CoreModule } from '@app/core/core.module';
-import { LoginModule } from '@app/components/login/login.module';
-import { SongSearchModule } from '@app/components/song-search/song-search.module';
+import { LoginModule } from '@login/login.module';
+import { SongSearchModule } from '@dashboard/dashboard.module';
 
 @NgModule({
   declarations: [

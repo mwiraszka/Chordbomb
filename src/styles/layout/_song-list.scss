@@ -1,5 +1,3 @@
-@import 'abstracts/variables';
-
 section#song-list {
   padding: 1em;
 }
@@ -8,11 +6,11 @@ section#song-list {
   // temp: matching song-edit component min and max widths
   min-width: 300px;
   max-width: 700px;
-}
 
-h2 {
-  text-align: center;
-  padding-bottom: 0.5em;
+  h2 {
+    text-align: center;
+    padding-bottom: 0.5em;
+  }
 }
 
 table#songs {

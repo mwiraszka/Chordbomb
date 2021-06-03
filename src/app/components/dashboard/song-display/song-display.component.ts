@@ -7,8 +7,7 @@ import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-song-display',
-  templateUrl: './song-display.component.html',
-  styleUrls: ['./song-display.component.scss']
+  templateUrl: './song-display.component.html'
 })
 export class SongDisplayComponent implements OnDestroy {
 
@@ -16,7 +15,7 @@ export class SongDisplayComponent implements OnDestroy {
   fontSizeSub!: Subscription;
   chordTypeSub!: Subscription;
 
-  song!: Song;
+  song!: Song | null;
   fontSize!: string;
   chordType!: string;
 

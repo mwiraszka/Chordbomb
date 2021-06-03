@@ -1,5 +1,3 @@
-@import 'abstracts/variables';
-
 mat-sidenav-container {
   height: 100%;
 }
@@ -17,6 +15,10 @@ mat-sidenav {
       display: flex;
       align-items: center;
       justify-content: center;
+
+      h3 {
+        padding-left: 0.3em;
+      }
     }
 
     div#settings-container {
@@ -105,10 +107,6 @@ mat-sidenav-content {
   }
 }
 
-h3 {
-  padding-left: 0.3em;
-}
-
-hr {
+hr#settings-header-divider {
   width: 85%;
 }

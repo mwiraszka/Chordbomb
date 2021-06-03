@@ -5,8 +5,10 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   selector: 'app-footer',
   template: `
     <footer>
-      <small id="copyright"> &copy; 2021 Copyright: Michal Wiraszka </small>
-      <small id="version">
+      <small id="copyright" class="footer">
+        &copy; 2021 Copyright: Michal Wiraszka
+      </small>
+      <small id="version" class="footer">
         Currently in development (version 0.5.0)
       </small>
       <address id="github-repo" class="bigger">
@@ -16,8 +18,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
         </a>
       </address>
     </footer>
-  `,
-  styleUrls: ['./footer.component.scss']
+  `
 })
 export class FooterComponent {
   faGithub = faGithub;

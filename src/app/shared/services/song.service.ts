@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { Song } from '@app/shared/models/song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
   private readonly _songToEdit$: BehaviorSubject<Song>;
-  private readonly _songToDisplay$: BehaviorSubject<Song>;
+  private readonly _songToDisplay$: BehaviorSubject<Song | null>;
   private readonly _isSongToDisplay$: BehaviorSubject<boolean>;
 
   editMode: boolean;
@@ -41,15 +40,15 @@ export class SongService {
    * Pass private behavior subject through this public getter as an observable to ensure
    * writing privileges remain private to the service
    */
-  get songToDisplay(): Observable<Song> {
+  get songToDisplay(): Observable<Song | null> {
     return this._songToDisplay$.asObservable();
   }
 
   changeSongToDisplay(id: string) {
     this.firestore.collection('songs').doc(id)
       .valueChanges()
-      .subscribe((songData: Song) => {
-        this._songToDisplay$.next(songData);
+      .subscribe((songData) => {
+        this._songToDisplay$.next(<Song>songData);
         this.setSongToDisplay(true);
     });
   }

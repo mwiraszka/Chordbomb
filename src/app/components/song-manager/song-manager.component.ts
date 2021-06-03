@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
       <app-song-edit></app-song-edit>
       <app-song-list></app-song-list>
     </section>
-  `,
-  styleUrls: ['./song-manager.component.scss']
+  `
 })
 export class SongManagerComponent {}
