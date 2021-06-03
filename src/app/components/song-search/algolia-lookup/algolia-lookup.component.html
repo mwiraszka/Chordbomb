@@ -13,30 +13,27 @@
       <ais-hits>
         <ng-template let-hits="hits">
           <ol class="ais-Hits-list">
-            <li *ngFor="let hit of hits" class="ais-Hits-item">
+            <li *ngFor="let hit of hits" class="ais-Hits-item" (click)="onSelect(hit.objectID)">
               <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" />
               <div id="hit-details">
                 <div id="artist-and-title">
-                  <ais-highlight tagName="mark" attribute="artists" [hit]="hit"></ais-highlight> -
-                  <ais-highlight tagName="mark" attribute="title" [hit]="hit"></ais-highlight>
+                  <ais-highlight tagName="mark" attribute="artists" [hit]="hit">
+                  </ais-highlight> -
+                  <ais-highlight tagName="mark" attribute="title" [hit]="hit">
+                  </ais-highlight>
                 </div>
                 <div id="songwriters-and-producers">
                   <label>Songwriters: </label>
-                  <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight><br>
+                  <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight>
                   <hr class="small-spacer" />
                   <label>Producers: </label>
-                  <ais-highlight attribute="producers" [hit]="hit"></ais-highlight><br>
+                  <ais-highlight attribute="producers" [hit]="hit"></ais-highlight>
                 </div>
               </div>
             </li>
           </ol>
         </ng-template>
       </ais-hits>
-      <div class="temp" style="border: 1px solid orangered; margin-top: 20px; padding: 5px; width: 100%;">
-        <b>Heads up...</b><br>
-        Chordbomb's search feature is still a work in progress!<br>
-        Selecting a song doesn't take you anywhere just yet.
-      </div>
     </div>
   </ais-instantsearch>
 </div>

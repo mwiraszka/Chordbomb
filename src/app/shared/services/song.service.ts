@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Song } from '@app/shared/models/song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
   private readonly _songToEdit$: BehaviorSubject<Song>;
+  private readonly _songToDisplay$: BehaviorSubject<Song>;
+  private readonly _isSongToDisplay$: BehaviorSubject<boolean>;
+
   editMode: boolean;
 
   constructor(private firestore: AngularFirestore) {
     // Initialize song to be edited with default values declared in song.model class
-    this._songToEdit$ = new BehaviorSubject<Song>(new Song());
     this.editMode = false;
+    this._songToEdit$ = new BehaviorSubject<Song>(new Song());
+    this._songToDisplay$ = new BehaviorSubject<Song | null>(null);
+    this._isSongToDisplay$ = new BehaviorSubject<boolean>(false);
   }
 
-  // In-app state: the song the user selected in song list
+  /*
+   * App State for Editing
+   * (used to pass values between Song List & Song Edit components):
+   * Pass private behavior subject through this public getter as an observable to ensure
+   * writing privileges remain private to the service
+   */
   get songToEdit(): Observable<Song> {
     return this._songToEdit$.asObservable();
   }
@@ -24,14 +35,53 @@ export class SongService {
     this._songToEdit$.next(song);
   }
 
-  // Database state: CRUD for the songs stored in Firestore
-  getSongs() {
-    return this.firestore.collection('songs').snapshotChanges();
+  /*
+   * App State for Displaying
+   * (used to pass values between Song Search & Song Display components):
+   * Pass private behavior subject through this public getter as an observable to ensure
+   * writing privileges remain private to the service
+   */
+  get songToDisplay(): Observable<Song> {
+    return this._songToDisplay$.asObservable();
   }
 
-  async addSong(newSong: Song) {
+  changeSongToDisplay(id: string) {
+    this.firestore.collection('songs').doc(id)
+      .valueChanges()
+      .subscribe((songData: Song) => {
+        this._songToDisplay$.next(songData);
+        this.setSongToDisplay(true);
+    });
+  }
+
+  get isSongToDisplay(): Observable<boolean> {
+    return this._isSongToDisplay$.asObservable();
+  }
+
+  setSongToDisplay(value: boolean) {
+    this._isSongToDisplay$.next(value);
+  }
+
+  /*
+   * Firestore CRUD operations:
+   * Create - addSong()
+   * Read - getSongById(), getSongs()
+   * Update - updateSong()
+   * Delete - not available through this app to prevent accidental deletion
+   */
+
+  async addSong(newSong: Song): Promise<void> {
     const { id } = await this.firestore.collection('songs').add(newSong);
+    // Wait until Firebase generates a new ID for the song, and store it as a parameter
     this.firestore.collection('songs').doc(id).update({ id: id });
+  }
+
+  getSongById(id: string): Observable<Song> {
+    return this.firestore.doc(`songs/${id}`).valueChanges() as Observable<Song>;
+  }
+
+  getSongs() {
+    return this.firestore.collection('songs').snapshotChanges();
   }
 
   updateSong(id: string, editedSong: Song): void {

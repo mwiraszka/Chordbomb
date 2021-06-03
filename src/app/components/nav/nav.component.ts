@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { faUserCog } from '@fortawesome/free-solid-svg-icons';
+import { faUserCog, faCog } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+
+import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,8 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 export class NavComponent {
   menuOpen = false;
   userCog = faUserCog;
+  faCog = faCog;
 
-  constructor(public auth: AngularFireAuth, private toastr: ToastrService) {}
+  constructor(
+    public auth: AngularFireAuth,
+    private songService: SongService,
+    private toastr: ToastrService
+  ) {}
 
   closeDropdownMenu() {
     this.menuOpen = false;
@@ -22,6 +29,19 @@ export class NavComponent {
     this.menuOpen = !this.menuOpen;
     let topNav = document.getElementById('app-nav');
     this.menuOpen ? topNav?.classList.add('open') : topNav?.classList.remove('open');
+  }
+
+  onSongSearch() {
+    this.closeDropdownMenu();
+    this.songService.setSongToDisplay(false);
+  }
+
+  onSongManager() {
+    this.closeDropdownMenu();
+  }
+
+  onAdminLogin() {
+    this.closeDropdownMenu();
   }
 
   onLogout() {

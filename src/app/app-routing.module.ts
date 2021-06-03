@@ -3,12 +3,12 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from '@app/components/login/login.component';
-import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { SongSearchComponent } from '@app/components/song-search/song-search.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: SongSearchComponent,
     pathMatch: 'full'
   },
   {

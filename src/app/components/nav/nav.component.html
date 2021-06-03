@@ -7,13 +7,15 @@
 
   <ul id="app-nav-items">
     <li class="nav-item">
-      <a class="nav-link top-in-dropdown" routerLink="/" routerLinkActive="link-active"
-        (click)="closeDropdownMenu()" [routerLinkActiveOptions]="{ exact: true }">Song Search</a>
+      <a class="nav-link" routerLink="/" routerLinkActive="link-active"
+        (click)="onSongSearch()" [routerLinkActiveOptions]="{ exact: true }">
+        Song Search
+      </a>
     </li>
 
     <li class="nav-item" *ngIf="auth.user | async">
       <a class="nav-link" routerLink="/edit" routerLinkActive="link-active"
-        (click)="closeDropdownMenu()">Song Manager</a>
+        (click)="onSongManager()">Song Manager</a>
     </li>
 
     <li class="nav-item">
@@ -25,9 +27,16 @@
         </p>
       </span>
       <ng-template #loggedOut>
-        <a class="nav-link" (click)="closeDropdownMenu()" routerLink="/login"
+        <a class="nav-link" (click)="onAdminLogin()" routerLink="/login"
           routerLinkActive="link-active">Admin Login</a>
       </ng-template>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link">
+        <fa-icon [icon]="faCog" class="fa-lg"></fa-icon>
+        Settings (temp)
+      </a>
     </li>
   </ul>
 </nav>
