@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Song } from '@app/shared/models/song.model';
 import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-song-display',
@@ -16,18 +17,31 @@ export class SongDisplayComponent implements OnDestroy {
   chordTypeSub!: Subscription;
 
   song!: Song | null;
-  fontSize!: string;
+  fontSize!: number;
   chordType!: string;
 
   constructor(
     private songService: SongService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private toastr: ToastrService
   ) {
     this.songToDisplaySub = this.songService.songToDisplay.subscribe((song) => {
       this.song = song;
     });
     this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {
-      this.fontSize = fontSize;
+      switch(fontSize) {
+        case ('regular'):
+          this.fontSize = 12;
+          break;
+        case ('large'):
+          this.fontSize = 20;
+          break;
+        default:
+          this.fontSize = 12;
+          this.toastr.warning('Could not load preferred font size', 'Oops!', {
+            positionClass: 'toast-bottom-right'
+          });
+      }
     });
     this.chordTypeSub = this.settingsService.chordType.subscribe((chordType) => {
       this.chordType = chordType;
@@ -44,5 +58,4 @@ export class SongDisplayComponent implements OnDestroy {
   onNewSong() {
     this.songService.setSongDisplay(false);
   }
-
 }

@@ -1,20 +1,19 @@
-<div id="song-display-container" style="display: flex; align-items: center; text-align: center; justify-content: center;">
+<div id="song-display-container">
   <button class="primary large" (click)="onNewSong()">New Song</button>
   <div *ngIf="song!==null && song.nodes" style="margin-top: 2em">
     <div>
       {{ song.artists }} - {{ song.title }}
     </div>
-    <div *ngFor="let node of song.nodes; let i = index" style="display:inline">
-      <span *ngIf="node.lyric.slice(-1)[0]==='-'; else noDash" style="border:1px solid orange;">
+    <div *ngFor="let node of song.nodes; let i = index" style="display:inline-block">
+      <span id="dash" *ngIf="node.lyric.slice(-1)[0]==='-'; else noDash">
         {{ node.lyric.slice(0, -1) }}
       </span>
       <ng-template #noDash>
-        <span *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]==='-'; else notAfterDash" style="border:1px solid blue;">
-          <!-- {{ node.lyric.slice(3) }} -->
-          x
+        <span id="after-dash" *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]==='-'; else notAfterDash">
+          {{ node.lyric.slice(1) }}
         </span>
         <ng-template #notAfterDash>
-          <span style="border:1px solid red;">
+          <span id="default">
           {{ node.lyric }}
           </span>
         </ng-template>
