@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-song-manager',
@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
     </section>
   `
 })
-export class SongManagerComponent {}
+export class SongManagerComponent implements OnInit {
+  ngOnInit() {
+    document.getElementById('nav-settings-btn')?.classList.add('hide');
+  }
+}

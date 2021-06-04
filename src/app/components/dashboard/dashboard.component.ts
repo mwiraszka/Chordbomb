@@ -1,62 +1,64 @@
-import { Component } from '@angular/core';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
+import { SettingsService } from '@app/shared/services/settings.service';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  template: `
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav [opened]="isSidenavOpen">
+        <app-sidenav></app-sidenav>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <main id="main-content">
+          <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
+          <app-song-display *ngIf="isSongToDisplay"></app-song-display>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  `
 })
-export class DashboardComponent {
-  faCog = faCog;
-
-  fontSizes: string[] = ['regular', 'large'];
-  chordTypes: string[] = ['full', 'basic', 'none'];
-
-  fontSizeSub!: Subscription;
-  chordTypeSub!: Subscription;
+export class DashboardComponent implements OnInit, OnDestroy {
+  /*
+   * Subscription to isSongToDisplay, with boolean values emitted from song service
+   * whenever a song has been selected, reflecting change in isSongToDisplay local
+   * variable, which in turn displays either the search or display component using the
+   * ngIf directive in the template
+   */
   isSongToDisplaySub!: Subscription;
-  fontSize!: string;
-  chordType!: string;
   isSongToDisplay!: boolean;
+
+  /*
+   * Subscription to the subject in the settings service reflecting a click event on
+   * 'Settings' in top nav bar; initialize local variable isSidenavOpen as false so that
+   * every time a new dashboard instance is created (and no value has yet been emitted by
+   * the subject), the sidenav remains closed by default while waiting for the first event
+   * emission
+   */
+  sidenavToggleSub!: Subscription;
+  isSidenavOpen = false;
 
   constructor(
     private songService: SongService,
-    private settingsService: SettingsService,
-    private toastr: ToastrService
+    private settingsService: SettingsService
   ) {
     this.isSongToDisplaySub = this.songService.isSongToDisplay.subscribe((value) => {
       this.isSongToDisplay = value;
     });
-    this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {
-      this.fontSize = fontSize;
-    });
-    this.chordTypeSub = this.settingsService.chordType.subscribe((chordType) => {
-      this.chordType = chordType;
-    });
- }
-
- /* Unsubscribe on leaving component to avoid memory leaks */
-  ngOnDestroy() {
-    this.fontSizeSub.unsubscribe();
-    this.chordTypeSub.unsubscribe();
+    this.sidenavToggleSub = this.settingsService.sidenavStatus.subscribe(() => {
+      this.isSidenavOpen = !this.isSidenavOpen;
+    })
   }
 
-  onSettingChange($event: any): void {
-    switch($event.source.name) {
-      case('fontSize'):
-        this.settingsService.changeFontSize($event.value);
-        break;
-      case('chordType'):
-        this.settingsService.changeChordType($event.value);
-        break;
-      default:
-        this.toastr.error('Error changing settings', 'Oops!',
-          { positionClass: 'toast-bottom-right' }
-        );
-    }
+  ngOnInit() {
+    document.getElementById('nav-settings-btn')?.classList.remove('hide');
+  }
+
+  /* Unsubscribe on destroying component to avoid memory leaks */
+  ngOnDestroy() {
+    this.isSongToDisplaySub.unsubscribe();
+    this.sidenavToggleSub.unsubscribe();
   }
 }

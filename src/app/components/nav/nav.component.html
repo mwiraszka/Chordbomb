@@ -6,6 +6,7 @@
   </button>
 
   <ul id="app-nav-items">
+
     <li class="nav-item">
       <a class="nav-link" routerLink="/" routerLinkActive="link-active"
         (click)="onSongSearch()" [routerLinkActiveOptions]="{ exact: true }">
@@ -15,12 +16,16 @@
 
     <li class="nav-item" *ngIf="auth.user | async">
       <a class="nav-link" routerLink="/edit" routerLinkActive="link-active"
-        (click)="onSongManager()">Song Manager</a>
+        (click)="onSongManager()">
+        Song Manager
+      </a>
     </li>
 
     <li class="nav-item">
       <span *ngIf="auth.user | async as user; else loggedOut">
-        <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
+        <a class="nav-link" routerLink="/" (click)="onLogout()">
+          Log Out
+        </a>
         <p id="user-info">
           <fa-icon [icon]="userCog"></fa-icon> Logged in<br>
           <small id="email">{{ user.email }}</small>
@@ -28,15 +33,18 @@
       </span>
       <ng-template #loggedOut>
         <a class="nav-link" (click)="onAdminLogin()" routerLink="/login"
-          routerLinkActive="link-active">Admin Login</a>
+          routerLinkActive="link-active">
+          Admin Login
+        </a>
       </ng-template>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link">
-        <fa-icon [icon]="faCog" class="fa-lg"></fa-icon>
-        Settings (temp)
+      <a id="nav-settings-btn" class="hide" (click)="onSettings()">
+        <fa-icon [icon]="faCog" class="fa-md"></fa-icon>
+        Settings
       </a>
     </li>
+
   </ul>
 </nav>

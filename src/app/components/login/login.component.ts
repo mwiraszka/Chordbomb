@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     });
+    document.getElementById('nav-settings-btn')?.classList.add('hide');
   }
 
   onLogin() {

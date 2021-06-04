@@ -19,7 +19,6 @@ ul#app-nav-items {
   align-items: center;
   justify-content: center;
   width: 100%;
-
 }
 
 li.nav-item {
@@ -29,18 +28,20 @@ li.nav-item {
     align-items: center;
   }
 
-  /* Push user login info to right side of navbar */
+  /* Push settings button to right side of navbar */
   &:last-of-type {
     margin-left: auto;
   }
 }
 
-a.nav-link {
+a.nav-link, a#nav-settings-btn:not(.hide) {
   display: block;
   position: relative;
   margin: 0 $nav-item-spacing;
   color: $cb-white;
+}
 
+a.nav-link {
   /* Brighten and add glow behind text when link is active */
   &.link-active {
     cursor: default;
@@ -54,6 +55,18 @@ a.nav-link {
   }
 }
 
+a#nav-settings-btn {
+  cursor: pointer;
+
+  /*
+   * Hide button when dashboard not currently open, as that's the only place the settings
+   * are currently available; this class is added or removed in components' ngOnInit
+   * lifecycle methods
+   */
+  &.hide {
+    display: none;
+  }
+}
 
 /*
  * Define user-info paragraph style but only display on viewports larger than 'small'
@@ -74,7 +87,7 @@ p#user-info {
   /*
    * Re-apply margin spacing between 'Log out' nav-item and this user info since it was
    * removed when margin-left:auto was applied to force item to the right
-  */
+   */
   margin-left: ($nav-item-spacing * 2);
 
   small#email {
@@ -82,7 +95,6 @@ p#user-info {
     font-size: $font-s;
   }
 }
-
 
 /*
  * Styles for only when navigation is opened via burger menu button
@@ -94,9 +106,9 @@ p#user-info {
     padding-right: 0;
 
     /*
-    * Display user login info, even if viewport is smaller than 'small', since an open
-    * navbar allows for more space
-    */
+     * Display user login info, even if viewport is smaller than 'small', since an open
+     * navbar allows for more space
+     */
     p#user-info {
       display: block;
     }
@@ -114,7 +126,7 @@ p#user-info {
       }
     }
 
-    a.nav-link {
+    a.nav-link, a#nav-settings-btn:not(.hide) {
       display: block;
       padding: $nav-item-spacing 0;
 
@@ -122,11 +134,14 @@ p#user-info {
         color: #fff;
         background: darken($color: $cb-accent, $amount: 8%);
       }
+    }
 
-      /* Display pointer despite link already being active (feels awkward otherwise) */
-      &.link-active {
-        cursor: pointer;
-      }
+    /*
+     * Change cursor to pointer despite link already being active (feels unintuitive
+     * otherwise)
+     */
+    a.nav-link.link-active {
+      cursor: pointer;
     }
   }
 }
@@ -137,9 +152,9 @@ p#user-info {
  * add remainder of links to navbar and change events to animated underline effect
  */
 @include respond-to('medium') {
-  a.nav-link {
+  a.nav-link, a#nav-settings-btn {
     /* Un-hide all non-active links now that there's room in navbar */
-    &:not(.link-active) {
+    &:not(.link-active), &:not(.hide) {
       display: block;
     }
 
