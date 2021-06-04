@@ -40,4 +40,9 @@ export class SongDisplayComponent implements OnDestroy {
     this.fontSizeSub.unsubscribe();
     this.chordTypeSub.unsubscribe();
   }
+
+  onNewSong() {
+    this.songService.setSongDisplay(false);
+  }
+
 }

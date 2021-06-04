@@ -47,6 +47,15 @@ a.nav-link {
     cursor: default;
     color: #fff;
     text-shadow: 0px 0px 1px $cb-white;
+
+    /*
+     * User can return to 'Song Search' component from 'Song Display', so turn cursor to
+     * a pointer to reflect that, despite this being an active link and with technically
+     * no routing change occurring
+     */
+    &.displaying-song {
+      cursor: pointer;
+    }
   }
 
   /* Hide all nav items except the one with the currently active link */
@@ -55,25 +64,27 @@ a.nav-link {
   }
 }
 
+/*
+ * Settings are always clickable (so keep pointer) but hide button when Dashboard
+ * component is not currently open as that's the only place the settings are available;
+ * this class is added or removed in components' ngOnInit lifecycle methods
+ */
 a#nav-settings-btn {
   cursor: pointer;
 
-  /*
-   * Hide button when dashboard not currently open, as that's the only place the settings
-   * are currently available; this class is added or removed in components' ngOnInit
-   * lifecycle methods
-   */
   &.hide {
-    display: none;
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
   }
 }
 
 /*
- * Define user-info paragraph style but only display on viewports larger than 'small'
+ * Define user-info paragraph style but only display on viewports larger than 'medium'
  */
 p#user-info {
   display: none;
-  @include respond-to('small') {
+  @include respond-to('medium') {
     display: block;
   }
 

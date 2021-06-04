@@ -8,7 +8,7 @@ import { Song } from '@app/shared/models/song.model';
 export class SongService {
   private readonly _songToEdit$: BehaviorSubject<Song>;
   private readonly _songToDisplay$: BehaviorSubject<Song | null>;
-  private readonly _isSongToDisplay$: BehaviorSubject<boolean>;
+  private readonly _isSongDisplay$: BehaviorSubject<boolean>;
 
   editMode: boolean;
 
@@ -17,7 +17,7 @@ export class SongService {
     this.editMode = false;
     this._songToEdit$ = new BehaviorSubject<Song>(new Song());
     this._songToDisplay$ = new BehaviorSubject<Song | null>(null);
-    this._isSongToDisplay$ = new BehaviorSubject<boolean>(false);
+    this._isSongDisplay$ = new BehaviorSubject<boolean>(false);
   }
 
   /*
@@ -49,16 +49,16 @@ export class SongService {
       .valueChanges()
       .subscribe((songData) => {
         this._songToDisplay$.next(<Song>songData);
-        this.setSongToDisplay(true);
+        this.setSongDisplay(true);
     });
   }
 
-  get isSongToDisplay(): Observable<boolean> {
-    return this._isSongToDisplay$.asObservable();
+  get isSongDisplay(): Observable<boolean> {
+    return this._isSongDisplay$.asObservable();
   }
 
-  setSongToDisplay(value: boolean) {
-    this._isSongToDisplay$.next(value);
+  setSongDisplay(value: boolean) {
+    this._isSongDisplay$.next(value);
   }
 
   /*

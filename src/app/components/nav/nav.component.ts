@@ -42,7 +42,7 @@ export class NavComponent {
   onSongSearch() {
     this.menuOpen = false;
     document.getElementById('app-nav')?.classList.remove('open');
-    this.songService.setSongToDisplay(false);
+    this.songService.setSongDisplay(false);
   }
 
   /*
@@ -76,7 +76,7 @@ export class NavComponent {
 
   /*
    * When 'Settings' is clicked, have the Settings Service emit a new value (empty object)
-   * through its Subject, which is observed by the Dashboard component, toggling sidenav
+   * through its Subject, which is observed by the Dashboard component, opening sidenav
    */
   onSettings() {
     this.settingsService.toggleSidenav();

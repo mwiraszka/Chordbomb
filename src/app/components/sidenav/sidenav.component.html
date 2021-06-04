@@ -1,37 +1,29 @@
-<div id="inner-sidenav-container">
-  <header id="settings-header">
-    <fa-icon [icon]="faCog" class="fa-2x"></fa-icon>
-    <h3>Settings</h3>
-  </header>
-  <hr id="settings-header-divider">
+<div id="sidenav-content">
+  <mat-radio-group
+    name="fontSize"
+    class="setting"
+    aria-labelledby="font-size"
+    [(ngModel)]="fontSize"
+    (change)="onSettingChange($event)">
+    <legend class="setting" id="font-size">
+      Font Size:
+    </legend>
+    <mat-radio-button class="option" *ngFor="let size of fontSizes" [value]="size">
+      {{ size }}
+    </mat-radio-button>
+  </mat-radio-group>
 
-  <div id="settings-container">
-    <mat-radio-group
-      name="fontSize"
-      class="setting"
-      aria-labelledby="font-size"
-      [(ngModel)]="fontSize"
-      (change)="onSettingChange($event)">
-      <legend class="setting" id="font-size">
-        Font Size:
-      </legend>
-      <mat-radio-button class="option" *ngFor="let size of fontSizes" [value]="size">
-        {{ size }}
-      </mat-radio-button>
-    </mat-radio-group>
-
-    <mat-radio-group
-      name="chordType"
-      class="setting"
-      aria-labelledby="chord-type"
-      [(ngModel)]="chordType"
-      (change)="onSettingChange($event)">
-      <legend class="setting" id="chord-type">
-        Chord Type:
-      </legend>
-      <mat-radio-button class="option" *ngFor="let type of chordTypes" [value]="type">
-        {{ type }}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
+  <mat-radio-group
+    name="chordType"
+    class="setting"
+    aria-labelledby="chord-type"
+    [(ngModel)]="chordType"
+    (change)="onSettingChange($event)">
+    <legend class="setting" id="chord-type">
+      Chord Type:
+    </legend>
+    <mat-radio-button class="option" *ngFor="let type of chordTypes" [value]="type">
+      {{ type }}
+    </mat-radio-button>
+  </mat-radio-group>
 </div>

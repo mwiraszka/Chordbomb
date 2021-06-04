@@ -8,8 +8,13 @@
   <ul id="app-nav-items">
 
     <li class="nav-item">
-      <a class="nav-link" routerLink="/" routerLinkActive="link-active"
-        (click)="onSongSearch()" [routerLinkActiveOptions]="{ exact: true }">
+      <a
+        id="song-search-nav-link"
+        class="nav-link displaying-song"
+        routerLink="/"
+        routerLinkActive="link-active"
+        (click)="onSongSearch()"
+        [routerLinkActiveOptions]="{ exact: true }">
         Song Search
       </a>
     </li>

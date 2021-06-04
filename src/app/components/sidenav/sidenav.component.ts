@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 import { SettingsService } from '@app/shared/services/settings.service';
-import { SongService } from '@app/shared/services/song.service';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html'
 })
 export class SidenavComponent {
-  faCog = faCog;
-
   fontSizes: string[] = ['regular', 'large'];
   chordTypes: string[] = ['full', 'basic', 'none'];
 

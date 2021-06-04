@@ -7,16 +7,12 @@ import { SettingsService } from '@app/shared/services/settings.service';
 @Component({
   selector: 'app-dashboard',
   template: `
-    <mat-sidenav-container>
-      <mat-sidenav #sidenav [opened]="isSidenavOpen">
+    <mat-sidenav-container id="dashboard-container">
+      <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
+      <app-song-display *ngIf="isSongToDisplay"></app-song-display>
+      <mat-sidenav #sidenav mode="side" position="end" [opened]="openSidenav">
         <app-sidenav></app-sidenav>
       </mat-sidenav>
-      <mat-sidenav-content>
-        <main id="main-content">
-          <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
-          <app-song-display *ngIf="isSongToDisplay"></app-song-display>
-        </main>
-      </mat-sidenav-content>
     </mat-sidenav-container>
   `
 })
@@ -31,24 +27,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isSongToDisplay!: boolean;
 
   /*
-   * Subscription to the subject in the settings service reflecting a click event on
-   * 'Settings' in top nav bar; initialize local variable isSidenavOpen as false so that
-   * every time a new dashboard instance is created (and no value has yet been emitted by
-   * the subject), the sidenav remains closed by default while waiting for the first event
-   * emission
+   * Subscription to the behavior subject in Settings Service reflecting a click event on
+   * top nav bar 'Settings' button
    */
-  sidenavToggleSub!: Subscription;
-  isSidenavOpen = false;
+  openSidenavSub!: Subscription;
+  openSidenav!: boolean;
 
   constructor(
     private songService: SongService,
     private settingsService: SettingsService
   ) {
-    this.isSongToDisplaySub = this.songService.isSongToDisplay.subscribe((value) => {
+    this.isSongToDisplaySub = this.songService.isSongDisplay.subscribe((value) => {
+      /*
+       * Update local variable and reflect change in style of cursor in nav bar when
+       * hovering over Song Search
+       */
       this.isSongToDisplay = value;
+      const navLink = document.getElementById('song-search-nav-link');
+      this.isSongToDisplay ?
+        navLink?.classList.add('displaying-song') :
+        navLink?.classList.remove('displaying-song');
     });
-    this.sidenavToggleSub = this.settingsService.sidenavStatus.subscribe(() => {
-      this.isSidenavOpen = !this.isSidenavOpen;
+    this.openSidenavSub = this.settingsService.isSidenavOpen.subscribe((value) => {
+      this.openSidenav = value;
     })
   }
 
@@ -59,6 +60,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   /* Unsubscribe on destroying component to avoid memory leaks */
   ngOnDestroy() {
     this.isSongToDisplaySub.unsubscribe();
-    this.sidenavToggleSub.unsubscribe();
+    this.openSidenavSub.unsubscribe();
   }
 }

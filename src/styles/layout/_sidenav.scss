@@ -1,60 +1,41 @@
-mat-sidenav-container {
+#dashboard-container {
   height: 100%;
+  padding: 1em;
 }
 
-mat-sidenav {
-  padding-top: 0.2em; // keep 'Settings' buttons roughly at same height
-  min-width: 200px;
+#sidenav-content {
   font-size: $font-m;
+  padding: 0 2em;
 
-  div#inner-sidenav-container {
-    padding: 1em;
+  legend.setting {
+    margin: 1.5em 0 0.3em;
+    display: block;
+    font-weight: bold;
+  }
 
-    header#settings-header {
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  mat-radio-button.option {
+    display: table;
+    padding: 0.2em 0;
 
-      h3 {
-        padding-left: 0.3em;
-      }
+    &:hover {
+      color: $cb-primary;
+      font-weight: bold;
     }
 
-    div#settings-container {
-      padding-left: 1.5em;
+    // /* Hidden bold text ensures there's no layout shift when bold applied on hover */
+    // &::after {
+    //   content: attr(data-text);
+    //   content: attr(data-text) / '';
+    //   visibility: hidden;
+    //   overflow: hidden;
+    //   user-select: none;
+    //   pointer-events: none;
+    //   font-weight: bold;
 
-      legend.setting {
-        margin: 1.5em 0 0.3em;
-        display: block;
-        font-weight: bold;
-      }
-
-      mat-radio-button.option {
-        display: table;
-        padding: 0.2em 0;
-
-        &:hover {
-          color: $cb-primary;
-          font-weight: bold;
-        }
-
-        /* Hidden bold text ensures there's no layout shift when bold applied on hover */
-        &::after {
-          content: attr(data-text);
-          content: attr(data-text) / '';
-          visibility: hidden;
-          overflow: hidden;
-          user-select: none;
-          pointer-events: none;
-          font-weight: bold;
-
-          @media speech {
-            display: none;
-          }
-        }
-      }
-    }
+    //   @media speech {
+    //     display: none;
+    //   }
+    // }
   }
 }
 
@@ -65,48 +46,4 @@ mat-sidenav {
   left: calc(50% - 15px);
   top: calc(50% - 15px);
   border-radius: 50%; // include circular boundary to prevent clipping
-}
-
-mat-sidenav-content {
-  display: flex;
-  flex-flow: nowrap;
-  justify-content: space-between;
-  text-align: center;
-  padding: 1em;
-
-  main#main-content {
-    flex: 1;
-
-    div#input-container {
-      display: block;
-      margin: auto;
-      width: 300px;
-
-      input {
-        text-indent: 0.5em;
-        font-size: $font-xl;
-        width: 300px;
-      }
-    }
-
-    span#temp {
-      font-size: $font-m;
-      display: block;
-      color: $cb-black;
-      padding: 2em;
-
-      em {
-        font-weight: bold;
-        font-size: 110%;
-        font-style: normal;
-        color: $cb-black;
-        margin-left: 0.5em;
-        text-shadow: 0 0 2px $cb-accent;
-      }
-    }
-  }
-}
-
-hr#settings-header-divider {
-  width: 85%;
 }
