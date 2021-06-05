@@ -239,7 +239,7 @@
           <div class="form-field node-field-width">
             <label class="field-name" for="label">Label</label>
             <input type="text" name="label" formControlName="label"
-              maxlength="10" [ngModel]="song.nodes[i].label">
+              maxlength="12" [ngModel]="song.nodes[i].label">
             <div class="error-message-area">
               <div *ngIf="label(i).touched && label(i).invalid">
                 <small>Invalid</small>

@@ -8,13 +8,15 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 import { SidenavComponent } from '@app/components/sidenav/sidenav.component';
 import { SongDisplayComponent } from '@dashboard/song-display/song-display.component';
 import { SongSearchComponent } from '@dashboard/song-search/song-search.component';
+import { TransformChordPipe } from '@app/shared/pipes/transform-chord.pipe';
 
 @NgModule({
   declarations: [
     SongSearchComponent,
     SongDisplayComponent,
     DashboardComponent,
-    SidenavComponent
+    SidenavComponent,
+    TransformChordPipe
   ],
   imports: [
     CommonModule,

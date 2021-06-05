@@ -11,13 +11,12 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './song-display.component.html'
 })
 export class SongDisplayComponent implements OnDestroy {
-
-  songToDisplaySub!: Subscription;
+  songSub!: Subscription;
   fontSizeSub!: Subscription;
   chordTypeSub!: Subscription;
 
   song!: Song | null;
-  fontSize!: number;
+  largeFont!: boolean;
   chordType!: string;
 
   constructor(
@@ -25,37 +24,36 @@ export class SongDisplayComponent implements OnDestroy {
     private settingsService: SettingsService,
     private toastr: ToastrService
   ) {
-    this.songToDisplaySub = this.songService.songToDisplay.subscribe((song) => {
+    this.songSub = this.songService.songToDisplay.subscribe((song) => {
       this.song = song;
     });
+
     this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {
-      switch(fontSize) {
-        case ('regular'):
-          this.fontSize = 12;
-          break;
-        case ('large'):
-          this.fontSize = 20;
-          break;
-        default:
-          this.fontSize = 12;
-          this.toastr.warning('Could not load preferred font size', 'Oops!', {
-            positionClass: 'toast-bottom-right'
-          });
-      }
+      this.updateFontSize(fontSize);
     });
+
     this.chordTypeSub = this.settingsService.chordType.subscribe((chordType) => {
       this.chordType = chordType;
     });
   }
 
-  /* Unsubscribe on leaving component to avoid memory leaks */
+  /* Unsubscribe for all subs on destroying component to avoid memory leaks */
   ngOnDestroy() {
-    this.songToDisplaySub.unsubscribe();
+    this.songSub.unsubscribe();
     this.fontSizeSub.unsubscribe();
     this.chordTypeSub.unsubscribe();
   }
 
-  onNewSong() {
+  onNextSong() {
     this.songService.setSongDisplay(false);
+  }
+
+  updateFontSize(newFontSize: string): void {
+    this.largeFont = newFontSize==='large' ? true : false;
+    if (newFontSize !=='regular' && newFontSize !=='large') {
+      this.toastr.error('Could not load preferred font size', 'Oops!', {
+        positionClass: 'toast-bottom-right'
+      });
+    };
   }
 }

@@ -131,12 +131,14 @@ export class SongEditComponent implements OnDestroy {
         Validators.min(40),
         Validators.max(300)
       ]],
+      /* Valid pattern includes letters, sharps, flats included as a 'b', 5-7-9 (as
+      superscripts), dim, aug, sus2, sus4, M (major), slash (inversions) */
       chord: ['', [
         Validators.maxLength(10),
-        Validators.pattern(/^[abcdefgABCDEFG#5791imus\/]+$/)
-      ]], // letters, sharp, flat included as a 'b', superscripts, dim, aug, sus, slash
+        Validators.pattern(/^[abcdefgABCDEFG#5791iMmus24\/]*$/)
+      ]],
       lyric: ['', Validators.maxLength(12)],
-      label: ['', Validators.maxLength(10)]
+      label: ['', Validators.maxLength(12)]
     });
   }
 

@@ -1,23 +1,40 @@
 <div id="song-display-container">
-  <button class="primary large" (click)="onNewSong()">New Song</button>
-  <div *ngIf="song!==null && song.nodes" style="margin-top: 2em">
-    <div>
-      {{ song.artists }} - {{ song.title }}
-    </div>
-    <div *ngFor="let node of song.nodes; let i = index" style="display:inline-block">
-      <span id="dash" *ngIf="node.lyric.slice(-1)[0]==='-'; else noDash">
-        {{ node.lyric.slice(0, -1) }}
-      </span>
-      <ng-template #noDash>
-        <span id="after-dash" *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]==='-'; else notAfterDash">
-          {{ node.lyric.slice(1) }}
-        </span>
-        <ng-template #notAfterDash>
-          <span id="default">
-          {{ node.lyric }}
+  <button
+    id="new-song-btn"
+    class="primary large"
+    (click)="onNextSong()">
+      Next Song
+  </button>
+  <div id="song-container">
+    <mat-card id="song-content" *ngIf="song!==null && song.nodes">
+      <mat-card-title id="artist-and-title">
+        {{ song.artists }} - {{ song.title }}
+      </mat-card-title>
+      <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
+        <div class="node" *ngFor="let node of song.nodes; let i=index;">
+
+          <span *ngIf="node.label==='[new line]'">NEW LINE</span>
+          <span *ngIf="node.chord!==''" style="color: red;">{{ node.chord | transformChord:chordType }}</span>
+          <span *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]!=='-'">
+            &nbsp;
           </span>
-        </ng-template>
-      </ng-template>
-    </div>
+          <span class="lyric with-hyphen" *ngIf="node.lyric.slice(-1)[0]==='-'; else noDash">
+            {{ node.lyric.slice(0, -1) }}
+          </span>
+          <ng-template #noDash>
+            <span class="lyric post-hyphen" *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]==='-'; else notAfterDash">
+              {{ node.lyric }}
+            </span>
+            <ng-template #notAfterDash>
+              <span class="lyric default">
+                {{ node.lyric }}
+              </span>
+            </ng-template>
+          </ng-template>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
