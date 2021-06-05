@@ -5,6 +5,7 @@
 
 @import 'vendors/algolia';
 @import 'vendors/algolia-overrides';
+@import 'vendors/angular-material-overrides';
 @import 'vendors/toastr';
 @import 'vendors/toastr-overrides';
 
@@ -12,8 +13,16 @@
 @import 'base/typography';
 
 @import 'layout/app';
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/login';
 @import 'layout/nav';
+@import 'layout/sidenav';
+@import 'layout/song-display';
 @import 'layout/song-edit';
+@import 'layout/song-list';
+@import 'layout/song-manager';
+@import 'layout/song-search';
 
 @import 'components/button';
 @import 'components/input';

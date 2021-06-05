@@ -2,17 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgAisModule } from 'angular-instantsearch';
 
-import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
 import { MaterialModule } from '@app/shared/modules/material.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { SongSearchComponent } from '@app/components/dashboard/song-search/song-search.component';
-import { SongDisplayComponent } from '@app/components/dashboard/song-display/song-display.component';
+import { DashboardComponent } from '@dashboard/dashboard.component';
+import { SidenavComponent } from '@app/components/sidenav/sidenav.component';
+import { SongDisplayComponent } from '@dashboard/song-display/song-display.component';
+import { SongSearchComponent } from '@dashboard/song-search/song-search.component';
+import { TransformChordPipe } from '@app/shared/pipes/transform-chord.pipe';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    SongSearchComponent,
     SongDisplayComponent,
-    SongSearchComponent
+    DashboardComponent,
+    SidenavComponent,
+    TransformChordPipe
   ],
   imports: [
     CommonModule,
@@ -21,4 +25,4 @@ import { SongDisplayComponent } from '@app/components/dashboard/song-display/son
     SharedModule
   ]
 })
-export class DashboardModule {}
+export class SongSearchModule {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as algoliasearch from 'algoliasearch/lite';
 
 import { environment } from '@environments/environment';
+import { SongService } from '@app/shared/services/song.service';
 
 const searchClient = algoliasearch(
   environment.algoliaConfig.appId,
@@ -10,8 +11,7 @@ const searchClient = algoliasearch(
 
 @Component({
   selector: 'app-song-search',
-  templateUrl: './song-search.component.html',
-  styleUrls: ['./song-search.component.scss']
+  templateUrl: './song-search.component.html'
 })
 export class SongSearchComponent {
   config = {
@@ -20,5 +20,9 @@ export class SongSearchComponent {
     searchClient
   };
 
-  constructor() {}
+  constructor(private songService: SongService) {}
+
+  onSelect(id: string) {
+    this.songService.changeSongToDisplay(id);
+  }
 }

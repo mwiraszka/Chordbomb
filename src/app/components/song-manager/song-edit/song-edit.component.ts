@@ -1,5 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -56,7 +62,6 @@ export class SongEditComponent implements OnDestroy {
   /* Form is initialized and validators defined for each control */
   newForm() {
     this.songForm = this.formBuilder.group({
-      backup: [''], // not displayed to user
       newEdition: this.formBuilder.group({
         timestamp: [''], // not displayed to user
         author: ['Michal', [
@@ -125,12 +130,14 @@ export class SongEditComponent implements OnDestroy {
         Validators.min(40),
         Validators.max(300)
       ]],
+      /* Valid pattern includes letters, sharps, flats included as a 'b', 5-7-9 (as
+      superscripts), dim, aug, sus2, sus4, M (major), slash (inversions) */
       chord: ['', [
         Validators.maxLength(10),
-        Validators.pattern(/^[abcdefgABCDEFG#5791imus\/]+$/)
-      ]], // letters, sharp, flat included as a 'b', superscripts, dim, aug, sus, slash
+        Validators.pattern(/^[abcdefgABCDEFG#5791iMmus24\/]*$/)
+      ]],
       lyric: ['', Validators.maxLength(12)],
-      label: ['', Validators.maxLength(10)]
+      label: ['', Validators.maxLength(12)]
     });
   }
 
@@ -185,11 +192,12 @@ export class SongEditComponent implements OnDestroy {
     }
   }
 
-  /* Compile all song form data and additional data such as timestamp, and  */
+  /* Compile all song form data and additional data such as timestamp */
   onSubmit() {
     // Get submission date and time and use as edition timestamp value
+    const timestamp = formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US');
     this.songForm.patchValue({'newEdition': {
-      timestamp: formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US')
+      timestamp: timestamp
     }});
 
     // Copy form data over to variable and add previous edition information back in
@@ -210,12 +218,8 @@ export class SongEditComponent implements OnDestroy {
 
     // Pass completed song data to service's update or add method depending on edit mode
     if (this.songService.editMode) {
-      // Save stringified pre-edit version as a backup (after removing old backup)
-      this.song.backup = '';
-      songData.backup = JSON.stringify(this.song);
-
       if (this.song.id != null) {
-        this.songService.updateSong(this.song.id, songData);
+        this.songService.updateSong(this.song.id, songData, timestamp);
         this.toastr.success(
           'Successfully updated',
           `${songData.artists} - ${songData.title}`,
@@ -229,7 +233,7 @@ export class SongEditComponent implements OnDestroy {
         );
       }
     } else {
-      this.songService.addSong(songData);
+      this.songService.addSong(songData, timestamp);
       this.toastr.success(
         'Successfully added',
         `${songData.artists} - ${songData.title}`,

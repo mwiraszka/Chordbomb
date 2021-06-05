@@ -6,15 +6,21 @@ button {
 }
 
 /*
- * Chordbomb 'primary'-styled buttons
+ * Chordbomb 'primary'-styled button
  */
 button.primary {
-  border-radius: $border-radius-button;
-
   box-sizing: content-box;
   border: 2px solid darken($color: $cb-white, $amount: 10%);
+  border-radius: $border-radius-button;
   color: $cb-white;
   background-color: $cb-primary;
+  font-size: $font-m;
+  padding: 0.1em 0.7em;
+
+  &.large {
+    font-size: $font-l;
+    padding: 0.2em 1em;
+  }
 
   &:hover {
     border: 2px solid darken($color: $cb-white, $amount: 5%);
@@ -24,7 +30,6 @@ button.primary {
   }
 
   &#create-new-song-btn, &#submit-btn {
-    font-size: $font-m;
     height: 2em;
     border-radius: $border-radius-button;
     padding: 0 0.8em;

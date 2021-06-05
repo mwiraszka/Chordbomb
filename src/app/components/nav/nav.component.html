@@ -6,28 +6,50 @@
   </button>
 
   <ul id="app-nav-items">
+
     <li class="nav-item">
-      <a class="nav-link top-in-dropdown" routerLink="/" routerLinkActive="link-active"
-        (click)="closeDropdownMenu()" [routerLinkActiveOptions]="{ exact: true }">Song Search</a>
+      <a
+        id="song-search-nav-link"
+        class="nav-link displaying-song"
+        routerLink="/"
+        routerLinkActive="link-active"
+        (click)="onSongSearch()"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Song Search
+      </a>
     </li>
 
     <li class="nav-item" *ngIf="auth.user | async">
       <a class="nav-link" routerLink="/edit" routerLinkActive="link-active"
-        (click)="closeDropdownMenu()">Song Manager</a>
+        (click)="onSongManager()">
+        Song Manager
+      </a>
     </li>
 
     <li class="nav-item">
       <span *ngIf="auth.user | async as user; else loggedOut">
-        <a class="nav-link" routerLink="/" (click)="onLogout()">Log Out</a>
+        <a class="nav-link" routerLink="/" (click)="onLogout()">
+          Log Out
+        </a>
         <p id="user-info">
           <fa-icon [icon]="userCog"></fa-icon> Logged in<br>
           <small id="email">{{ user.email }}</small>
         </p>
       </span>
       <ng-template #loggedOut>
-        <a class="nav-link" (click)="closeDropdownMenu()" routerLink="/login"
-          routerLinkActive="link-active">Admin Login</a>
+        <a class="nav-link" (click)="onAdminLogin()" routerLink="/login"
+          routerLinkActive="link-active">
+          Admin Login
+        </a>
       </ng-template>
     </li>
+
+    <li class="nav-item">
+      <a id="nav-settings-btn" class="hide" (click)="onSettings()">
+        <fa-icon [icon]="faCog" class="fa-md"></fa-icon>
+        Settings
+      </a>
+    </li>
+
   </ul>
 </nav>

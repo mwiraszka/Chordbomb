@@ -130,8 +130,8 @@ label.node-number {
 
   &.full-text {
     /* Increase label's box width to accomodate for full text when viewport is larger -
-    a little hacky, but 5em should comfortably allow for up to 3-digit numbers */
-    width: 5em;
+    a little hacky, but 5.5em should comfortably allow for up to 3-digit numbers */
+    width: 5.5em;
   }
 }
 

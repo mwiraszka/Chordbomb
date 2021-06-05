@@ -15,6 +15,6 @@ Currently in development, with `version 1.0.0` set to be deployed by mid-June 20
 
 ### Wireframe mock-ups:
 
-![search page (website landing page)](./mock-up/search_page.png)
-![search page - input & settings](./mock-up/search_page_-_input_&_settings.png)
-![song page](./mock-up/song_page.png)
+![search page (website landing page)](./mock-ups/02-04-2021/search_page.png)
+![search page - input & settings](./mock-ups/02-04-2021/search_page_-_input_&_settings.png)
+![song page](./mock-ups/02-04-2021/song_page.png)

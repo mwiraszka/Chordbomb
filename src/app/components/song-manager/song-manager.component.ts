@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-song-manager',
@@ -7,7 +7,10 @@ import { Component } from '@angular/core';
       <app-song-edit></app-song-edit>
       <app-song-list></app-song-list>
     </section>
-  `,
-  styleUrls: ['./song-manager.component.scss']
+  `
 })
-export class SongManagerComponent {}
+export class SongManagerComponent implements OnInit {
+  ngOnInit() {
+    document.getElementById('nav-settings-btn')?.classList.add('hide');
+  }
+}

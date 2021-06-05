@@ -3,7 +3,6 @@ import { Node } from "@app/shared/models/node.model";
 
 export class Song {
   id: string = '';
-  backup: string = '';
   editions: Edition[] = [new Edition()];
   artists: string = '';
   title: string = '';
