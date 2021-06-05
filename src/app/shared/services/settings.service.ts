@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
   private readonly _fontSize$: BehaviorSubject<string>;
   private readonly _chordType$: BehaviorSubject<string>;
-  private readonly _isSidenavOpen$: BehaviorSubject<boolean>;
+
+  private _openSidenav$ = new Subject<void>();
+  openSidenav$ = this._openSidenav$.asObservable()
 
   constructor() {
     // Initialize state of app settings
     this._fontSize$ = new BehaviorSubject<string>('regular');
     this._chordType$ = new BehaviorSubject<string>('full');
-    this._isSidenavOpen$ = new BehaviorSubject<boolean>(false);
   }
 
   get fontSize(): Observable<string> {
@@ -30,11 +31,7 @@ export class SettingsService {
     this._chordType$.next(newChordType);
   }
 
-  get isSidenavOpen(): Observable<boolean> {
-    return this._isSidenavOpen$.asObservable();
-  }
-
-  toggleSidenav(): void {
-    this._isSidenavOpen$.next(!this._isSidenavOpen$.value);
+  openSidenav(): void {
+    this._openSidenav$.next();
   }
 }

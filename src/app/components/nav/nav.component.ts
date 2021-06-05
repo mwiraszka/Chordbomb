@@ -74,11 +74,7 @@ export class NavComponent {
     document.getElementById('app-nav')?.classList.remove('open');
   }
 
-  /*
-   * When 'Settings' is clicked, have the Settings Service emit a new value (empty object)
-   * through its Subject, which is observed by the Dashboard component, opening sidenav
-   */
   onSettings() {
-    this.settingsService.toggleSidenav();
+    this.settingsService.openSidenav();
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { SongService } from '@app/shared/services/song.service';
 import { SettingsService } from '@app/shared/services/settings.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ import { SettingsService } from '@app/shared/services/settings.service';
     <mat-sidenav-container id="dashboard-container">
       <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
       <app-song-display *ngIf="isSongToDisplay"></app-song-display>
-      <mat-sidenav #sidenav mode="side" position="end" [opened]="openSidenav">
+      <mat-sidenav #sidenav mode="over" position="end">
         <app-sidenav></app-sidenav>
       </mat-sidenav>
     </mat-sidenav-container>
@@ -23,43 +24,54 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * variable, which in turn displays either the search or display component using the
    * ngIf directive in the template
    */
-  isSongToDisplaySub!: Subscription;
+  displaySub!: Subscription;
   isSongToDisplay!: boolean;
 
   /*
-   * Subscription to the behavior subject in Settings Service reflecting a click event on
-   * top nav bar 'Settings' button
+   * Chain of events fired when 'Settings' is clicked in top nav bar:
+   * -> subject in Settings Service emits new void value
+   * -> this Dashboard component subscribes to its event emissions
+   * -> this Dashboard component calls toggle() on local variable sidenav
+   * -> variable is linked to mat-sidenav through the @ViewChild decorator
    */
-  openSidenavSub!: Subscription;
-  openSidenav!: boolean;
+  sidenavOpenSub!: Subscription;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
   constructor(
     private songService: SongService,
     private settingsService: SettingsService
   ) {
-    this.isSongToDisplaySub = this.songService.isSongDisplay.subscribe((value) => {
-      /*
-       * Update local variable and reflect change in style of cursor in nav bar when
-       * hovering over Song Search
-       */
-      this.isSongToDisplay = value;
-      const navLink = document.getElementById('song-search-nav-link');
-      this.isSongToDisplay ?
-        navLink?.classList.add('displaying-song') :
-        navLink?.classList.remove('displaying-song');
+    this.displaySub = this.songService.isSongDisplay.subscribe((isSongSelected) => {
+      this.whatToDisplay(isSongSelected);
     });
-    this.openSidenavSub = this.settingsService.isSidenavOpen.subscribe((value) => {
-      this.openSidenav = value;
-    })
+
+    this.sidenavOpenSub = this.settingsService.openSidenav$.subscribe(() => {
+      this.sidenav.toggle();
+    });
   }
 
+  /*
+   * App settings are only applicable to Dashboard components; make them available by
+   * unhiding the button in the nav bar
+   */
   ngOnInit() {
     document.getElementById('nav-settings-btn')?.classList.remove('hide');
   }
 
   /* Unsubscribe on destroying component to avoid memory leaks */
   ngOnDestroy() {
-    this.isSongToDisplaySub.unsubscribe();
-    this.openSidenavSub.unsubscribe();
+    this.displaySub.unsubscribe();
+  }
+
+  /*
+   * Update local variable and change style of cursor when hovering over Song Search in
+   * the nav bar
+   */
+  whatToDisplay(isSongSelected: boolean) {
+      this.isSongToDisplay = isSongSelected;
+      const navLink = document.getElementById('song-search-nav-link');
+      this.isSongToDisplay ?
+        navLink?.classList.add('displaying-song') :
+        navLink?.classList.remove('displaying-song');
   }
 }

@@ -13,7 +13,7 @@
       <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
         <div class="node" *ngFor="let node of song.nodes; let i=index;">
 
-          <span *ngIf="node.label==='[new line]'">NEW LINE</span>
+          <span *ngIf="node.label==='[new line]'" style="color: blue">NL</span>
           <span *ngIf="node.chord!==''" style="color: red;">{{ node.chord | transformChord:chordType }}</span>
           <span *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]!=='-'">
             &nbsp;
