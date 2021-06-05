@@ -1,0 +1,13 @@
+/*
+ * Reduce default radius of the animated ripple around radio buttons:
+ * 1 - Height & width set at 2x circles radius
+ * 2 - Left and top set to (50% - circle radius) to centre ripple around button
+ * 3 - A circular boundary is added to prevent clipping
+ */
+mat-radio-group.mat-radio-group .mat-radio-button .mat-radio-ripple {
+  height: 30px; /* 1 */
+  width: 30px;
+  left: calc(50% - 15px); /* 2 */
+  top: calc(50% - 15px);
+  border-radius: 50%; /* 3 */
+}
