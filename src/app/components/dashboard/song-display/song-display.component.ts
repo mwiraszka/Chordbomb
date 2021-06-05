@@ -26,7 +26,6 @@ export class SongDisplayComponent implements OnDestroy {
   ) {
     this.songSub = this.songService.songToDisplay.subscribe((song) => {
       this.song = song;
-      console.log('song stored in this.song:' + this.song.title)
     });
 
     this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {

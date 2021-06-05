@@ -14,15 +14,20 @@
         <ng-template let-hits="hits">
           <ol class="ais-Hits-list">
             <li *ngFor="let hit of hits" class="ais-Hits-item" (click)="onSelect(hit.objectID)">
-              <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}">
-              <div id="hit-details">
-                <div id="artist-and-title">
+              <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" id="album-cover">
+              <div id="song-details">
+                <div id="artists-and-title">
+                  <img src="../../../../assets/bomb.svg" alt="bomb" id="chordbomb-bomb">
                   <ais-highlight tagName="mark" attribute="artists" [hit]="hit">
                   </ais-highlight> -
                   <ais-highlight tagName="mark" attribute="title" [hit]="hit">
                   </ais-highlight>
                 </div>
-                <div id="songwriters-and-producers">
+                <div id="album-songwriters-and-producers">
+                  <label>Album: </label>
+                  <ais-highlight attribute="album" [hit]="hit"></ais-highlight>&nbsp;
+                  (<ais-highlight attribute="albumYear" [hit]="hit"></ais-highlight>)
+                  <hr class="small-spacer">
                   <label>Songwriters: </label>
                   <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight>
                   <hr class="small-spacer">

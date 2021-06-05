@@ -1,4 +1,46 @@
+.ais-SearchBox-input {
+  border-radius: $border-radius-input !important;
+  box-shadow: 0 0 2px 2px lighten($color: $cb-select, $amount: 10%) inset !important;
+}
+
+.ais-Hits-item {
+  justify-content: space-between;
+  text-align: right;
+  width: 100%;
+  padding: 5px 10px;
+
+  margin-top: 4px; // spacing between items
+  @include respond-to('small') {
+    margin-top: 8px;
+  }
+
+  label, #artists-and-title {
+    font-weight: bold;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    img#album-cover {
+      box-shadow: -1px 2px 3px 1px darken($color: $cb-white, $amount: 5%);
+      opacity: 1;
+    }
+
+    #song-details > #artists-and-title {
+      color: $cb-black;
+
+      img#chordbomb-bomb {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .ais-InstantSearch {
+  max-width: 900px;
+  overflow: hidden;
+  margin: 0 auto;
+
   .left-panel {
     display: none;
     width: 0;
@@ -24,60 +66,59 @@
   }
 
   hr {
-  &.big-spacer { height: 20px; }
-  &.small-spacer { height: 10px; }
+    &.big-spacer { height: 20px; }
+    &.small-spacer { height: 10px; }
+  }
+}
+
+img#album-cover {
+  opacity: 0.8;
+  align-self: flex-start;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+
+  @include respond-to('small') {
+    align-self: center;
+    width: 80px;
+    height: 80px;
   }
 
-  img {
-    align-self: flex-start;
-    width: 40px;
-    height: 40px;
-    padding-right: 5px;
-
-    @include respond-to('small') {
-      align-self: center;
-      width: 80px;
-      height: 80px;
-      padding-right: 10px;
-    }
-
-    @include respond-to('large') {
-      align-self: center;
-      width: 100px;
-      height: 100px;
-      padding-right: 10px;
-    }
+  @include respond-to('large') {
+    align-self: center;
+    width: 100px;
+    height: 100px;
   }
+}
 
-  label, #artist-and-title {
-    font-weight: bold;
+img#chordbomb-bomb {
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.2em;
+}
+
+#artists-and-title {
+  margin-bottom: 0;
+  font-size: $font-m;
+
+  @include respond-to('small') {
+    margin-bottom: 10px;
+    font-size: ($font-l - 2px);
   }
+}
 
-  #artist-and-title {
-    margin-bottom: 0;
-    font-size: $font-m;
+#album-songwriters-and-producers {
+  display: none;
 
-    @include respond-to('small') {
-      margin-bottom: 10px;
-      font-size: ($font-l - 2px);
-    }
+  @include respond-to('small') {
+    display: block;
+    font-size: ($font-m);
   }
+}
 
-  #songwriters-and-producers {
-    display: none;
-
-    @include respond-to('small') {
-      display: block;
-      font-size: ($font-m);
-    }
-  }
-
-  #hit-details {
-    width: auto;
-    min-width: 150px;
-  }
-
-  li:hover {
-    cursor: pointer;
-  }
+#song-details {
+  width: auto;
+  min-width: 150px;
+  color: darken($color: $cb-gray, $amount: 25%);
 }

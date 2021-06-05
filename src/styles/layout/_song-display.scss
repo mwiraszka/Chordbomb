@@ -30,9 +30,21 @@ mat-card-content#lyrics-and-chords {
   }
 }
 
+img#album-cover {
+  width: 50px;
+  height: 50px;
+}
+
 div.node {
   display: inline-block;
 }
+
+div.right-col {
+  text-align: left;
+}
+
+
+
 
 span.lyric {
   -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
