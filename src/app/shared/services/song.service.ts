@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Song } from '@app/shared/models/song.model';
 
@@ -45,10 +46,13 @@ export class SongService {
   }
 
   changeSongToDisplay(id: string) {
-    this.firestore.collection('songs').doc(id)
+    this.firestore.collection('songs')
+      .doc(id)
       .valueChanges()
+      .pipe(take(1))
       .subscribe((songData) => {
         this._songToDisplay$.next(<Song>songData);
+        console.log('in service - change method ' + (<Song>songData).title)
         this.setSongDisplay(true);
     });
   }
@@ -68,7 +72,6 @@ export class SongService {
    * Update - updateSong()
    * Delete - not available through this app to prevent accidental deletion
    */
-
   async addSong(newSong: Song): Promise<void> {
     const { id } = await this.firestore.collection('songs').add(newSong);
     // Wait until Firebase generates a new ID for the song, and store it as a parameter

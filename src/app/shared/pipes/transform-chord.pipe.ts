@@ -4,9 +4,9 @@
  * Case 'basic': first check to see if chord is a single letter, or one with a sharp or
  *    flat trailing - i.e. a simple triad. If so, return original chord as no
  *    transformations will be necessary. If not, transform the chord by removing any
- *    advanced chord characters in turn: '/' (chord inversion), '7' or '9' (7th or 9th
- *    chord), 'M' (Major - used only for Major 7th or Major 9th chords), and 'sus2' or
- *    'sus4' (suspensions); return transformed chord
+ *    advanced chord characters in turn: '/' (chord inversion), 'sus2' or 'sus4'
+ *    (suspensions), '7' or '9' (7th or 9th chord), and 'M' (Major - used only for Major
+ *    7th or Major 9th chords); return transformed chord
  * Case 'full' or default (as fail-safe): return full chord without any change.
  */
 
@@ -19,6 +19,7 @@ export class TransformChordPipe implements PipeTransform {
     switch(chordType) {
       case('none'):
         return '';
+
       case('basic'):
         if (
           (fullChord.length === 1) ||
@@ -31,17 +32,18 @@ export class TransformChordPipe implements PipeTransform {
         if (transformedChord.search('/') !== -1) {
           transformedChord = transformedChord.slice(0, transformedChord.indexOf('/'));
         }
+        if (transformedChord.search('sus') !== -1) {
+          transformedChord = transformedChord.slice(0, transformedChord.indexOf('sus'));
+        }
         if (transformedChord.endsWith('7') || transformedChord.endsWith('9')) {
           transformedChord = transformedChord.slice(0, -1);
         }
         if (transformedChord.endsWith('M')) {
           transformedChord = transformedChord.slice(0, -1);
         }
-        if (transformedChord.search('sus') !== -1) {
-          transformedChord = transformedChord.slice(0, transformedChord.indexOf('sus'));
-        }
         return transformedChord;
-      case('full'):  // Fall through
+
+      case('full'): // Fall through
       default:
         return fullChord;
     }
