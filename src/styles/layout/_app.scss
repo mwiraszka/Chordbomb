@@ -19,10 +19,9 @@
 
   #main-container {
     grid-area: main;
-    overflow: auto;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr minmax(0, 100vw) 1fr;
+    grid-template-columns: 1fr;
   }
 
   app-footer {
