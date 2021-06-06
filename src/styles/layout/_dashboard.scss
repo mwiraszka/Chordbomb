@@ -1,0 +1,40 @@
+#dashboard-container {
+  height: 100%;
+  padding: 1em;
+}
+
+#sidenav-content {
+  font-size: $font-m;
+  padding: 0 3em;
+
+  legend.setting {
+    margin: 1.5em 0 0.3em;
+    display: block;
+    font-weight: bold;
+  }
+
+  mat-radio-button.option {
+    display: table;
+    padding: 0.2em 0;
+
+    &:hover {
+      color: $cb-primary;
+      font-weight: bold;
+    }
+
+    /* Hidden bold text ensures there's no layout shift when bold applied on hover */
+    &::after {
+      content: attr(data-text);
+      content: attr(data-text) / '';
+      visibility: hidden;
+      overflow: hidden;
+      user-select: none;
+      pointer-events: none;
+      font-weight: bold;
+
+      @media speech {
+        display: none;
+      }
+    }
+  }
+}

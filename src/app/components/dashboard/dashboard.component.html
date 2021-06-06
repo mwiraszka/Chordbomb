@@ -1,0 +1,26 @@
+<mat-sidenav-container id="dashboard-container">
+
+  <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
+  <app-song-display *ngIf="isSongToDisplay"></app-song-display>
+
+  <mat-sidenav #sidenav mode="over" position="end">
+    <div id="sidenav-content">
+      <mat-radio-group name="fontSize" class="setting" aria-labelledby="font-size"
+        [(ngModel)]="fontSize" (change)="onSettingChange($event)">
+        <legend class="setting">Font Size:</legend>
+        <mat-radio-button class="option" *ngFor="let size of fontSizes" [value]="size">
+          {{ size }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <mat-radio-group name="chordType" class="setting" aria-labelledby="chord-type"
+        [(ngModel)]="chordType" (change)="onSettingChange($event)">
+        <legend class="setting">Chord Type:</legend>
+        <mat-radio-button class="option" *ngFor="let type of chordTypes" [value]="type">
+          {{ type }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-sidenav>
+
+</mat-sidenav-container>
