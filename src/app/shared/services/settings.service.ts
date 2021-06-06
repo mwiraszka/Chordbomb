@@ -3,14 +3,16 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-  /* Initialize app settings, and getters that return these values as observables */
+  /*
+   * Initialize app settings as private behavior subjects, with public setter methods to
+   * emit new values, and getters that return observables to these values
+   */
   private _fontSize$ = new BehaviorSubject<string>('regular');
   private _chordType$ = new BehaviorSubject<string>('full');
 
   fontSize$ = this._fontSize$.asObservable();
   chordType$ = this._chordType$.asObservable();
 
-  /* Setter functions that push a new value for behavior subjects to emit */
   setFontSize(newFontSize: string): void {
     this._fontSize$.next(newFontSize);
   }

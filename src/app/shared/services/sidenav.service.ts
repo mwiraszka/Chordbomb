@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SidenavService {
   /*
-   * Emit void value to subscriber in Dashboard (where sidenav opens) every time
-   * openSidenav() is called
+   * Emit void 'trigger' value to subscriber in Dashboard (where sidenav opens) whenever
+   * openSidenav() method is called
    */
   private _openSidenav$ = new Subject<void>();
   openSidenav$ = this._openSidenav$.asObservable();
