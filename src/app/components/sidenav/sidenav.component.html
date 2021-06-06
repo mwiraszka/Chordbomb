@@ -5,7 +5,7 @@
     aria-labelledby="font-size"
     [(ngModel)]="fontSize"
     (change)="onSettingChange($event)">
-    <legend class="setting" id="font-size">
+    <legend class="setting">
       Font Size:
     </legend>
     <mat-radio-button class="option" *ngFor="let size of fontSizes" [value]="size">
@@ -19,7 +19,7 @@
     aria-labelledby="chord-type"
     [(ngModel)]="chordType"
     (change)="onSettingChange($event)">
-    <legend class="setting" id="chord-type">
+    <legend class="setting">
       Chord Type:
     </legend>
     <mat-radio-button class="option" *ngFor="let type of chordTypes" [value]="type">

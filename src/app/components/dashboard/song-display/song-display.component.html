@@ -1,9 +1,6 @@
 <div id="song-display-container">
-  <button
-    id="new-song-btn"
-    class="primary large"
-    (click)="onNextSong()">
-      Next Song
+  <button id="new-song-btn" class="primary large" (click)="onNextSong()">
+    Next Song
   </button>
   <div id="song-container">
     <mat-card id="song-content" *ngIf="song!==null && song.nodes">
@@ -28,7 +25,7 @@
       <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
         <div class="node" *ngFor="let node of song.nodes; let i=index;">
 
-          <span *ngIf="node.label==='[new line]'" style="color: blue">NL</span>
+          <span *ngIf="node.label==='n'" style="color: blue">[n]</span>
           <span *ngIf="node.chord!==''" style="color: red;">{{ node.chord | transformChord:chordType }}</span>
           <span *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]!=='-'">
             &nbsp;
@@ -52,4 +49,7 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <button id="new-song-btn" class="primary large" (click)="onNextSong()">
+    Next Song
+  </button>
 </div>

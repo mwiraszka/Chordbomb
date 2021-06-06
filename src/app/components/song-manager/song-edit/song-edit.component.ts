@@ -36,7 +36,7 @@ export class SongEditComponent implements OnDestroy {
     private toastr: ToastrService,
     private formBuilder: FormBuilder
   ) {
-    this.songSub = this.songService.songToEdit.subscribe((song) => {
+    this.songSub = this.songService.songToEdit$.subscribe((song) => {
       this.song = song;
       this.newForm();
     });
@@ -54,7 +54,7 @@ export class SongEditComponent implements OnDestroy {
 
   /* Song and edit mode updated in service, and change is reflected in the form */
   onCreateNewSong() {
-    this.songService.changeSongToEdit(new Song());
+    this.songService.setSongToEdit(new Song());
     this.songService.editMode = false;
     this.newForm();
   }

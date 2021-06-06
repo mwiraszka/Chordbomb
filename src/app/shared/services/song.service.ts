@@ -7,62 +7,43 @@ import { Song } from '@app/shared/models/song.model';
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
-  private readonly _songToEdit$: BehaviorSubject<Song>;
-  private readonly _songToDisplay$: BehaviorSubject<Song | null>;
-  private readonly _isSongDisplay$: BehaviorSubject<boolean>;
-
-  editMode: boolean;
-
-  constructor(private firestore: AngularFirestore) {
-    // Initialize song to be edited with default values declared in song.model class
-    this.editMode = false;
-    this._songToEdit$ = new BehaviorSubject<Song>(new Song());
-    this._songToDisplay$ = new BehaviorSubject<Song | null>(null);
-    this._isSongDisplay$ = new BehaviorSubject<boolean>(false);
-  }
-
   /*
-   * App State for Editing
-   * (used to pass values between Song List & Song Edit components):
-   * Pass private behavior subject through this public getter as an observable to ensure
-   * writing privileges remain private to the service
+   * Store song to be edited & song to be displayed as private behavior subjects, which
+   * emit changes to subscribers in Song Manager & Dashboard components through public
+   * 'getter' observables; this keeps the behavior subjects' write privileges private
+   *
+   * Initialize songToEdit$ with default values declared in song.model class, and
+   * songToDisplay$ as null; editMode stores whether user is adding a new song or editing
+   * an existing one in the Song Manager component - defaults to 'add mode'
    */
-  get songToEdit(): Observable<Song> {
-    return this._songToEdit$.asObservable();
-  }
+  private _songToEdit$ = new BehaviorSubject<Song>(new Song());
+  private _songToDisplay$ = new BehaviorSubject<Song | null>(null);
+  songToEdit$ = this._songToEdit$.asObservable();
+  songToDisplay$ = this._songToDisplay$.asObservable();
+  editMode = false;
 
-  changeSongToEdit(song: Song): void {
+  /* Inject instance of Firestore, which acts as the main entry point to the database */
+  constructor(private firestore: AngularFirestore) {}
+
+  /* Set song to edit by pushing new value for behavior subject to emit to subscribers */
+  setSongToEdit(song: Song): void {
     this._songToEdit$.next(song);
   }
 
   /*
-   * App State for Displaying
-   * (used to pass values between Song Search & Song Display components):
-   * Pass private behavior subject through this public getter as an observable to ensure
-   * writing privileges remain private to the service
+   * Set song to display by retrieving song data from Firestore using passed in ID;
+   * take(1) to ensure subscription is discarded after the song has been passed
    */
-  get songToDisplay(): Observable<Song | null> {
-    return this._songToDisplay$.asObservable();
-  }
-
-  changeSongToDisplay(id: string) {
-    this.firestore.collection('songs')
-      .doc(id)
-      .valueChanges()
-      .pipe(take(1))
-      .subscribe((songData) => {
-        this._songToDisplay$.next(<Song>songData);
-        console.log('in service - change method ' + (<Song>songData).title)
-        this.setSongDisplay(true);
+  setSongToDisplay(id: string): void {
+    this.firestore.collection('songs').doc(id).valueChanges().pipe(take(1))
+      .subscribe((song) => {
+        this._songToDisplay$.next(<Song>song);
     });
   }
 
-  get isSongDisplay(): Observable<boolean> {
-    return this._isSongDisplay$.asObservable();
-  }
-
-  setSongDisplay(value: boolean) {
-    this._isSongDisplay$.next(value);
+  /* Remove song by emitting 'null' value to all subscribers */
+  removeSongToDisplay(): void {
+    this._songToDisplay$.next(null);
   }
 
   /*
@@ -79,11 +60,11 @@ export class SongService {
     this.firestore.collection('backups').doc(`${id} - ${timestamp}`).set(newSong);
   }
 
-  getSongById(id: string): Observable<Song> {
+  getSongById$(id: string): Observable<Song> {
     return this.firestore.doc(`songs/${id}`).valueChanges() as Observable<Song>;
   }
 
-  getSongs() {
+  getSongs$() {
     return this.firestore.collection('songs').snapshotChanges();
   }
 

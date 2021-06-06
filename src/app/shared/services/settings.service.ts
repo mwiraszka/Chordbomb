@@ -1,37 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-  private readonly _fontSize$: BehaviorSubject<string>;
-  private readonly _chordType$: BehaviorSubject<string>;
+  /* Initialize app settings, and getters that return these values as observables */
+  private _fontSize$ = new BehaviorSubject<string>('regular');
+  private _chordType$ = new BehaviorSubject<string>('full');
 
-  private _openSidenav$ = new Subject<void>();
-  openSidenav$ = this._openSidenav$.asObservable()
+  fontSize$ = this._fontSize$.asObservable();
+  chordType$ = this._chordType$.asObservable();
 
-  constructor() {
-    // Initialize state of app settings
-    this._fontSize$ = new BehaviorSubject<string>('regular');
-    this._chordType$ = new BehaviorSubject<string>('full');
-  }
-
-  get fontSize(): Observable<string> {
-    return this._fontSize$.asObservable();
-  }
-
-  changeFontSize(newFontSize: string): void {
+  /* Setter functions that push a new value for behavior subjects to emit */
+  setFontSize(newFontSize: string): void {
     this._fontSize$.next(newFontSize);
   }
 
-  get chordType(): Observable<string> {
-    return this._chordType$.asObservable();
-  }
-
-  changeChordType(newChordType: string): void {
+  setChordType(newChordType: string): void {
     this._chordType$.next(newChordType);
-  }
-
-  openSidenav(): void {
-    this._openSidenav$.next();
   }
 }

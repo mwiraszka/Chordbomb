@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SongService } from '@app/shared/services/song.service';
-import { SettingsService } from '@app/shared/services/settings.service';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -11,7 +11,13 @@ import { MatSidenav } from '@angular/material/sidenav';
     <mat-sidenav-container id="dashboard-container">
       <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
       <app-song-display *ngIf="isSongToDisplay"></app-song-display>
-      <mat-sidenav #sidenav mode="over" position="end">
+      <mat-sidenav
+        #sidenav
+        mode="over"
+        position="end"
+        fixedInViewport="true"
+        [fixedTopGap]="sidenavTopGap"
+        [fixedBottomGap]="sidenavBottomGap">
         <app-sidenav></app-sidenav>
       </mat-sidenav>
     </mat-sidenav-container>
@@ -36,17 +42,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
    */
   sidenavOpenSub!: Subscription;
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+  sidenavTopGap!: number;
+  sidenavBottomGap!: number;
 
   constructor(
     private songService: SongService,
-    private settingsService: SettingsService
+    private sidenavService: SidenavService
   ) {
-    this.displaySub = this.songService.isSongDisplay.subscribe((isSongSelected) => {
-      this.whatToDisplay(isSongSelected);
+    this.displaySub = this.songService.songToDisplay$.subscribe((song) => {
+      this.whatToDisplay(!!song);
     });
 
-    this.sidenavOpenSub = this.settingsService.openSidenav$.subscribe(() => {
+    this.sidenavOpenSub = this.sidenavService.openSidenav$.subscribe(() => {
       this.sidenav.toggle();
+      [this.sidenavTopGap, this.sidenavBottomGap] = [100,100];
     });
   }
 
@@ -68,10 +77,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * the nav bar
    */
   whatToDisplay(isSongSelected: boolean) {
-      this.isSongToDisplay = isSongSelected;
-      const navLink = document.getElementById('song-search-nav-link');
-      this.isSongToDisplay ?
-        navLink?.classList.add('displaying-song') :
-        navLink?.classList.remove('displaying-song');
+    this.isSongToDisplay = isSongSelected;
+    const navLink = document.getElementById('song-search-nav-link');
+    this.isSongToDisplay ?
+      navLink?.classList.add('displaying-song') :
+      navLink?.classList.remove('displaying-song');
   }
 }

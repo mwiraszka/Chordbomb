@@ -18,10 +18,10 @@ export class SidenavComponent {
   chordType!: string;
 
   constructor(private settingsService: SettingsService, private toastr: ToastrService) {
-    this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {
+    this.fontSizeSub = this.settingsService.fontSize$.subscribe((fontSize) => {
       this.fontSize = fontSize;
     });
-    this.chordTypeSub = this.settingsService.chordType.subscribe((chordType) => {
+    this.chordTypeSub = this.settingsService.chordType$.subscribe((chordType) => {
       this.chordType = chordType;
     });
   }
@@ -35,10 +35,10 @@ export class SidenavComponent {
   onSettingChange($event: any): void {
     switch($event.source.name) {
       case('fontSize'):
-        this.settingsService.changeFontSize($event.value);
+        this.settingsService.setFontSize($event.value);
         break;
       case('chordType'):
-        this.settingsService.changeChordType($event.value);
+        this.settingsService.setChordType($event.value);
         break;
       default:
         this.toastr.error('Error changing settings', 'Oops!',
