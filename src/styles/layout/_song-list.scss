@@ -1,59 +1,48 @@
-section#song-list {
-  padding: 1em;
-}
-
 #song-list-container {
-  // temp: matching song-edit component min and max widths
-  min-width: 300px;
-  max-width: 700px;
-
   h2 {
     text-align: center;
     padding-bottom: 0.5em;
   }
+
+  table {
+    border: 1px solid transparent;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 0 lighten($color: $cb-gray, $amount: 15%);
+    overflow: hidden;
+    display: inline-block;
+  }
 }
 
-table#songs {
-  border-spacing: 0;
-  width: 100%;
+thead th {
+  font-size: $h4;
+  padding: 0.4em 1em;
+  box-shadow: 0 0 1px 0 lighten($color: $cb-gray, $amount: 15%);
+  text-align: center;
+  background-color: $cb-primary;
+  color: $cb-white;
+}
 
-  th {
-    font-size: $font-m;
-    padding: 0.4em 0.2em;
-    border: 1px solid $cb-gray;
-    text-align: center;
-    background-color: $cb-accent;
-    color: $cb-black;
+tbody tr {
+  font-size: $h5;
+  background-color: $cb-white;
 
-    &:first-child {
-      border-top-left-radius: 0.6em;
-    }
-
-    &:last-child {
-      border-top-right-radius: 0.6em;
-    }
+  &:nth-child(even) {
+    background-color: lighten($color: $cb-white, $amount: 10%);
   }
 
-  tr {
-    font-size: $font-s;
-    background-color: $cb-white;
-
-    &:nth-child(even) {
-      background-color: lighten($color: $cb-white, $amount: 10%);
-    }
-
-    &:hover {
-      background-color: lighten($color: $cb-select, $amount: 10%);
-      cursor: pointer;
-    }
+  &:hover {
+    background-color: lighten($color: $cb-select, $amount: 10%);
+    cursor: pointer;
   }
+}
 
-  td {
-    padding: 0.2em 0.3em;
-    border: 1px solid $cb-gray;
+td {
+  padding: 0.5em 0.8em;
+  box-shadow: 0 0 1px 0 lighten($color: $cb-gray, $amount: 15%);
 
-    &.align-right {
-      text-align: right;
-    }
+  &.align-right {
+    text-align: right;
   }
 }

@@ -103,6 +103,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.toastr.error('Error changing settings', 'Oops!',
           { positionClass: 'toast-bottom-right' }
         );
-    }
+    };
   }
 }

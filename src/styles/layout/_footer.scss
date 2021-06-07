@@ -1,45 +1,44 @@
+/*
+ * 1 - Flex wrap the three items (lines of text) in vertical direction
+ * 2 - Make version text slightly smaller than the copyright text above it
+ * 3 - Slightly increase letter spacing from the default
+ * 4 - Add extra padding to turn icon closer to a perfect circle so that the 50% border
+ *     radius styling creates the desired effect
+ * 5 - On hover, text brightens to full white, letter spacing increases, and glow effect
+       added behind text and icon
+ */
+
 footer {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column wrap; /* 1 */
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1em;
-  font-size: $font-m;
+  padding: 0.5em;
+  font-size: $h5;
   color: $cb-white;
   background: $cb-black;
 }
 
-small.footer {
-  line-height: 1.4em;
-
-  &#version {
-    font-size: 90%;
-  }
-}
-
-.bigger {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+#version {
+  font-size: 90%; /* 2 */
 }
 
 address#github-repo {
-  margin-top: 1em;
+  margin-top: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em; /* 3 */
 
-  a#about-chordbomb {
-    font-size: $font-m;
-    color: $cb-white;
-
-    fa-icon#github-icon {
-      margin-left: 0.2em;
-      padding: 0 2px;
-      border-radius: 50%;
-    }
+  fa-icon {
+    margin-left: 0.2em;
+    padding: 0 2px; /* 4 */
+    border-radius: 50%;
   }
 
+  /* 5 */
   &:hover {
     color: #fff;
-    letter-spacing: 1px;
+    letter-spacing: 0.12em;
     text-shadow: 0 0 1px $cb-white;
 
     fa-icon {

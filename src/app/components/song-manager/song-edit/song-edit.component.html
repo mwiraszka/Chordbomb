@@ -186,8 +186,7 @@
 
       <div formArrayName="nodes">
         <div class="form-row"[formGroupName]="i"
-          *ngFor="let node of nodes.controls; let i=index;"
-        >
+          *ngFor="let node of nodes.controls; let i=index;">
           <label class="node-number full-text">NODE {{ i + 1 }}:</label>
 
           <div class="form-field node-field-width">
@@ -248,14 +247,11 @@
           </div>
 
           <button type="button" id="insert-node-btn" class="primary"
-            (click)="insertNode(i)"
-          >
+            (click)="insertNode(i)">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
-
           <button type="button" id="remove-node-btn" class="primary"
-            (click)="removeNode(i)"
-          >
+            (click)="removeNode(i)">
             <fa-icon [icon]="faMinus"></fa-icon>
           </button>
 
@@ -268,6 +264,10 @@
         [disabled]="!songForm.valid">
         <span *ngIf="isEditMode(); else addMode">Update Song</span>
         <ng-template #addMode>Add Song</ng-template>
+      </button>
+      <button type="submit" id="backup-btn" class="primary large"
+      [disabled]="!songForm.valid">
+        Backup
       </button>
     </div>
 

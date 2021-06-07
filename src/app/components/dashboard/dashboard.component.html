@@ -1,9 +1,11 @@
 <mat-sidenav-container id="dashboard-container">
 
-  <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
-  <app-song-display *ngIf="isSongToDisplay"></app-song-display>
+  <mat-sidenav-content>
+    <app-song-search *ngIf="!isSongToDisplay"></app-song-search>
+    <app-song-display *ngIf="isSongToDisplay"></app-song-display>
+  </mat-sidenav-content>
 
-  <mat-sidenav #sidenav mode="over" position="end">
+  <mat-sidenav #sidenav role="settings" position="end" mode="over" autoFocus=false>
     <div id="sidenav-content">
       <mat-radio-group name="fontSize" class="setting" aria-labelledby="font-size"
         [(ngModel)]="fontSize" (change)="onSettingChange($event)">

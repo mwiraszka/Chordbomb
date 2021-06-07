@@ -24,9 +24,9 @@ mat-card-title#artist-and-title {
 
 mat-card-content#lyrics-and-chords {
   width: 100%;
-  font-size: $font-m;
+  font-size: $h4;
   &.enlarge {
-    font-size: $font-l;
+    font-size: $h3;
   }
 }
 

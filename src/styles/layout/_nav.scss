@@ -10,7 +10,7 @@ nav#app-nav {
   align-items: center;
   justify-content: space-between;
   padding: 0.4em 0.8em;
-  font-size: $font-l;
+  font-size: $h3;
   background-color: $cb-black;
 }
 
@@ -89,7 +89,7 @@ p#user-info {
   }
 
   height: inherit;
-  font-size: $font-m;
+  font-size: $h4;
   text-align: center;
   color: lighten($color: $cb-gray, $amount: 15%);
   text-shadow: 0 0 1px $cb-gray;
@@ -103,7 +103,7 @@ p#user-info {
 
   small#email {
     color: lighten($color: $cb-gray, $amount: 5%);
-    font-size: $font-s;
+    font-size: $h5;
   }
 }
 

@@ -2,4 +2,6 @@ section#song-manager {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: $component-spacing;
+  padding: $component-spacing;
 }
