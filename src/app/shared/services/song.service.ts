@@ -55,7 +55,10 @@ export class SongService {
    */
   async addSong(newSong: Song, timestamp: string): Promise<void> {
     const { id } = await this.firestore.collection('songs').add(newSong);
-    // Wait until Firebase generates a new ID for the song, and store it as a parameter
+    /*
+     * Wait until Firebase generates a new ID for the song, and store it as a parameter;
+     * save a redundant backup of the song in the 'backups' collection
+     */
     this.firestore.collection('songs').doc(id).update({ id: id });
     this.firestore.collection('backups').doc(`${id} - ${timestamp}`).set(newSong);
   }
@@ -68,6 +71,7 @@ export class SongService {
     return this.firestore.collection('songs').snapshotChanges();
   }
 
+  /* Update the song at the passed in ID, in both the main & 'backups' collections */
   updateSong(id: string, editedSong: Song, timestamp: string): void {
     this.firestore.doc(`songs/${id}`).update(editedSong);
     this.firestore.collection('backups').doc(`${id} - ${timestamp}`).set(editedSong);

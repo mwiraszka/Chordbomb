@@ -260,14 +260,13 @@
     </fieldset>
 
     <div id="submit-song-container">
+      <div class="success" *ngIf="!songForm.dirty">
+        Database is up to date
+      </div>
       <button type="submit" id="submit-btn" class="primary large"
-        [disabled]="!songForm.valid">
-        <span *ngIf="isEditMode(); else addMode">Update Song</span>
+        [disabled]="!songForm.valid || !songForm.dirty">
+        <span *ngIf="isEditMode(); else addMode">Save</span>
         <ng-template #addMode>Add Song</ng-template>
-      </button>
-      <button type="submit" id="backup-btn" class="primary large"
-      [disabled]="!songForm.valid">
-        Backup
       </button>
     </div>
 

@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
@@ -9,7 +10,6 @@ import {
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { formatDate } from '@angular/common';
 
 import { Edition } from '@app/shared/models/edition.model';
 import { Node } from '@app/shared/models/node.model';
@@ -25,10 +25,12 @@ export class SongEditComponent implements OnDestroy {
   faPlus = faPlus;
   faMinus = faMinus;
 
-  /* Subscribe to the user-selected song from song list & initialize form */
+  /*
+   * Inject necessary services, subscribe to the user-selected song from song list &
+   * initialize form
+   */
   private songSub: Subscription;
   song!: Song;
-
   songForm!: FormGroup;
 
   constructor(
@@ -42,7 +44,7 @@ export class SongEditComponent implements OnDestroy {
     });
   }
 
-  /* Unsubscribe on destroy to avoid memory leaks */
+  /* Unsubscribe on destroy to avoid any memory leaks */
   ngOnDestroy() {
     this.songSub.unsubscribe();
   }
@@ -63,7 +65,7 @@ export class SongEditComponent implements OnDestroy {
   newForm() {
     this.songForm = this.formBuilder.group({
       newEdition: this.formBuilder.group({
-        timestamp: [''], // not displayed to user
+        timestamp: [''], // Not displayed to user
         author: ['Michal', [
           Validators.required,
           Validators.maxLength(6),
@@ -107,6 +109,7 @@ export class SongEditComponent implements OnDestroy {
     });
   }
 
+  /* Return a form array with enough elements to fit all the selected song's nodes */
   getNodeFormArray(): FormArray {
     let nodeFormArray: FormArray = new FormArray([]);
     for (let i = 0; i < this.song.nodes.length; i++) {
@@ -115,13 +118,20 @@ export class SongEditComponent implements OnDestroy {
     return nodeFormArray;
   }
 
+  /*
+   * Build node form group, with empty initial values and all validators in place;
+   * each of these node form groups is an element in the node form array
+   * 1 - Time marker must be three numbers, separated by dashes: (0-999) - (1-17) - (1-4)
+   * 2 - Valid regex pattern for chord includes letters, sharps, flats included as a 'b',
+   *     5-7-9 (as superscripts), dim, aug, sus2, sus4, M (major), slash (inversions)
+   */
   newNodeFormGroup(): FormGroup {
     return this.formBuilder.group({
       timeMarker: ['', [
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
-          /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-(1|2|3|4)$/
+          /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-(1|2|3|4)$/ /* 1 */
         )
       ]],
       bpm: ['', [
@@ -130,11 +140,9 @@ export class SongEditComponent implements OnDestroy {
         Validators.min(40),
         Validators.max(300)
       ]],
-      /* Valid pattern includes letters, sharps, flats included as a 'b', 5-7-9 (as
-      superscripts), dim, aug, sus2, sus4, M (major), slash (inversions) */
       chord: ['', [
         Validators.maxLength(10),
-        Validators.pattern(/^[abcdefgABCDEFG#5791iMmus24\/]*$/)
+        Validators.pattern(/^[abcdefgABCDEFG#5791iMmus24\/]*$/) /* 2 */
       ]],
       lyric: ['', Validators.maxLength(12)],
       label: ['', Validators.maxLength(12)]
@@ -174,17 +182,21 @@ export class SongEditComponent implements OnDestroy {
     return (<FormGroup>this.nodes.controls[index]).controls['label'];
   }
 
-  /* Insert a new node form group directly after row of clicked button (so, index + 1);
-  this means a new group of controls is added to the overall song form group, and
-  also that all nodes in the song data node array need to be shifted by one */
+  /*
+   * Insert a new node form group directly after row of clicked button (so, index + 1);
+   * this means a new group of controls is added to the overall song form group, and
+   * also that all nodes in the song data node array need to be shifted by one
+   */
   insertNode(index: number): void {
     this.nodes.insert(index + 1, this.newNodeFormGroup());
     this.song.nodes.splice(index + 1, 0, new Node());
   }
 
-  /* Ensure at least one row is always present; again, reflect the change in both the
-  displayed form (removing a node form group from the song form) and in the song data
-  (splicing the item out of the node array) */
+  /*
+   * Ensure at least one row is always present; again, reflect the change in both the
+   * displayed form (removing a node form group from the song form) and in the song data
+   * (splicing the item out of the node array)
+   */
   removeNode(index: number): void {
     if (this.nodes.length > 1) {
       this.nodes.removeAt(index);
@@ -192,23 +204,24 @@ export class SongEditComponent implements OnDestroy {
     }
   }
 
-  /* Compile all song form data and additional data such as timestamp */
   onSubmit() {
-    // Get submission date and time and use as edition timestamp value
+    /* Add current time as edition timestamp value */
     const timestamp = formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US');
     this.songForm.patchValue({'newEdition': {
       timestamp: timestamp
     }});
 
-    // Copy form data over to variable and add previous edition information back in
+    /* Copy form data over to new variable and add previous edition information back in */
     let formData = { ...this.songForm.value };
     formData.editions = [...this.song.editions, this.songForm.value.newEdition];
 
-    // Destructure form data variable to remove new edition variable and retain only
-    // song-type parameters (songData)
+    /*
+     * Destructure form data variable to remove new edition variable and retain only
+     * song-type parameters (songData)
+     */
     const { newEdition, ...songData } = formData;
 
-    // Convert custom objects used in project to JS objects
+    /* Convert custom objects used in project to JS objects */
     songData.editions = songData.editions.map((obj: any) => {
       return Object.assign({}, obj)
     });
@@ -216,32 +229,28 @@ export class SongEditComponent implements OnDestroy {
       return Object.assign({}, obj)
     });
 
-    // Pass completed song data to service's update or add method depending on edit mode
+    /*
+     * Pass completed song data to Song Service's update() or add() method, depending on
+     * edit mode; if was in add mode, switch to edit mode to allow for further editing
+     */
     if (this.songService.editMode) {
       if (this.song.id != null) {
         this.songService.updateSong(this.song.id, songData, timestamp);
-        this.toastr.success(
-          'Successfully updated',
-          `${songData.artists} - ${songData.title}`,
+        this.toastr.success('Changes saved', `${songData.artists} - ${songData.title}`,
           { positionClass: 'toast-bottom-right' }
         );
       } else {
-        this.toastr.warning(
-          'Oops! Could not locate',
-          `${songData.artists} - ${songData.title}`,
+        this.toastr.warning('Oops! Could not locate',
+        `${songData.artists} - ${songData.title}`,
           { positionClass: 'toast-bottom-right' }
         );
       }
     } else {
       this.songService.addSong(songData, timestamp);
-      this.toastr.success(
-        'Successfully added',
-        `${songData.artists} - ${songData.title}`,
+      this.toastr.success('Successfully added', `${songData.artists} - ${songData.title}`,
         { positionClass: 'toast-bottom-right' }
       );
+      this.songService.editMode = true;
     }
-
-    // Simultaneously reset form, song to edit, and also default back to 'add' mode
-    this.onCreateNewSong();
   }
 }

@@ -136,12 +136,10 @@ fieldset {
   }
 }
 
-/* Centre the two buttons within this container using flex */
+/* Centre all items with some spacing in between */
 #submit-song-container {
-  margin-top: 0.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0.5em;
+  text-align: center;
 }
 
 /* Show abbreviated text when viewport is small; switch to full text when larger */
