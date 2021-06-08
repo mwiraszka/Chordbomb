@@ -9,7 +9,7 @@ nav#app-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4em 0.8em;
+  padding: 0.2em 0.8em;
   font-size: $h3;
   background-color: $cb-black;
 }
@@ -89,6 +89,7 @@ p#user-info {
   }
 
   height: inherit;
+  padding: 0.2em 0;
   font-size: $h4;
   text-align: center;
   color: lighten($color: $cb-gray, $amount: 15%);
@@ -139,7 +140,9 @@ p#user-info {
 
     a.nav-link, a#nav-settings-btn:not(.hide) {
       display: block;
+      /* Reset right margin to reach right edge of screen in menu; add top-down padding */
       padding: $nav-item-spacing 0;
+      margin-right: 0;
 
       &:hover {
         color: #fff;

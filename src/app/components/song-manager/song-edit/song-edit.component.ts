@@ -252,5 +252,8 @@ export class SongEditComponent implements OnDestroy {
       );
       this.songService.editMode = true;
     }
+
+    /* Keep data in form to allow for uninterrupted editing, but mark as pristine */
+    this.songForm.markAsPristine();
   }
 }
