@@ -46,7 +46,6 @@ export class TransformChordPipe implements PipeTransform {
       case('full'): // Fall through
       default:
         return fullChord;
-    }
-  }
-
+    };
+  };
 }

@@ -1,7 +1,4 @@
-.ais-SearchBox-input {
-  border-radius: $border-radius-input !important;
-  box-shadow: 0 0 2px 2px lighten($color: $cb-select, $amount: 10%) inset !important;
-}
+
 
 .ais-Hits-item {
   justify-content: space-between;
@@ -100,11 +97,11 @@ img#chordbomb-bomb {
 
 #artists-and-title {
   margin-bottom: 0;
-  font-size: $font-m;
+  font-size: $h4;
 
   @include respond-to('small') {
     margin-bottom: 10px;
-    font-size: ($font-l - 2px);
+    font-size: ($h3 - 2px);
   }
 }
 
@@ -113,7 +110,7 @@ img#chordbomb-bomb {
 
   @include respond-to('small') {
     display: block;
-    font-size: ($font-m);
+    font-size: $h4;
   }
 }
 

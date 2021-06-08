@@ -1,13 +1,15 @@
-/*
- * Apply to all text inputs (including textarea elements), excluding matInput types
- */
+/* Apply to all text inputs (including textarea elements), excluding matInput types */
 input[type="text"]:not([matInput]), textarea {
   display: block;
   width: 100%;
   border: 1px solid $cb-gray;
-  border-radius: $border-radius-input;
-  font-size: $font-l;
-  padding: 0.1em 0.25em;
+  border-radius: $border-radius;
+  font-size: $h3;
+
+  /* Algolia search box leaves space for magnifying glass icon, so keep default padding */
+  &:not(.ais-SearchBox-input) {
+    padding: 0.1em 0.25em;
+  }
 
   &:focus {
     outline: none;

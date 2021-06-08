@@ -1,11 +1,17 @@
-/* Remove magnifying glass icon that was overlapping with 'Search' placeholder text */
-.ais-SearchBox-form::before {
-  background: none;
-}
-
 /* Remove goofy 'not-allowed' cursor and reinstate default instead */
 [class^='ais-'][class$='--disabled'],
 [class^='ais-'][class$='--disabled'] *,
 .ais-VoiceSearch-button:disabled {
   cursor: default;
+}
+
+/* Inherit background color from component to not bleed past curved border edges */
+.ais-SearchBox-form {
+  background: inherit;
+}
+
+.ais-SearchBox-input {
+  box-shadow: 0 0 2px 2px lighten($color: $cb-select, $amount: 10%) inset !important;
+  border: 1px solid $cb-gray;
+  font-size: $h3;
 }

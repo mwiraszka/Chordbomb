@@ -24,15 +24,15 @@ export class SongDisplayComponent implements OnDestroy {
     private settingsService: SettingsService,
     private toastr: ToastrService
   ) {
-    this.songSub = this.songService.songToDisplay.subscribe((song) => {
+    this.songSub = this.songService.songToDisplay$.subscribe((song) => {
       this.song = song;
     });
 
-    this.fontSizeSub = this.settingsService.fontSize.subscribe((fontSize) => {
+    this.fontSizeSub = this.settingsService.fontSize$.subscribe((fontSize) => {
       this.updateFontSize(fontSize);
     });
 
-    this.chordTypeSub = this.settingsService.chordType.subscribe((chordType) => {
+    this.chordTypeSub = this.settingsService.chordType$.subscribe((chordType) => {
       this.chordType = chordType;
     });
   }
@@ -45,7 +45,7 @@ export class SongDisplayComponent implements OnDestroy {
   }
 
   onNextSong() {
-    this.songService.setSongDisplay(false);
+    this.songService.removeSongToDisplay();
   }
 
   updateFontSize(newFontSize: string): void {

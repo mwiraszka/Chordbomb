@@ -1,10 +1,15 @@
+/*
+ * Mostly just carry over a variety of Chordbomb styles, but also:
+ * 1 - size toast width based on text size; slightly increase default 15px padding on the
+ *     right to compensate for the extra padding on left side of the toast (possibly due
+ *     to icon)
+ */
 .toast-success {
   background-color: $cb-accent;
 }
 
-/* Size toast width based on text size; slightly increase default 15px padding on the
-right to compensate the extra padding on the left of the toast (possibly due to icon) */
 .toast-container .ngx-toastr {
   width: auto;
-  padding-right: 20px;
+  padding-right: 20px; /* 1 */
+  border-radius: $border-radius;
 }

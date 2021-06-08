@@ -5,6 +5,7 @@ div#song-display-container {
 div#song-container {
   display: flex;
   justify-content: center;
+  margin: 1em 0;
 }
 
 mat-card#song-content {
@@ -14,7 +15,6 @@ mat-card#song-content {
   min-width: 40ch;
   max-width: 80ch;
   width: calc(100% - 2em);
-  margin-top: 1em;
 }
 
 mat-card-title#artist-and-title {
@@ -24,9 +24,9 @@ mat-card-title#artist-and-title {
 
 mat-card-content#lyrics-and-chords {
   width: 100%;
-  font-size: $font-m;
+  font-size: $h4;
   &.enlarge {
-    font-size: $font-l;
+    font-size: $h3;
   }
 }
 

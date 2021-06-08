@@ -23,6 +23,6 @@ export class SongSearchComponent {
   constructor(private songService: SongService) {}
 
   onSelect(id: string) {
-    this.songService.changeSongToDisplay(id);
+    this.songService.setSongToDisplay(id);
   }
 }

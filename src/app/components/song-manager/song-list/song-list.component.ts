@@ -17,7 +17,7 @@ export class SongListComponent implements OnInit, OnDestroy {
   constructor(private songService: SongService) {}
 
   ngOnInit() {
-    this.songListSub = this.songService.getSongs().subscribe((actionArray) => {
+    this.songListSub = this.songService.getSongs$().subscribe((actionArray) => {
       this.songList = actionArray.map((item) => {
         return { ...(item.payload.doc.data() as object) } as Song;
       });
@@ -30,7 +30,7 @@ export class SongListComponent implements OnInit, OnDestroy {
 
   onSelect(song: Song) {
     if (this.currentSongId !== song.id || !this.songService.editMode) {
-      this.songService.changeSongToEdit(song);
+      this.songService.setSongToEdit(song);
       this.songService.editMode = true;
       // Keep a record of the current song ID to prevent this method from being called
       // needlessly when song wouldn't change anyway

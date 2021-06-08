@@ -1,89 +1,79 @@
-/*
- * Base button styling
- */
+/* Base button style */
 button {
   cursor: pointer;
+  border: none;
+  background: none;
 }
 
-/*
- * Chordbomb 'primary'-styled button
- */
+/* Chordbomb 'primary'-styled button */
 button.primary {
   box-sizing: content-box;
-  border: 2px solid darken($color: $cb-white, $amount: 10%);
-  border-radius: $border-radius-button;
+  border-radius: 14px;
   color: $cb-white;
   background-color: $cb-primary;
-  font-size: $font-m;
-  padding: 0.1em 0.7em;
+  font-size: $h4;
+  padding: 3px 10px;
+  margin: 3px;
 
   &.large {
-    font-size: $font-l;
-    padding: 0.2em 1em;
+    font-size: $h3;
+    padding: 4px 15px;
   }
 
-  &:hover {
-    border: 2px solid darken($color: $cb-white, $amount: 5%);
+  &:hover:not(:disabled) {
     color: #fff;
-    background-color: lighten($color: $cb-primary, $amount: 7%);
-    box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%);
+    background-color: lighten($color: $cb-primary, $amount: 12%);
+    box-shadow: 0 0 2px 1px darken($color: $cb-white, $amount: 8%) inset;
   }
 
-  &#create-new-song-btn, &#submit-btn {
-    height: 2em;
-    border-radius: $border-radius-button;
-    padding: 0 0.8em;
-
-    fa-icon {
-      margin-left: -0.2em; // icon appears as if it adds extra padding, so compensate
-      margin-right: 0.3em;
-    }
-  }
-
-  &#insert-node-btn, &#remove-node-btn {
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-  }
-
-  /* Force plus and minus buttons to the right end of row; space them out slighly */
-  &#insert-node-btn {
-    margin-right: 0.1em;
-    margin-left: auto;
-  }
-
-  &#settings-btn {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    margin-bottom: auto;
-
-    /* Only show 'Settings' text on wider viewports */
-    h3 {
-      display: none;
-
-      @include respond-to('medium') {
-        display: inline;
-      }
-    }
-  }
-
-
-  &:disabled, &[disabled] {
+  &:disabled {
     cursor: default;
     color: $cb-gray;
     background-color: lighten($color: $cb-gray, $amount: 20%);
   }
+
+  fa-icon {
+    margin-right: 10px;
+  }
 }
 
-
 /*
- * Admin login button
+ * Refactor default 'primary' button style to make '+' and '-' node buttons (used in Song
+ * Edit component): style as 20px-diameter circles with reset margins, padding, and no
+ * right margin after icon as there is no text
  */
+button#insert-node-btn, button#remove-node-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+
+  & > fa-icon {
+    margin: 0;
+  }
+}
+
+/* Remove all margins to line up button with 'Edit Song' header text to the left */
+button#create-new-song-btn {
+  margin: 0;
+}
+
+button#submit-btn {
+  margin: 20px;
+}
+
+/* Force plus and minus buttons to the right end of row; space them out slighly */
+button#insert-node-btn {
+  margin-right: 5px;
+  margin-left: auto;
+}
+
+/* Admin login button */
 button#login-btn {
   font-weight: bold;
+  margin-top: 10px;
+
   /* Align right side of button with edge of form fields */
   width: 80px;
   margin-left: calc(100% - 80px);
@@ -93,20 +83,18 @@ button#login-btn {
   }
 }
 
-
-/*
- * Navigation bar burger menu button
- */
+/* Navigation bar burger menu button */
 button#menu-btn {
   display: block;
-  border: none;
-  background: none;
-  /* Keep button stationary in top of navbar when dropdown is opened */
-  margin-bottom: auto;
 
   /*
-   * Button animation when dropdown closes: transition X icon back to three-line 'burger'
+   * Keep button stationary in top of navbar when dropdown is opened; pushed down
+   * slightly to centre with top row a little better
    */
+  margin-top: 5px;
+  margin-bottom: auto;
+
+  /* Button animation for when dropdown closes: transition 'X' -> three-line 'burger' */
   .burger-line {
     display: block;
     background-color: $cb-white;
@@ -123,9 +111,7 @@ button#menu-btn {
   }
 }
 
-/*
- * Button animation when dropdown opens: transition icon from three lines to an X
- */
+/* Button animation for when dropdown opens: transition icon three-line 'burger' -> 'X' */
 nav#app-nav.open button .burger-line {
   &:nth-child(1) {
     transform: translateY(8px) rotate(225deg);

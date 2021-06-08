@@ -6,17 +6,18 @@
         <th>Song</th>
         <th>Nodes</th>
         <th>Last Edited</th>
-        <th>Database ID</th>
+        <th>Note</th>
       </thead>
       <tbody>
-        <tr *ngFor="let song of songList" (click)=onSelect(song)>
+        <tr *ngFor="let song of songList; let last = last" (click)=onSelect(song)
+          [ngClass]="{'last-child': last}">
           <td>{{ song.artists }} - {{ song.title }}</td>
           <td class="align-right">{{ song.nodes.length }}</td>
           <td>
             {{ song.editions.slice(-1)[0].timestamp }} by
             {{ song.editions.slice(-1)[0].author }}
           </td>
-          <td>{{ song.id }}</td>
+          <td>{{ song.editions.slice(-1)[0].note | truncate:120:true }}</td>
         </tr>
       </tbody>
     </table>

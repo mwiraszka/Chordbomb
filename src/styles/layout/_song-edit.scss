@@ -1,34 +1,30 @@
-$label-margin-left: 0.3em;
+$label-margin-left: 0.3em; // Space between left edge of fieldset and label
+$form-field-spacing: 0.2em; // Space between form fields
+$fieldset-padding: 0.1em; // Padding along inner edges of fieldset
+$form-row-padding: 0.5em; // Padding around form row (left & right fixed at all viewports)
 
-section#song-edit {
-  margin: 1em;
-}
-
-header#song-edit-header {
+#song-edit-header {
   display: flex;
-
-  h2 {
-    color: $cb-black;
-    padding-bottom: 0.3em;
-    margin-right: 0.5em;
-  }
-
+  gap: 10px;
   justify-content: center;
+
+  /* On larger viewports, move header and button to far edges of component container */
   @include respond-to('medium') {
     justify-content: space-between;
   }
 }
 
-div#latest-ed-details {
-  width: 320px; // hard-coded width for now to fit h4 header text roughly exactly
-  border-radius: $border-radius-form;
+#latest-ed-details {
   text-align: left;
-  margin: 0.5em auto;
+  margin: 1em auto;
   padding: 0.6em 1.5em;
-  box-shadow: 1px 1px 2px 2px darken($color: $cb-gray, $amount: 5%);
+  width: calc(100% -
+    2*(#{$form-field-spacing} + #{$fieldset-padding} + #{$form-row-padding})
+  );
+  box-shadow: 1px 2px 3px 1px lighten($color: $cb-gray, $amount: 5%);
 
-  p#latest-ed-note {
-    font-size: $font-m;
+  #latest-ed-note {
+    font-size: $h4;
     margin-top: 0.5em;
     font-style: oblique;
   }
@@ -38,32 +34,33 @@ fieldset {
   min-width: 300px;
   max-width: 700px;
   background-color: $cb-fieldset;
-  padding: 0.1em;
+  padding: $fieldset-padding;
   border: 1px solid lighten($color: $cb-black, $amount: 40%);
-  border-radius: $border-radius-form;
+  border-radius: $border-radius;
   margin: 2em 0 0;
 
   legend {
-    font-size: $font-l;
+    color: $cb-white;
+    background-color: $cb-primary;
+    font-size: $h3;
     font-weight: bold;
     margin-left: 0.5em;
     padding: 0.1em 0.35em;
     text-align: center;
-    background-color: $cb-white;
     box-shadow: 0 0 3px 1px $cb-gray;
     width: inherit;
   }
 }
 
-div.form-row {
+.form-row {
   display: flex;
-  padding: 0.5em;
+  padding: $form-row-padding;
   align-items: center;
   justify-content: flex-start;
 
-  /* Reduce top-bottom padding on small viewports to better suit smaller font sizes */
+  /* Reduce top-bottom padding on small viewports to better suit smaller font size */
   @include respond-to('medium') {
-    padding: 0.2em 0.5em;
+    padding: calc(#{$form-row-padding} / 2) $form-row-padding;
   }
 
   /* A single form-field in the row: force input under label, and no flex needed */
@@ -76,12 +73,12 @@ div.form-row {
   }
 }
 
-div.form-field, label.node-number {
+.form-field, .node-number {
   /* Leave small gap between form fields, node number text, and edges of fieldset box */
-  margin: 0 0.1em;
+  margin: 0 $form-field-spacing;
 
   &.full-width {
-    width: 100%;
+    width: calc(100% - #{$form-field-spacing}*2);
   }
   &.three-quarters-width {
     width: 75%;
@@ -97,10 +94,10 @@ div.form-field, label.node-number {
   }
 }
 
-div.error-message-area {
+.error-message-area {
   /*
    * Fixed height to ensure two side-by-side fields remain vertically aligned if one shows
-   * an error but the other doesn't (temporary and hacky, but works)
+   * an error but the other doesn't (a little hacky... but it works)
    */
   height: 10px;
 
@@ -110,46 +107,52 @@ div.error-message-area {
     padding: 0;
     margin-left: $label-margin-left;
     color: $cb-warn;
-    font-size: $font-xs;
+    font-size: $h6;
   }
 }
 
-label.field-name, label.node-number {
-  font-size: $font-m;
+.field-name, .node-number {
+  font-size: $h4;
   margin-left: $label-margin-left;
 }
 
-label.node-number {
+/*
+ * Viewport very narrow, so remove individual node number labels and have a single
+ * label above all the nodes - increase left margin to align with input box (estimate);
+ * also add a top margin to separate text from above fields; increase label's box width to
+ * accomodate for full text when viewport is larger - a little hacky, but 5.5em should
+ * comfortably allow for up to 3-digit numbers
+ */
+.node-number {
   font-weight: bold;
 
-  /* Viewport very narrow, so remove individual node number labels and have a single
-  label above all the nodes - increase left margin to align with input box (estimate) */
   &.short-text {
+    margin-top: 20px;
     margin-left: ($label-margin-left + 0.7em);
   }
 
   &.full-text {
-    /* Increase label's box width to accomodate for full text when viewport is larger -
-    a little hacky, but 5.5em should comfortably allow for up to 3-digit numbers */
     width: 5.5em;
   }
 }
 
-div#submit-song-container {
-  margin-top: 0.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Centre all items with some spacing in between */
+#submit-song-container {
+  margin: 0.5em;
+  text-align: center;
 }
 
-/*
- * Show abbreviated text when viewport is small; switch to full text when larger
- */
+/* Show abbreviated text when viewport is small; switch to full text when larger */
 .full-text {
   display: none;
 }
 .short-text {
-  display: inline;
+  &:not(.node-number) {
+    display: inline;
+  }
+  &.node-number {
+    display: block;
+  }
 }
 
 @include respond-to('medium') {
@@ -157,6 +160,6 @@ div#submit-song-container {
     display: inline;
   }
   .short-text {
-    display: none;
+    display: none !important;
   }
 }

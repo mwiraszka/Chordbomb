@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { faUserCog, faCog } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
+import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SongService } from '@app/shared/services/song.service';
-import { SettingsService } from '@app/shared/services/settings.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +18,7 @@ export class NavComponent {
   constructor(
     public auth: AngularFireAuth,
     private songService: SongService,
-    private settingsService: SettingsService,
+    private sidenavService: SidenavService,
     private toastr: ToastrService
   ) {}
 
@@ -42,7 +42,7 @@ export class NavComponent {
   onSongSearch() {
     this.menuOpen = false;
     document.getElementById('app-nav')?.classList.remove('open');
-    this.songService.setSongDisplay(false);
+    this.songService.removeSongToDisplay();
   }
 
   /*
@@ -75,6 +75,6 @@ export class NavComponent {
   }
 
   onSettings() {
-    this.settingsService.openSidenav();
+    this.sidenavService.openSidenav();
   }
 }
