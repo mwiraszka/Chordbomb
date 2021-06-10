@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoaderService } from '@app/shared/services/loader.service';
 import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -79,7 +79,7 @@ export class DashboardComponent implements AfterViewInit, OnInit, OnDestroy {
    * 'ExpressionChangedAfterItHasBeenCheckedError' and also make loader look less glitchy
    */
   ngAfterViewInit() {
-    setTimeout(() => this.loaderService.display(false), 300);
+    setTimeout(() => this.loaderService.display(false), 200);
   }
 
   /* Unsubscribe from all subscriptions on destroying component to avoid memory leaks */
