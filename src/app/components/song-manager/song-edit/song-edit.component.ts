@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AbstractControl,
@@ -22,7 +22,7 @@ import { environment } from '@environments/environment';
   selector: 'app-song-edit',
   templateUrl: './song-edit.component.html'
 })
-export class SongEditComponent implements OnDestroy {
+export class SongEditComponent implements OnInit, OnDestroy {
   /* Declare Font Awesome icons */
   faPlus = faPlus;
   faMinus = faMinus;
@@ -43,7 +43,9 @@ export class SongEditComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private songService: SongService,
     private toastr: ToastrService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.userSub = this.auth.user.subscribe((user) => {
       this.userId = user.uid;
     });
@@ -218,21 +220,24 @@ export class SongEditComponent implements OnDestroy {
   onSubmit(): void {
     if (this.userId !== environment.firestoreAdminId) {
       this.toastr.error(
-        'Please log in as admin to access database',
+        'Please log in as admin to edit a song',
         'Oops! Unauthorized access',
         { positionClass: 'toast-bottom-right' });
     } else {
       /* Add current time as edition timestamp value */
       const timestamp = formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US');
-      this.songForm.patchValue({'newEdition': {
-        timestamp: timestamp
-      }});
+      this.songForm.patchValue(
+        { 'newEdition': { timestamp: timestamp } }
+      );
 
-      const songData = this.prepareSong();
+      const songData = this.getFinalizedSongData();
 
       this.submitSong(songData, timestamp);
 
-      /* Keep data in form to allow for uninterrupted editing, but mark as pristine */
+      /*
+       * Move user to edit mode, and keep data in form to allow for uninterrupted editing,
+       * manually marking form as pristine to show that changes have been saved
+       */
       this.songService.editMode = true;
       this.songForm.markAsPristine();
     }
@@ -246,7 +251,7 @@ export class SongEditComponent implements OnDestroy {
    *     song-type parameters (songData)
    * 4 - Convert custom objects used in project to JS objects
    */
-  prepareSong(): Song {
+  getFinalizedSongData(): Song {
     let formData = { ...this.songForm.value }; /* 1*/
     formData.editions = [...this.song.editions, this.songForm.value.newEdition]; /* 2 */
     const { newEdition, ...songData } = formData; /* 3 */

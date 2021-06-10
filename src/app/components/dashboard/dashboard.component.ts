@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MatSidenav } from '@angular/material/sidenav';
+import { LoaderService } from '@app/shared/services/loader.service';
 import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements AfterViewInit, OnInit, OnDestroy {
   /* Lists of options for each setting, and subscriptions to the currently selected one */
   fontSizes: string[] = ['regular', 'large'];
   chordTypes: string[] = ['full', 'basic', 'none'];
@@ -41,11 +42,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * 'sub' variable, and move to local variables to be able to use them in the template
    */
   constructor(
+    private loaderService: LoaderService,
     private settingsService: SettingsService,
     private sidenavService: SidenavService,
     private songService: SongService,
     private toastr: ToastrService
   ) {
+    this.loaderService.display(true);
+  }
+
+  /*
+   * App settings are only applicable to Dashboard components, so make them available upon
+   * initiating the dashboard by unhiding the button in the nav bar
+   */
+  ngOnInit() {
+    document.getElementById('nav-settings-btn')?.classList.remove('hide');
     this.displaySub = this.songService.songToDisplay$.subscribe((song) => {
       this.whatToDisplay(!!song);
     });
@@ -64,11 +75,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   /*
-   * App settings are only applicable to Dashboard components, so make them available upon
-   * initiating the dashboard by unhiding the button in the nav bar
+   * Remove loading spinner once content has been loaded; short timeout set to circumvent
+   * 'ExpressionChangedAfterItHasBeenCheckedError' and also make loader look less glitchy
    */
-  ngOnInit() {
-    document.getElementById('nav-settings-btn')?.classList.remove('hide');
+  ngAfterViewInit() {
+    setTimeout(() => this.loaderService.display(false), 300);
   }
 
   /* Unsubscribe from all subscriptions on destroying component to avoid memory leaks */
@@ -85,9 +96,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   whatToDisplay(isSongSelected: boolean) {
     this.isSongToDisplay = isSongSelected;
     const navLink = document.getElementById('song-search-nav-link');
-    this.isSongToDisplay ?
-      navLink?.classList.add('displaying-song') :
-      navLink?.classList.remove('displaying-song');
+    this.isSongToDisplay ? navLink?.classList.add('displaying-song') :
+                           navLink?.classList.remove('displaying-song');
   }
 
   /* Use metadata passed in $event to determine what to do with the click event */

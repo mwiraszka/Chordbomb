@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Song } from '@app/shared/models/song.model';
 import { SongService } from '@app/shared/services/song.service';
+import { LoaderService } from '@app/shared/services/loader.service';
 
 @Component({
   selector: 'app-song-list',
@@ -14,13 +15,19 @@ export class SongListComponent implements OnInit, OnDestroy {
 
   currentSongId: string = '';
 
-  constructor(private songService: SongService) {}
+  constructor(
+    private songService: SongService,
+    private loaderService: LoaderService
+  ) {
+    this.loaderService.display(true);
+  }
 
   ngOnInit() {
     this.songListSub = this.songService.getSongs$().subscribe((actionArray) => {
       this.songList = actionArray.map((item) => {
         return { ...(item.payload.doc.data() as object) } as Song;
       });
+      this.loaderService.display(false);
     });
   }
 
