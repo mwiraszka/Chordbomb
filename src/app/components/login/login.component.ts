@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+import { LoaderService } from '@app/shared/services/loader.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -15,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private auth: AngularFireAuth,
+    private loaderService: LoaderService,
     private router: Router,
     private toastr: ToastrService
   ) {}
@@ -28,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.loaderService.display(true);
     const { email, password } = this.loginForm.value;
     this.auth
       .signInWithEmailAndPassword(email, password)
@@ -36,6 +40,7 @@ export class LoginComponent implements OnInit {
         this.toastr.success('', 'Successfully logged in', {
           positionClass: 'toast-bottom-right'
         });
+        this.loaderService.display(false);
       })
       .catch((err) => {
         switch (err.code) {
@@ -49,6 +54,7 @@ export class LoginComponent implements OnInit {
           default:
             this.error = 'An unknown error has occurred - please try again later';
         }
+        this.loaderService.display(false);
       });
   }
 }

@@ -1,18 +1,16 @@
-#song-list-container {
-  h2 {
-    text-align: center;
-    padding-bottom: 0.5em;
-  }
+#song-list-header {
+  text-align: center;
+  padding-bottom: 0.5em;
+}
 
-  table {
-    border: 1px solid transparent;
-    border-spacing: 0;
-    border-collapse: separate;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 0 lighten($color: $cb-gray, $amount: 15%);
-    overflow: hidden;
-    display: inline-block;
-  }
+table#database-songs {
+  border: 1px solid transparent;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 0 lighten($color: $cb-gray, $amount: 15%);
+  overflow: hidden;
+  display: inline-block;
 }
 
 thead th {

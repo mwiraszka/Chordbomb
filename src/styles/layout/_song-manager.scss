@@ -1,7 +1,23 @@
-section#song-manager {
+/*
+ * 1 - Wrap Song List component under Song Edit when there isn't enough room beside it
+ * 2 - Reserve max widths for each component before it loads to prevent CLS
+ */
+#song-manager-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* 1 */
   justify-content: center;
   gap: $component-spacing;
   padding: $component-spacing;
+
+  app-song-edit {
+    max-width: 650px;
+    min-width: 250px;
+    width: 100%; /* 2 */
+  }
+
+  app-song-list {
+    max-width: 650px;
+    min-width: 250px;
+    width: 100%; /* 2 */
+  }
 }

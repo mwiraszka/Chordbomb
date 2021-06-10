@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-mat-card {
+mat-card#admin-login {
   margin: $component-spacing;
   box-sizing: content-box;
 }
@@ -16,6 +16,23 @@ mat-card-title {
 
 mat-card-content {
   padding: 0 10px;
+}
+
+mat-card#guest-welcome {
+  background-color: lighten($color: $cb-accent, $amount: 15%);
+  width: 100%;
+  margin-bottom: 1em;
+
+  /* Centre all text within mat-card flush-left, based on longest line of text */
+  #login-credentials {
+    display: table;
+    margin: 0 auto;
+    line-height: 1.5em;
+
+    h3 {
+      margin-bottom: 0.8em;
+    }
+  }
 }
 
 mat-form-field {
