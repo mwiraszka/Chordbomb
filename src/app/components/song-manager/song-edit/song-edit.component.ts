@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AbstractControl,
   FormArray,
@@ -15,6 +16,7 @@ import { Edition } from '@app/shared/models/edition.model';
 import { Node } from '@app/shared/models/node.model';
 import { Song } from '@app/shared/models/song.model';
 import { SongService } from '@app/shared/services/song.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-song-edit',
@@ -29,24 +31,33 @@ export class SongEditComponent implements OnDestroy {
    * Inject necessary services, subscribe to the user-selected song from song list &
    * initialize form
    */
-  private songSub: Subscription;
+  private songSub!: Subscription;
   song!: Song;
   songForm!: FormGroup;
 
+  private userSub!: Subscription;
+  userId!: string;
+
   constructor(
+    private auth: AngularFireAuth,
+    private formBuilder: FormBuilder,
     private songService: SongService,
-    private toastr: ToastrService,
-    private formBuilder: FormBuilder
+    private toastr: ToastrService
   ) {
+    this.userSub = this.auth.user.subscribe((user) => {
+      this.userId = user.uid;
+    });
     this.songSub = this.songService.songToEdit$.subscribe((song) => {
       this.song = song;
       this.newForm();
     });
   }
 
-  /* Unsubscribe on destroy to avoid any memory leaks */
+  /* Unsubscribe on destroy to avoid any memory leaks; reset song to edit */
   ngOnDestroy() {
     this.songSub.unsubscribe();
+    this.userSub.unsubscribe();
+    this.songService.setSongToEdit(new Song());
   }
 
   /* Edit mode affects button text and how the form is eventually submitted */
@@ -145,7 +156,7 @@ export class SongEditComponent implements OnDestroy {
         Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/]*$/) /* 2 */
       ]],
       lyric: ['', Validators.maxLength(12)],
-      label: ['', Validators.maxLength(12)]
+      label: ['', Validators.maxLength(20)]
     });
   }
 
@@ -204,24 +215,43 @@ export class SongEditComponent implements OnDestroy {
     }
   }
 
-  onSubmit() {
-    /* Add current time as edition timestamp value */
-    const timestamp = formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US');
-    this.songForm.patchValue({'newEdition': {
-      timestamp: timestamp
-    }});
+  onSubmit(): void {
+    if (this.userId !== environment.firestoreAdminId) {
+      this.toastr.error(
+        'Please log in as admin to access database',
+        'Oops! Unauthorized access',
+        { positionClass: 'toast-bottom-right' });
+    } else {
+      /* Add current time as edition timestamp value */
+      const timestamp = formatDate(new Date(Date.now()), 'd MMMM yyyy, h:mm a', 'en-US');
+      this.songForm.patchValue({'newEdition': {
+        timestamp: timestamp
+      }});
 
-    /* Copy form data over to new variable and add previous edition information back in */
-    let formData = { ...this.songForm.value };
-    formData.editions = [...this.song.editions, this.songForm.value.newEdition];
+      const songData = this.prepareSong();
 
-    /*
-     * Destructure form data variable to remove new edition variable and retain only
-     * song-type parameters (songData)
-     */
-    const { newEdition, ...songData } = formData;
+      this.submitSong(songData, timestamp);
 
-    /* Convert custom objects used in project to JS objects */
+      /* Keep data in form to allow for uninterrupted editing, but mark as pristine */
+      this.songService.editMode = true;
+      this.songForm.markAsPristine();
+    }
+  }
+
+  /*
+   * Prepare song data stored in form for submission
+   * 1 - Copy form data over to new variable
+   * 2 - Add previous edition data back in
+   * 3 - Destructure form data variable to remove new edition variable and retain only
+   *     song-type parameters (songData)
+   * 4 - Convert custom objects used in project to JS objects
+   */
+  prepareSong(): Song {
+    let formData = { ...this.songForm.value }; /* 1*/
+    formData.editions = [...this.song.editions, this.songForm.value.newEdition]; /* 2 */
+    const { newEdition, ...songData } = formData; /* 3 */
+
+    /* 4 */
     songData.editions = songData.editions.map((obj: any) => {
       return Object.assign({}, obj)
     });
@@ -229,31 +259,36 @@ export class SongEditComponent implements OnDestroy {
       return Object.assign({}, obj)
     });
 
-    /*
-     * Pass completed song data to Song Service's update() or add() method, depending on
-     * edit mode; if was in add mode, switch to edit mode to allow for further editing
-     */
+    return songData;
+  }
+
+  /*
+   * Pass completed song data to Song Service's update() or add() method, depending on
+   * edit mode; if was in add mode, switch to edit mode to allow for further editing
+   */
+  submitSong(songData: Song, timestamp: string): void {
     if (this.songService.editMode) {
       if (this.song.id != null) {
         this.songService.updateSong(this.song.id, songData, timestamp);
-        this.toastr.success('Changes saved', `${songData.artists} - ${songData.title}`,
+        this.toastr.success(
+          'Changes saved',
+          `${songData.artists} - ${songData.title}`,
           { positionClass: 'toast-bottom-right' }
         );
       } else {
-        this.toastr.warning('Oops! Could not locate',
-        `${songData.artists} - ${songData.title}`,
+        this.toastr.error(
+          `${songData.artists} - ${songData.title}`,
+          'Oops! Could not locate',
           { positionClass: 'toast-bottom-right' }
         );
       }
     } else {
       this.songService.addSong(songData, timestamp);
-      this.toastr.success('Successfully added', `${songData.artists} - ${songData.title}`,
+      this.toastr.success(
+        'Successfully added',
+        `${songData.artists} - ${songData.title}`,
         { positionClass: 'toast-bottom-right' }
       );
-      this.songService.editMode = true;
     }
-
-    /* Keep data in form to allow for uninterrupted editing, but mark as pristine */
-    this.songForm.markAsPristine();
   }
 }

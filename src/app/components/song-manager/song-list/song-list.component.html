@@ -1,25 +1,21 @@
-<section id="song-list" *ngIf="songList">
-  <div id="song-list-container">
-    <h2>Songs in Database</h2>
-    <table id="songs">
-      <thead>
-        <th>Song</th>
-        <th>Nodes</th>
-        <th>Last Edited</th>
-        <th>Note</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let song of songList; let last = last" (click)=onSelect(song)
-          [ngClass]="{'last-child': last}">
-          <td>{{ song.artists }} - {{ song.title }}</td>
-          <td class="align-right">{{ song.nodes.length }}</td>
-          <td>
-            {{ song.editions.slice(-1)[0].timestamp }} by
-            {{ song.editions.slice(-1)[0].author }}
-          </td>
-          <td>{{ song.editions.slice(-1)[0].note | truncate:120:true }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+<h2 id="song-list-header">Songs in Database</h2>
+<table id="database-songs" *ngIf="songList">
+  <thead>
+    <th>Song</th>
+    <th>Nodes</th>
+    <th>Last Edited</th>
+    <th>Note</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let song of songList; let last = last" (click)=onSelect(song)
+      [ngClass]="{'last-child': last}">
+      <td>{{ song.artists }} - {{ song.title }}</td>
+      <td class="align-right">{{ song.nodes.length }}</td>
+      <td>
+        {{ song.editions.slice(-1)[0].timestamp }} by
+        {{ song.editions.slice(-1)[0].author }}
+      </td>
+      <td>{{ song.editions.slice(-1)[0].note | truncate:120:true }}</td>
+    </tr>
+  </tbody>
+</table>

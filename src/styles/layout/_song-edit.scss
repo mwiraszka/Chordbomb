@@ -31,8 +31,6 @@ $form-row-padding: 0.5em; // Padding around form row (left & right fixed at all 
 }
 
 fieldset {
-  min-width: 300px;
-  max-width: 700px;
   background-color: $cb-fieldset;
   padding: $fieldset-padding;
   border: 1px solid lighten($color: $cb-black, $amount: 40%);

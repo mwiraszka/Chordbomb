@@ -2,6 +2,16 @@
   <mat-card id="admin-login">
     <mat-card-title>Admin Login</mat-card-title>
     <mat-card-content>
+      <mat-card id="guest-welcome">
+        <div id="login-credentials" class="h4">
+          <h3>Take a peek under the hood!</h3>
+          <p class="h4">Log in as guest to see how song data is stored</p><br>
+          <p class="h4">
+            <b>Email:</b>&nbsp;&nbsp;&nbsp;guest@chordbomb.com<br>
+            <b>Password:</b>&nbsp;&nbsp;&nbsp;123456
+          </p>
+        </div>
+      </mat-card>
       <form id="loginForm" [formGroup]="loginForm">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>

@@ -12,6 +12,7 @@ export const environment = {
     appId: '1:1037238641360:web:ad28959c41df8a021934d5',
     measurementId: 'G-QVNMJDZE46'
   },
+  firestoreAdminId: 'FOkwTfH6SAZwDYOwSHvjYoVqPpz2',
   algoliaConfig: {
     apiKey: '1dfb51e5d328e2efcf769a74182ebf1e',
     appId: 'EGCKVSN4PS'
