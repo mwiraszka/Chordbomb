@@ -13,7 +13,7 @@
         </div>
         <div class="right-col">
           Featured on: {{ song.album }} ({{ song.albumYear }})<br>
-          Songwriters: {{ song.songwriters }}<br>
+          <ng-container *ngIf="song.songwriters">Songwriters: {{ song.songwriters }}</ng-container><br>
           Producers: {{ song.producers }}<br>
           Publishers: {{ song.publishers }}<br>
           Key: {{ song.primaryKey }}<br>
