@@ -1,44 +1,54 @@
 <div class="ais-InstantSearch">
   <ais-instantsearch [config]="config">
+
     <div class="left-panel">
       <h3>Filter by Artist</h3>
-      <ais-refinement-list attribute="artists" [sortBy]="['count:desc', 'name:asc']">
-      </ais-refinement-list>
-      <ais-configure [searchParameters]="{ hitsPerPage: 8 }"></ais-configure>
+      <div id="refinements-container" >
+        <ais-refinement-list attribute="artists" [sortBy]="['count:desc', 'name:asc']">
+        </ais-refinement-list>
+      </div>
       <hr class="big-spacer">
       <ais-clear-refinements [autoHideContainer]="true"></ais-clear-refinements>
     </div>
+
     <div class="right-panel">
+      <ais-configure [searchParameters]="{ hitsPerPage: 5 }"></ais-configure>
       <ais-search-box></ais-search-box>
       <ais-hits>
-        <ng-template let-hits="hits">
-          <ol class="ais-Hits-list">
-            <li *ngFor="let hit of hits" class="ais-Hits-item" (click)="onSelect(hit.objectID)">
-              <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" id="album-cover">
-              <div id="song-details">
-                <div id="artists-and-title">
-                  <img src="../../../../assets/bomb.svg" alt="bomb" id="chordbomb-bomb">
-                  <ais-highlight tagName="mark" attribute="artists" [hit]="hit">
-                  </ais-highlight> -
-                  <ais-highlight tagName="mark" attribute="title" [hit]="hit">
-                  </ais-highlight>
+        <ng-template let-hits="hits" let-results="results">
+          <p class="no-results" *ngIf="hits.length === 0">
+            No results for <em>{{ results.query }}</em>
+          </p>
+          <div *ngIf="(results.query && results.query.length > 0) || isRefinement">
+            <ol class="ais-Hits-list">
+              <li *ngFor="let hit of hits" class="ais-Hits-item" (click)="onSelect(hit.objectID)">
+                <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" id="album-cover">
+                <div id="song-details">
+                  <div id="artists-and-title">
+                    <img src="../../../../assets/bomb.svg" alt="bomb" id="chordbomb-bomb">
+                    <ais-highlight tagName="mark" attribute="artists" [hit]="hit">
+                    </ais-highlight> -
+                    <ais-highlight tagName="mark" attribute="title" [hit]="hit">
+                    </ais-highlight>
+                  </div>
+                  <div id="album-songwriters-and-producers">
+                    <label>Album: </label>
+                    <ais-highlight attribute="album" [hit]="hit"></ais-highlight>&nbsp;
+                    (<ais-highlight attribute="albumYear" [hit]="hit"></ais-highlight>)
+                    <hr class="small-spacer">
+                    <label>Songwriters: </label>
+                    <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight>
+                    <hr class="small-spacer">
+                    <label>Producers: </label>
+                    <ais-highlight attribute="producers" [hit]="hit"></ais-highlight>
+                  </div>
                 </div>
-                <div id="album-songwriters-and-producers">
-                  <label>Album: </label>
-                  <ais-highlight attribute="album" [hit]="hit"></ais-highlight>&nbsp;
-                  (<ais-highlight attribute="albumYear" [hit]="hit"></ais-highlight>)
-                  <hr class="small-spacer">
-                  <label>Songwriters: </label>
-                  <ais-highlight attribute="songwriters" [hit]="hit"></ais-highlight>
-                  <hr class="small-spacer">
-                  <label>Producers: </label>
-                  <ais-highlight attribute="producers" [hit]="hit"></ais-highlight>
-                </div>
-              </div>
-            </li>
-          </ol>
+              </li>
+            </ol>
+          </div>
         </ng-template>
       </ais-hits>
     </div>
+
   </ais-instantsearch>
 </div>

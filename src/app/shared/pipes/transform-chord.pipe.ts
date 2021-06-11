@@ -1,51 +1,44 @@
-/*
- * Transform chord based on chord type provided:
- * Case 'none': return empty string;
- * Case 'basic': first check to see if chord is a single letter, or one with a sharp or
- *    flat trailing - i.e. a simple triad. If so, return original chord as no
- *    transformations will be necessary. If not, transform the chord by removing any
- *    advanced chord characters in turn: '/' (chord inversion), 'sus2' or 'sus4'
- *    (suspensions), '7' or '9' (7th or 9th chord), and 'M' (Major - used only for Major
- *    7th or Major 9th chords); return transformed chord
- * Case 'full' or default (as fail-safe): return full chord without any change.
- */
-
+/* Transform chord string based on chord type provided ('none', 'full', or 'basic') */
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'transformChord' })
 export class TransformChordPipe implements PipeTransform {
+  transform(chordStr: string, chordType: string): string {
+    /*
+     * If chordType is set to 'none', or chord is an empty string or 's' for silence,
+     * return an empty string right away
+     */
+    if (chordType === 'none' || chordStr === '' || chordStr === 's') {
+      return '';
+    }
 
-  transform(fullChord: string, chordType: string): string {
-    switch(chordType) {
-      case('none'):
-        return '';
+    /*
+     * Replace #'s with proper musical sharp symbols and M's with 'maj'; replace b's with
+     * proper musical flat symbol - ensure it's not meant to be the letter 'b' by checking
+     * if the previous character is a letter or 7 (the only times a flat would be present)
+     */
+    chordStr = chordStr.replace(/#/g, '♯');
+    chordStr = chordStr.replace(/M/g, 'maj');
+    for (let i = 1; i < chordStr.length; i++) {
+      if (chordStr.charAt(i) === 'b' && chordStr.charAt(i-1).match(/[a-gA-G7]/)) {
+        chordStr = chordStr.substring(0, i) + '♭' + chordStr.substring(i+1);
+      }
+    }
 
-      case('basic'):
-        if (
-          (fullChord.length === 1) ||
-          (fullChord.length === 2 && (fullChord.endsWith('#') || fullChord.endsWith('b')))
-        ) {
-          return fullChord;
-        }
+    /* If chord type is set to 'full', chord is now ready to display */
+    if (chordType === 'full') {
+      return chordStr;
+    }
 
-        let transformedChord = fullChord;
-        if (transformedChord.search('/') !== -1) {
-          transformedChord = transformedChord.slice(0, transformedChord.indexOf('/'));
-        }
-        if (transformedChord.search('sus') !== -1) {
-          transformedChord = transformedChord.slice(0, transformedChord.indexOf('sus'));
-        }
-        if (transformedChord.endsWith('7') || transformedChord.endsWith('9')) {
-          transformedChord = transformedChord.slice(0, -1);
-        }
-        if (transformedChord.endsWith('M')) {
-          transformedChord = transformedChord.slice(0, -1);
-        }
-        return transformedChord;
+    /* Chord type must be set to 'basic': return the chord if already in a basic form */
+    if (
+      (chordStr.length === 1) ||
+      (chordStr.length === 2 && chordStr.slice(-1)[0].match(/[♯♭5]/))
+    ) {
+      return chordStr;
+    }
 
-      case('full'): // Fall through
-      default:
-        return fullChord;
-    };
+    /* Simplify chord by stripping all after the first 'advanced' chord character found */
+    return chordStr.slice(0, chordStr.search(/[679(sm\/]/));
   };
 }

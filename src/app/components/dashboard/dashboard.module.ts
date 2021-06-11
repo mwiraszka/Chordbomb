@@ -8,13 +8,17 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 import { SongDisplayComponent } from '@dashboard/song-display/song-display.component';
 import { SongSearchComponent } from '@dashboard/song-search/song-search.component';
 import { TransformChordPipe } from '@app/shared/pipes/transform-chord.pipe';
+import { TransformLabelPipe } from '@app/shared/pipes/transform-label.pipe';
+import { TransformLyricPipe } from '@app/shared/pipes/transform-lyric.pipe';
 
 @NgModule({
   declarations: [
     SongSearchComponent,
     SongDisplayComponent,
     DashboardComponent,
-    TransformChordPipe
+    TransformChordPipe,
+    TransformLabelPipe,
+    TransformLyricPipe
   ],
   imports: [
     CommonModule,

@@ -30,6 +30,14 @@ export class LoginComponent implements OnInit {
     document.getElementById('nav-settings-btn')?.classList.add('hide');
   }
 
+  onKeyUp(event: any): void {
+    console.log('key')
+    if (event.keyCode === 13) {
+      console.log('13')
+      this.onLogin();
+    }
+  }
+
   onLogin() {
     this.loaderService.display(true);
     const { email, password } = this.loginForm.value;
@@ -46,6 +54,7 @@ export class LoginComponent implements OnInit {
         switch (err.code) {
           case 'auth/wrong-password':
           case 'auth/user-not-found':
+          case 'auth/invalid-email':
             this.error = 'Invalid email or password';
             break;
           case 'auth/too-many-requests':

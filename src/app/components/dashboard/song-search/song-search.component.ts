@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import * as algoliasearch from 'algoliasearch/lite';
 
-import { environment } from '@environments/environment';
 import { SongService } from '@app/shared/services/song.service';
+import { environment } from '@environments/environment';
 
 const searchClient = algoliasearch(
   environment.algoliaConfig.appId,
@@ -20,7 +20,14 @@ export class SongSearchComponent {
     searchClient
   };
 
+  isRefinement = false;
+
   constructor(private songService: SongService) {}
+
+  onClickRefinements() {
+    this.isRefinement != this.isRefinement;
+    console.log('clicked')
+  }
 
   onSelect(id: string) {
     this.songService.setSongToDisplay(id);

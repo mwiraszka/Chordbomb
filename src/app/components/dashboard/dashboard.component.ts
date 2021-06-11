@@ -4,8 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoaderService } from '@app/shared/services/loader.service';
-import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SettingsService } from '@app/shared/services/settings.service';
+import { SidenavService } from '@app/shared/services/sidenav.service';
 import { SongService } from '@app/shared/services/song.service';
 
 @Component({

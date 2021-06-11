@@ -135,8 +135,9 @@ export class SongEditComponent implements OnInit, OnDestroy {
    * Build node form group, with empty initial values and all validators in place;
    * each of these node form groups is an element in the node form array
    * 1 - Time marker must be three numbers, separated by dashes: (0-999) - (1-17) - (1-4)
-   * 2 - Valid regex pattern for chord includes letters, sharps, flats included as a 'b',
-   *     5,6,7,9 (as superscripts), dim, aug, sus2, sus4, M (major), slash (inversions)
+   * 2 - Valid regex pattern for chord includes letters, sharps (accepted as #), flats
+   *     (accepted as 'b') 5,6,7,9 scale degrees, dim, aug, sus2, sus4, M (for major 7th
+   *     or 9th chords), slash (for inversions), and '()' parantheses for 5th alterations
    */
   newNodeFormGroup(): FormGroup {
     return this.formBuilder.group({
@@ -155,7 +156,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
       ]],
       chord: ['', [
         Validators.maxLength(10),
-        Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/]*$/) /* 2 */
+        Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/\(\)]*$/) /* 2 */
       ]],
       lyric: ['', Validators.maxLength(12)],
       label: ['', Validators.maxLength(20)]
