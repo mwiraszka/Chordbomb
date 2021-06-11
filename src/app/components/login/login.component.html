@@ -12,7 +12,8 @@
           </p>
         </div>
       </mat-card>
-      <form id="loginForm" [formGroup]="loginForm">
+      <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onLogin()"
+        (keyup)="onKeyUp($event)">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" type="text" name="email">

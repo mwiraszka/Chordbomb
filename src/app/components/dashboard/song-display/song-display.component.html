@@ -19,33 +19,17 @@
           Key: {{ song.primaryKey }}<br>
           Time Signature: {{ song.primaryTimeSig }}<br>
           Tempo: {{ song.nodes[0].bpm }}<br>
-          Bars: {{ song.nodes.slice(-1)[0].timeMarker.slice(0, song.nodes.slice(-1)[0].timeMarker.indexOf('-')) }}<br>
+          Bars: {{ lastMarker.slice(0, lastMarker.indexOf('-')) }}<br>
         </div>
       </mat-card-subtitle>
       <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
         <div class="node" *ngFor="let node of song.nodes; let i=index;">
-          <span *ngIf="node.label!=='n' && node.label!==''" style="color: purple">{{ node.label }}</span>
-          <span *ngIf="node.label==='n'" style="color: blue">[n]</span>
-          <span *ngIf="node.chord!==''" style="color: red;">{{ node.chord | transformChord:chordType }}</span>
-          <span *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]!=='-'">
-            &nbsp;
-          </span>
-          <span class="lyric with-hyphen" *ngIf="node.lyric.slice(-1)[0]==='-'; else noDash">
-            {{ node.lyric.slice(0, -1) }}
-          </span>
-          <ng-template #noDash>
-            <span class="lyric post-hyphen" *ngIf="i!=0 && song.nodes[i-1].lyric.slice(-1)[0]==='-'; else notAfterDash">
-              {{ node.lyric }}
-            </span>
-            <ng-template #notAfterDash>
-              <span class="lyric default">
-                {{ node.lyric }}
-              </span>
-            </ng-template>
-          </ng-template>
-
+          <ng-container *ngIf="node.label!==''"><hr class="new-line"></ng-container>
+          <span *ngIf="node.label">{{ node.label | transformLabel }}</span>
+          <span *ngIf="node.chord">{{ node.chord | transformChord:chordType }}</span>
+          <span *ngIf="node.lyric">{{ node.lyric | transformLyric }}</span>
+          &nbsp;&nbsp;
         </div>
-
       </mat-card-content>
     </mat-card>
   </div>

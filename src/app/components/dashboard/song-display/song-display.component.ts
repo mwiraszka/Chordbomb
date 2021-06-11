@@ -16,6 +16,7 @@ export class SongDisplayComponent implements OnDestroy {
   chordTypeSub!: Subscription;
 
   song!: Song | null;
+  lastMarker!: string; // Alias for song's final time marker
   largeFont!: boolean;
   chordType!: string;
 
@@ -26,6 +27,7 @@ export class SongDisplayComponent implements OnDestroy {
   ) {
     this.songSub = this.songService.songToDisplay$.subscribe((song) => {
       this.song = song;
+      this.lastMarker = this.song?.nodes.slice(-1)[0].timeMarker;
     });
 
     this.fontSizeSub = this.settingsService.fontSize$.subscribe((fontSize) => {
