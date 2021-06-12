@@ -8,7 +8,7 @@ export class Song {
   title: string = '';
   album: string = '';
   albumYear: number | '' = '';
-  albumCoverLink?: string = '';
+  albumCoverLink: string = '';
   songwriters?: string = '';
   producers?: string = '';
   publishers?: string = '';

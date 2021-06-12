@@ -92,14 +92,14 @@ fieldset {
   }
 }
 
-.error-message-area {
+.error-container {
   /*
    * Fixed height to ensure two side-by-side fields remain vertically aligned if one shows
-   * an error but the other doesn't (a little hacky... but it works)
+   * an error but the other doesn't (a little hacky... but works)
    */
   height: 10px;
 
-  small {
+  .error {
     display: block;
     margin-top: 0.1em;
     padding: 0;

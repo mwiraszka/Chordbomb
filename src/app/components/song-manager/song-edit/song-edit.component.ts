@@ -90,12 +90,15 @@ export class SongEditComponent implements OnInit, OnDestroy {
       title: [this.song.title, [Validators.required, Validators.maxLength(100)]],
       album: [this.song.album, [Validators.required, Validators.maxLength(100)]],
       albumYear: [this.song.albumYear, [
+        Validators.required,
         Validators.maxLength(4),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(1700),
         Validators.max(2021)
       ]],
-      albumCoverLink: [this.song.albumCoverLink, Validators.maxLength(200)],
+      albumCoverLink: [this.song.albumCoverLink, [
+        Validators.required, Validators.maxLength(200)]
+      ],
       songwriters: [this.song.songwriters, Validators.maxLength(200)],
       producers: [this.song.producers, Validators.maxLength(200)],
       publishers: [this.song.publishers, Validators.maxLength(200)],
@@ -126,7 +129,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
   getNodeFormArray(): FormArray {
     let nodeFormArray: FormArray = new FormArray([]);
     for (let i = 0; i < this.song.nodes.length; i++) {
-      nodeFormArray.push(this.newNodeFormGroup());
+      nodeFormArray.push(this.newNodeFormGroup(this.song.nodes[i]));
     }
     return nodeFormArray;
   }
@@ -139,27 +142,27 @@ export class SongEditComponent implements OnInit, OnDestroy {
    *     (accepted as 'b') 5,6,7,9 scale degrees, dim, aug, sus2, sus4, M (for major 7th
    *     or 9th chords), slash (for inversions), and '()' parantheses for 5th alterations
    */
-  newNodeFormGroup(): FormGroup {
+  newNodeFormGroup(node: Node): FormGroup {
     return this.formBuilder.group({
-      timeMarker: ['', [
+      timeMarker: [node.timeMarker, [
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
           /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-(1|2|3|4)$/ /* 1 */
         )
       ]],
-      bpm: ['', [
+      bpm: [node.bpm, [
         Validators.maxLength(3),
         Validators.pattern(/^[0-9]*$/),
         Validators.min(40),
         Validators.max(300)
       ]],
-      chord: ['', [
+      chord: [node.chord, [
         Validators.maxLength(10),
         Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/\(\)]*$/) /* 2 */
       ]],
-      lyric: ['', Validators.maxLength(12)],
-      label: ['', Validators.maxLength(20)]
+      lyric: [node.lyric, Validators.maxLength(12)],
+      label: [node.label, Validators.maxLength(20)]
     });
   }
 
@@ -202,7 +205,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
    * also that all nodes in the song data node array need to be shifted by one
    */
   insertNode(index: number): void {
-    this.nodes.insert(index + 1, this.newNodeFormGroup());
+    this.nodes.insert(index + 1, this.newNodeFormGroup(new Node()));
     this.song.nodes.splice(index + 1, 0, new Node());
   }
 

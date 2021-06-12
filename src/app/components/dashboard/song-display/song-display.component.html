@@ -12,10 +12,16 @@
           <img src="{{ song.albumCoverLink }}" alt="{{ song.album }}" title="{{ song.album }}" id="album-cover">
         </div>
         <div class="right-col">
-          Featured on: {{ song.album }} ({{ song.albumYear }})<br>
-          <ng-container *ngIf="song.songwriters">Songwriters: {{ song.songwriters }}</ng-container><br>
-          Producers: {{ song.producers }}<br>
-          Publishers: {{ song.publishers }}<br>
+          <p>Featured on: {{ song.album }} ({{ song.albumYear }})</p>
+          <ng-container *ngIf="song.songwriters">
+            <p>Songwriters: {{ song.songwriters }}</p>
+          </ng-container>
+          <ng-container *ngIf="song.producers">
+            <p>Producers: {{ song.producers }}</p>
+          </ng-container>
+          <ng-container *ngIf="song.publishers">
+            <p>Publishers: {{ song.publishers }}</p>
+          </ng-container>
           Key: {{ song.primaryKey }}<br>
           Time Signature: {{ song.primaryTimeSig }}<br>
           Tempo: {{ song.nodes[0].bpm }}<br>
