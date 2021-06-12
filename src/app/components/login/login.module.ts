@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/shared/modules/shared.module';
 import { LoginComponent } from '@login/login.component';
 import { MaterialModule } from '@app/shared/modules/material.module';
 

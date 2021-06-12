@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { TruncatePipe } from '@app/shared/pipes/truncate.pipe';
 
 const modules = [
   FontAwesomeModule,
@@ -10,12 +12,16 @@ const modules = [
 ];
 
 @NgModule({
+  declarations: [
+    TruncatePipe
+  ],
   imports: [
     CommonModule,
     modules
   ],
   exports: [
-    modules
+    modules,
+    TruncatePipe
   ]
 })
 export class SharedModule {}

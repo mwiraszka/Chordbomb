@@ -1,5 +1,5 @@
-<div class="ais-InstantSearch">
-  <ais-instantsearch [config]="config">
+<ais-instantsearch [config]="config">
+  <div class="ais-InstantSearch">
 
     <div class="left-panel">
       <h3>Filter by Artist</h3>
@@ -21,8 +21,9 @@
           </p>
           <div *ngIf="(results.query && results.query.length > 0) || isRefinement">
             <ol class="ais-Hits-list">
-              <li *ngFor="let hit of hits" class="ais-Hits-item" (click)="onSelect(hit.objectID)">
-                <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" title="{{ hit.album }}" id="album-cover">
+              <li *ngFor="let hit of hits" class="ais-Hits-item"
+                (click)="onSelect(hit.objectID)">
+                <img src="{{ hit.albumCoverLink }}" alt="{{ hit.album }}" id="album-cover">
                 <div id="song-details">
                   <div id="artists-and-title">
                     <img src="../../../../assets/bomb.svg" alt="bomb" id="chordbomb-bomb">
@@ -31,7 +32,7 @@
                     <ais-highlight tagName="mark" attribute="title" [hit]="hit">
                     </ais-highlight>
                   </div>
-                  <div id="album-songwriters-and-producers">
+                  <div id="other-details">
                     <label>Album: </label>
                     <ais-highlight attribute="album" [hit]="hit"></ais-highlight>&nbsp;
                     (<ais-highlight attribute="albumYear" [hit]="hit"></ais-highlight>)
@@ -50,5 +51,5 @@
       </ais-hits>
     </div>
 
-  </ais-instantsearch>
-</div>
+  </div>
+</ais-instantsearch>

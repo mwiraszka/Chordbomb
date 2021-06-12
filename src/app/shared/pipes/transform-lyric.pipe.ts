@@ -8,6 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'transformLyric' })
 export class TransformLyricPipe implements PipeTransform {
   transform(lyric: string): string {
-    return lyric.endsWith('-') ? lyric.slice(0, -1) : lyric + ' ';
+    return lyric.endsWith('-') ? lyric.slice(0, -1) : lyric;
   };
 }

@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from '@app/components/footer/footer.component';
 import { HeaderComponent } from '@app/components/header/header.component';
 import { NavComponent } from '@app/components/nav/nav.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/shared/modules/shared.module';
 import { environment } from '@environments/environment';
 
 @NgModule({

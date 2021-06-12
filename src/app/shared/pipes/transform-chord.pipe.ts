@@ -25,20 +25,25 @@ export class TransformChordPipe implements PipeTransform {
       }
     }
 
-    /* If chord type is set to 'full', chord is now ready to display */
+    /*
+     * If chord type is set to 'full', standard open 5th notation will be maintained, so
+     * capitalize letter; all transformation for 'full' chord now complete - return */
     if (chordType === 'full') {
+      if (chordStr.slice(-1)[0]==='5' && chordStr.length < 4) {
+        chordStr = chordStr.toUpperCase();
+      }
       return chordStr;
     }
 
     /* Chord type must be set to 'basic': return the chord if already in a basic form */
     if (
       (chordStr.length === 1) ||
-      (chordStr.length === 2 && chordStr.slice(-1)[0].match(/[♯♭5]/))
+      (chordStr.length === 2 && chordStr.slice(-1)[0].match(/[♯♭]/))
     ) {
       return chordStr;
     }
 
     /* Simplify chord by stripping all after the first 'advanced' chord character found */
-    return chordStr.slice(0, chordStr.search(/[679(sm\/]/));
+    return chordStr.slice(0, chordStr.search(/[5679(sm\/]/));
   };
 }

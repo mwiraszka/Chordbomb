@@ -8,6 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'transformLabel' })
 export class TransformLabelPipe implements PipeTransform {
   transform(label: string): string {
-    return label in ['n', 'e', 'ef'] ? '' : label;
+    return (label==='e' || label==='ef' || label==='n') ? '' : label;
   };
 }
