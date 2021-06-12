@@ -1,58 +1,29 @@
-.ais-Hits-item {
-  justify-content: space-between;
-  text-align: right;
-  width: 100%;
-  padding: 5px 10px;
-
-  margin-top: 4px; // spacing between items
-  @include respond-to('small') {
-    margin-top: 8px;
-  }
-
-  label, #artists-and-title {
-    font-weight: bold;
-  }
-
-  &:hover {
-    cursor: pointer;
-
-    img#album-cover {
-      box-shadow: -1px 2px 3px 1px darken($color: $cb-white, $amount: 5%);
-      opacity: 1;
-    }
-
-    #song-details > #artists-and-title {
-      color: $cb-black;
-
-      img#chordbomb-bomb {
-        opacity: 1;
-      }
-    }
-  }
-}
-
 .ais-InstantSearch {
-  max-width: 900px;
   overflow: hidden;
-  margin: 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: $component-spacing;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
 
+  /* Add left panel (Filter by Artist) on large viewports */
   .left-panel {
     display: none;
     width: 0;
 
     @include respond-to('large') {
       display: block;
-      float: left;
       width: 250px;
     }
   }
 
+  /* Widen search box when there is room, and shrink when needed but only down to min */
   .right-panel {
-    margin-left: 0px;
-
-    @include respond-to('large') {
-      margin-left: 260px;
-    }
+    min-width: 250px;
+    max-width: 700px;
+    flex-basis: auto;
+    flex-grow: 1;
   }
 
   h3 {
@@ -61,19 +32,59 @@
   }
 
   hr {
-    &.big-spacer { height: 20px; }
-    &.small-spacer { height: 10px; }
+    &.big-spacer { height: 15px; }
+    &.small-spacer { height: 3px; }
   }
 }
 
+/* Emphasize the queried text with italic (default) and bold text; shift text slightly */
 .no-results {
   margin: 0.5em 0 0 0.3em;
+
   em {
     font-weight: bolder;
   }
 }
 
-img#album-cover {
+.ais-Hits-item {
+  justify-content: space-between;
+  text-align: right;
+  width: 100%;
+  padding: 5px 10px;
+
+  /* Increase spacing between hit items on viewports sized 'small' or larger */
+  margin-top: 4px;
+  @include respond-to('small') {
+    margin-top: 8px;
+  }
+
+  label, #artists-and-title {
+    font-weight: bold;
+  }
+
+  /* On hover, add shadow behind album cover and restore its opacity; display bomb SVG */
+  &:hover {
+    cursor: pointer;
+
+    #album-cover {
+      box-shadow: -1px 2px 3px 1px darken($color: $cb-white, $amount: 5%);
+      opacity: 1;
+    }
+
+    #song-details > #artists-and-title {
+      color: $cb-black;
+
+      #chordbomb-bomb {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/*
+ * Push album cover to left of hit item and add slight transparency; when hovered over,
+  */
+#album-cover {
   opacity: 0.8;
   align-self: flex-start;
   width: 40px;
@@ -93,24 +104,30 @@ img#album-cover {
   }
 }
 
-img#chordbomb-bomb {
+/* Reserve required width and height beside title for the bomb, but make invisible */
+#chordbomb-bomb {
   opacity: 0;
   width: 20px;
   height: 20px;
   margin-right: 0.2em;
 }
 
+/*
+ * Slightly increase artist & song title text font size & add a little more space
+ * underneath on larger viewports
+ */
 #artists-and-title {
   margin-bottom: 0;
   font-size: $h4;
 
   @include respond-to('small') {
     margin-bottom: 10px;
-    font-size: ($h3 - 2px);
+    font-size: ($h4 + 2px);
   }
 }
 
-#album-songwriters-and-producers {
+/* Only display other details (such as songwriters and producers) on larger viewports */
+#other-details {
   display: none;
 
   @include respond-to('small') {
@@ -120,7 +137,6 @@ img#chordbomb-bomb {
 }
 
 #song-details {
-  width: auto;
-  min-width: 150px;
+  min-width: 200px;
   color: darken($color: $cb-gray, $amount: 25%);
 }

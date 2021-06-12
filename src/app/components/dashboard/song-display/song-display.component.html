@@ -1,45 +1,47 @@
-<div id="song-display-container">
-  <button id="new-song-btn" class="primary large" (click)="onNextSong()">
-    Next Song
-  </button>
-  <div id="song-container">
-    <mat-card id="song-content" *ngIf="song!==null && song.nodes">
-      <mat-card-title id="artist-and-title">
-        {{ song.artists }} - {{ song.title }}
-      </mat-card-title>
-      <mat-card-subtitle>
-        <div class="left-col">
-          <img src="{{ song.albumCoverLink }}" alt="{{ song.album }}" title="{{ song.album }}" id="album-cover">
-        </div>
-        <div class="right-col">
-          <p>Featured on: {{ song.album }} ({{ song.albumYear }})</p>
-          <ng-container *ngIf="song.songwriters">
-            <p>Songwriters: {{ song.songwriters }}</p>
-          </ng-container>
-          <ng-container *ngIf="song.producers">
-            <p>Producers: {{ song.producers }}</p>
-          </ng-container>
-          <ng-container *ngIf="song.publishers">
-            <p>Publishers: {{ song.publishers }}</p>
-          </ng-container>
-          Key: {{ song.primaryKey }}<br>
-          Time Signature: {{ song.primaryTimeSig }}<br>
-          Tempo: {{ song.nodes[0].bpm }}<br>
-          Bars: {{ lastMarker.slice(0, lastMarker.indexOf('-')) }}<br>
-        </div>
-      </mat-card-subtitle>
-      <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
-        <div class="node" *ngFor="let node of song.nodes; let i=index;">
-          <ng-container *ngIf="node.label!==''"><hr class="new-line"></ng-container>
-          <span *ngIf="node.label">{{ node.label | transformLabel }}</span>
-          <span *ngIf="node.chord">{{ node.chord | transformChord:chordType }}</span>
-          <span *ngIf="node.lyric">{{ node.lyric | transformLyric }}</span>
-          &nbsp;&nbsp;
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <button id="new-song-btn" class="primary large" (click)="onNextSong()">
-    Next Song
-  </button>
-</div>
+<button id="new-song-btn" class="primary large" (click)="onNextSong()">
+  Next Song
+</button>
+
+<mat-card id="song-card" *ngIf="song!==null && song.nodes">
+  <mat-card-title id="artist-and-title">
+    {{ song.artists }} - {{ song.title }}
+  </mat-card-title>
+  <mat-card-subtitle id="song-details">
+    <div class="flex-container">
+      <div class="left-col">
+        <img src="{{ song.albumCoverLink }}" alt="{{ song.album }}" id="album-cover">
+      </div>
+      <div class="right-col">
+        <p>Featured on: <em>{{ song.album }} ({{ song.albumYear }})</em></p>
+        <p *ngIf="song.songwriters">
+          Songwriters: <em>{{ song.songwriters | truncate:60:true }}</em>
+        </p>
+        <p *ngIf="song.producers">
+          Producers: <em>{{ song.producers | truncate:60:true }}</em>
+        </p>
+        <p *ngIf="song.publishers">
+          Publishers: <em>{{ song.publishers | truncate:60:true }}</em>
+        </p>
+        <p>Key: <em>{{ song.primaryKey | transformKey }}</em></p>
+        <p>Time Signature: <em>{{ song.primaryTimeSig }}</em></p>
+        <p>Tempo: <em>{{ song.nodes[0].bpm }} BPM</em></p>
+        <p>Bars: <em>{{ lastMarker.slice(0, lastMarker.indexOf('-')) }}</em></p>
+      </div>
+    </div>
+  </mat-card-subtitle>
+  <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
+    <ng-container *ngFor="let node of song.nodes; let i=index;">
+      <hr class="new-line" *ngIf="node.label!==''">
+      <hr class="new-line" *ngIf="node.label!=='' && node.label!=='n'">
+      <div class="label" *ngIf="node.label">{{ node.label | transformLabel }}</div>
+      <div class="lyric-chord">
+        <span class="lyric">{{ node.lyric | transformLyric }}</span>
+        <span class="chord">{{ node.chord | transformChord:chordType }}</span>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<button id="new-song-btn" class="primary large" (click)="onNextSong()">
+  Next Song
+</button>

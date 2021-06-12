@@ -162,7 +162,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
         Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/\(\)]*$/) /* 2 */
       ]],
       lyric: [node.lyric, Validators.maxLength(12)],
-      label: [node.label, Validators.maxLength(20)]
+      label: [node.label, Validators.maxLength(25)]
     });
   }
 

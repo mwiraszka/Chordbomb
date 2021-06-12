@@ -50,6 +50,7 @@ export class SongDisplayComponent implements OnDestroy {
     this.songService.removeSongToDisplay();
   }
 
+  /* Pass changes on to local variables whenever setting subjects emit new values */
   updateFontSize(newFontSize: string): void {
     this.largeFont = newFontSize==='large' ? true : false;
     if (newFontSize !=='regular' && newFontSize !=='large') {
