@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import { Song } from '@app/shared/models/song.model';
 import { SettingsService } from '@app/shared/services/settings.service';
 import { SongService } from '@app/shared/services/song.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-song-display',
@@ -17,7 +17,14 @@ export class SongDisplayComponent implements OnDestroy {
 
   song!: Song | null;
   lastMarker!: string; // Alias for song's final time marker
-  largeFont!: boolean;
+
+  /*
+   * Internal 'label' flags, not meant to be displayed to user:
+   * n - new line; i - instrumental section; e - end; f - fade-out
+   */
+  internalFlags = ['n', 'i', 'ni', 'e', 'ef'];
+
+  fontSize!: string;
   chordType!: string;
 
   constructor(
@@ -31,7 +38,7 @@ export class SongDisplayComponent implements OnDestroy {
     });
 
     this.fontSizeSub = this.settingsService.fontSize$.subscribe((fontSize) => {
-      this.updateFontSize(fontSize);
+      this.fontSize = fontSize;
     });
 
     this.chordTypeSub = this.settingsService.chordType$.subscribe((chordType) => {
@@ -46,17 +53,8 @@ export class SongDisplayComponent implements OnDestroy {
     this.chordTypeSub.unsubscribe();
   }
 
+  /* Removing the song in Song Service will trigger a return to the Search component */
   onNextSong() {
     this.songService.removeSongToDisplay();
-  }
-
-  /* Pass changes on to local variables whenever setting subjects emit new values */
-  updateFontSize(newFontSize: string): void {
-    this.largeFont = newFontSize==='large' ? true : false;
-    if (newFontSize !=='regular' && newFontSize !=='large') {
-      this.toastr.error('Could not load preferred font size', 'Oops!', {
-        positionClass: 'toast-bottom-right'
-      });
-    };
   }
 }

@@ -14,7 +14,7 @@ import { SongService } from '@app/shared/services/song.service';
 })
 export class DashboardComponent implements AfterViewInit, OnInit, OnDestroy {
   /* Lists of options for each setting, and subscriptions to the currently selected one */
-  fontSizes: string[] = ['regular', 'large'];
+  fontSizes: string[] = ['small', 'regular', 'large'];
   chordTypes: string[] = ['full', 'basic', 'none'];
 
   fontSizeSub!: Subscription;

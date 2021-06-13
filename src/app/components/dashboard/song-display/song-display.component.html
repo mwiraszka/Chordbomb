@@ -12,14 +12,16 @@
         <img src="{{ song.albumCoverLink }}" alt="{{ song.album }}" id="album-cover">
       </div>
       <div class="right-col">
-        <p>Featured on: <em>{{ song.album }} ({{ song.albumYear }})</em></p>
-        <p *ngIf="song.songwriters">
+        <p class="mobile-hide">
+          Featured on: <em>{{ song.album }} ({{ song.albumYear }})</em>
+        </p>
+        <p class="mobile-hide" *ngIf="song.songwriters">
           Songwriters: <em>{{ song.songwriters | truncate:60:true }}</em>
         </p>
-        <p *ngIf="song.producers">
+        <p class="mobile-hide" *ngIf="song.producers">
           Producers: <em>{{ song.producers | truncate:60:true }}</em>
         </p>
-        <p *ngIf="song.publishers">
+        <p class="mobile-hide" *ngIf="song.publishers">
           Publishers: <em>{{ song.publishers | truncate:60:true }}</em>
         </p>
         <p>Key: <em>{{ song.primaryKey | transformKey }}</em></p>
@@ -29,15 +31,63 @@
       </div>
     </div>
   </mat-card-subtitle>
-  <mat-card-content id="lyrics-and-chords" [ngClass]="largeFont ? 'enlarge' : ''">
-    <ng-container *ngFor="let node of song.nodes; let i=index;">
-      <hr class="new-line" *ngIf="node.label!==''">
-      <hr class="new-line" *ngIf="node.label!=='' && node.label!=='n'">
-      <div class="label" *ngIf="node.label">{{ node.label | transformLabel }}</div>
-      <div class="lyric-chord">
-        <span class="lyric">{{ node.lyric | transformLyric }}</span>
-        <span class="chord">{{ node.chord | transformChord:chordType }}</span>
-      </div>
+  <mat-card-content id="lyrics-and-chords"
+    [ngClass]="fontSize === 'large' ? 'enlarge' : fontSize === 'small' ? 'reduce' : ''">
+    <ng-container *ngFor="let node of song.nodes; let i = index;">
+
+      <ng-container *ngIf="node.label">
+        <hr class="new-line" *ngIf="node.label !== 'i'">
+        <ng-container *ngIf="internalFlags.indexOf(node.label) === -1">
+          <ng-container *ngIf="i > 0 && (
+              node.label.startsWith('PART') ||
+              (!(chordType === 'none' && song.nodes[i-1].label === 'i'))
+          )">
+            <hr class="empty-space above">
+          </ng-container>
+          <div class="label">{{ node.label }}</div>
+          <hr class="line-break" *ngIf="node.label.startsWith('PART')">
+          <hr class="empty-space below" *ngIf="!node.label.startsWith('PART')">
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="chordType === 'none'; else includeChord;">
+        <div class="music-unit" *ngIf="node.lyric">
+          <ng-container *ngIf="node.lyric.endsWith('-'); else endOfWord;">
+            <span class="lyric">{{ node.lyric.slice(0, -1) }}</span>
+          </ng-container>
+          <ng-template #endOfWord>
+            <span class="lyric">{{ node.lyric }}&nbsp;&nbsp;</span>
+          </ng-template>
+        </div>
+      </ng-container>
+
+      <ng-template #includeChord>
+        <div class="music-unit" *ngIf="node.lyric || node.chord">
+          <ng-container *ngIf="node.chord && (!node.lyric || node.lyric === '-') &&
+            i > 0 && song.nodes[i-1].lyric !== '-' && song.nodes[i-1].lyric.endsWith('-');
+            else hasOwnSyllable;">
+            <span class="lyric">&nbsp;–&nbsp;</span>
+          </ng-container>
+          <ng-template #hasOwnSyllable>
+            <ng-container *ngIf="node.lyric && node.lyric.endsWith('-'); else endOfWord;">
+              <span class="lyric">
+                {{ node.lyric.slice(0, -1) }}
+                <ng-container *ngIf="node.lyric !== '-' && node.chord && node.chord !== 's'">
+                  &nbsp;–&nbsp;
+                </ng-container>
+              </span>
+            </ng-container>
+            <ng-template #endOfWord>
+              <span class="lyric">{{ node.lyric }}&nbsp;&nbsp;</span>
+            </ng-template>
+          </ng-template>
+
+          <ng-container *ngIf="node.chord !== 's' && chordType !== 'none'">
+            <span class="chord">{{ node.chord | transformChord:chordType }}</span>
+          </ng-container>
+        </div>
+      </ng-template>
+
     </ng-container>
   </mat-card-content>
 </mat-card>
