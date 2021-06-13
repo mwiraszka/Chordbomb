@@ -148,7 +148,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.maxLength(8),
         Validators.pattern(
-          /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-(1|2|3|4)$/ /* 1 */
+          /^\d{1,3}-(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17)-[1-4]$/ /* 1 */
         )
       ]],
       bpm: [node.bpm, [
@@ -159,7 +159,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
       ]],
       chord: [node.chord, [
         Validators.maxLength(10),
-        Validators.pattern(/^[abcdefgABCDEFG#56791iMmus24\/\(\)]*$/) /* 2 */
+        Validators.pattern(/^[a-gA-G#56791iMmus24\/\(\)]*$/) /* 2 */
       ]],
       lyric: [node.lyric, Validators.maxLength(12)],
       label: [node.label, Validators.maxLength(25)]

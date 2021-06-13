@@ -1,17 +1,12 @@
-/* Transform chord string based on chord type provided ('none', 'full', or 'basic') */
+/*
+ * Transform chord string based on chord type provided: 'full' or 'basic' ('none' case
+ * handled directly in template)
+ */
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'transformChord' })
 export class TransformChordPipe implements PipeTransform {
   transform(chordStr: string, chordType: string): string {
-    /*
-     * If chordType is set to 'none', or chord is an empty string or 's' for silence,
-     * return an empty string right away
-     */
-    if (chordType === 'none' || chordStr === '' || chordStr === 's') {
-      return '';
-    }
-
     /*
      * Replace #'s with proper musical sharp symbols and M's with 'maj'; replace b's with
      * proper musical flat symbol - ensure it's not meant to be the letter 'b' by checking
@@ -44,6 +39,6 @@ export class TransformChordPipe implements PipeTransform {
     }
 
     /* Simplify chord by stripping all after the first 'advanced' chord character found */
-    return chordStr.slice(0, chordStr.search(/[5679(sm\/]/));
+    return chordStr.slice(0, chordStr.search(/(5|6|7|9|\(|sus|M|\/|aug)/));
   };
 }

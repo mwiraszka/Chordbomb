@@ -1,10 +1,9 @@
 /*
  * 1 - Flex wrap the three items (lines of text) in vertical direction
- * 2 - Make version text slightly smaller than the copyright text above it
- * 3 - Slightly increase letter spacing from the default
- * 4 - Add extra padding to turn icon closer to a perfect circle so that the 50% border
+ * 2 - Slightly increase letter spacing from the default
+ * 3 - Add extra padding to turn icon closer to a perfect circle so that the 50% border
  *     radius styling creates the desired effect
- * 5 - On hover, text brightens to full white, letter spacing increases, and glow effect
+ * 4 - On hover, text brightens to full white, letter spacing increases, and glow effect
        added behind text and icon
  */
 
@@ -15,17 +14,13 @@ footer {
   justify-content: center;
   text-align: center;
   padding: 0.5em;
-  font-size: $h4;
+  line-height: 1.7em;
+  font-size: $h5;
   color: $cb-white;
   background: $cb-black;
 }
 
-#version {
-  font-size: 90%; /* 2 */
-}
-
 address#github-repo {
-  margin-top: 0.8em;
   text-transform: uppercase;
   letter-spacing: 0.06em; /* 3 */
 
