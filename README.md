@@ -1,6 +1,6 @@
 # [Chordbomb](https://www.chordbomb.com)
 
-www.chordbomb.com
+[www.chordbomb.com](https://www.chordbomb.com)
 
 Chordbomb is a single-page web application, built using [Angular CLI](https://github.com/angular/angular-cli), allowing users to search a small database of songs and customize how the lyrics and chords are displayed.<br><br>
 
