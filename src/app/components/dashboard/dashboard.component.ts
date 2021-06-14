@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { MatSidenav } from '@angular/material/sidenav';
 import { LoaderService } from '@app/shared/services/loader.service';
 import { SettingsService } from '@app/shared/services/settings.service';
 import { SidenavService } from '@app/shared/services/sidenav.service';
@@ -100,7 +100,7 @@ export class DashboardComponent implements AfterViewInit, OnInit, OnDestroy {
                            navLink?.classList.remove('displaying-song');
   }
 
-  /* Use metadata passed in $event to determine what to do with the click event */
+  /* Use $event data to determine what to do with the click event */
   onSettingChange($event: any): void {
     switch($event.source.name) {
       case('fontSize'):

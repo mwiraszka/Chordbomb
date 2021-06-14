@@ -9,7 +9,9 @@
     <div id="sidenav-content">
       <mat-radio-group name="fontSize" class="setting" aria-labelledby="font-size"
         [(ngModel)]="fontSize" (change)="onSettingChange($event)">
-        <legend class="setting">Font Size:</legend>
+        <legend class="setting">
+          Font Size:
+        </legend>
         <mat-radio-button class="option" *ngFor="let size of fontSizes" [value]="size">
           {{ size }}
         </mat-radio-button>
@@ -17,7 +19,9 @@
 
       <mat-radio-group name="chordType" class="setting" aria-labelledby="chord-type"
         [(ngModel)]="chordType" (change)="onSettingChange($event)">
-        <legend class="setting">Chord Type:</legend>
+        <legend class="setting">
+          Chord Type:
+        </legend>
         <mat-radio-button class="option" *ngFor="let type of chordTypes" [value]="type">
           {{ type }}
         </mat-radio-button>

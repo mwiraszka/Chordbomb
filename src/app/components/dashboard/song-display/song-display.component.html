@@ -2,7 +2,7 @@
   Next Song
 </button>
 
-<mat-card id="song-card" *ngIf="song!==null && song.nodes">
+<mat-card id="song-card" *ngIf="song !== null && song.nodes">
   <mat-card-title id="artist-and-title">
     {{ song.artists }} - {{ song.title }}
   </mat-card-title>
@@ -16,13 +16,13 @@
           Featured on: <em>{{ song.album }} ({{ song.albumYear }})</em>
         </p>
         <p class="mobile-hide" *ngIf="song.songwriters">
-          Songwriters: <em>{{ song.songwriters | truncate:60:true }}</em>
+          Songwriters: <em>{{ song.songwriters | truncate : 60 : true }}</em>
         </p>
         <p class="mobile-hide" *ngIf="song.producers">
-          Producers: <em>{{ song.producers | truncate:60:true }}</em>
+          Producers: <em>{{ song.producers | truncate : 60 : true }}</em>
         </p>
         <p class="mobile-hide" *ngIf="song.publishers">
-          Publishers: <em>{{ song.publishers | truncate:60:true }}</em>
+          Publishers: <em>{{ song.publishers | truncate : 60 : true }}</em>
         </p>
         <p>Key: <em>{{ song.primaryKey | transformKey }}</em></p>
         <p>Time Signature: <em>{{ song.primaryTimeSig }}</em></p>
@@ -83,7 +83,7 @@
           </ng-template>
 
           <ng-container *ngIf="node.chord !== 's' && chordType !== 'none'">
-            <span class="chord">{{ node.chord | transformChord:chordType }}</span>
+            <span class="chord">{{ node.chord | transformChord : chordType }}</span>
           </ng-container>
         </div>
       </ng-template>

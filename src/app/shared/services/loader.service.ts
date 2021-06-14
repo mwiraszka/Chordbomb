@@ -1,3 +1,4 @@
+/* A simple service storing the current state of loading spinner to emit to subscribers */
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

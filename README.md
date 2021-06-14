@@ -1,20 +1,30 @@
-# Chordbomb
+# [Chordbomb](https://www.chordbomb.com)
 
-Chordbomb is a single-page app built using [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6. It allows users to query a small database of songs, and customize how the lyrics and chords are displayed.
+<span style="border: 1px solid grey; border-radius: 4px; padding: 2px 4px;">
+  www.chordbomb.com
+</span><br><br>
 
-Check it out! Live development server: https://chordbomb.web.app
+Chordbomb is a single-page web application, built using [Angular CLI](https://github.com/angular/angular-cli), allowing users to search a small database of songs and customize how the lyrics and chords are displayed.<br><br>
 
-<br><br>
 ## Version 1.0.0
-Currently in development, with `version 1.0.0` set to be deployed by mid-June 2021. Features will include:
-* 10 songs stored in Firebase's Firestore Database, able to be retrieved and edited from the app
-* Admin login for editing songs in-app
-* Search-as-you-type functionality
-* Ability to increase text font-size and toggle between 3 different chord modes when viewing song
-* Fully responsive design with lazy-loading implemented for increased performance
+* 10 songs stored in Firebase's Firestore Database
+* Songs searchable using Algolia's Instant Search API, which mirrors data through a series of Firebase Cloud Functions; search features include full-text search-as-you-type functionality and typo recognition for 1 every 4 characters
+* Admin login for editing songs in-app, with components lazy-loaded for increased app performance
+* Settings in sidenav giving user ability to select text font size and chord mode while viewing a song
+* Fully-responsive design with a dropdown navigation on smaller viewports
+<br><br>
 
-### Wireframe mock-ups:
+## License
+This project is licensed under the [MIT License](LICENSE).
+<br><br>
 
-![search page (website landing page)](./mock-ups/02-04-2021/search_page.png)
-![search page - input & settings](./mock-ups/02-04-2021/search_page_-_input_&_settings.png)
-![song page](./mock-ups/02-04-2021/song_page.png)
+## Author
+* [Michal Wiraszka](https://github.com/mwiraszka)
+<br><br>
+
+## Application Screenshots
+![Chordbomb Screenshot 1](screenshots/screenshot-1.png "Chordbomb - Search Song")
+![Chordbomb Screenshot 2](screenshots/screenshot-2.png "Chordbomb - Song with Chords")
+![Chordbomb Screenshot 3](screenshots/screenshot-3.png "Chordbomb - Song without Chords")
+![Chordbomb Screenshot 4](screenshots/screenshot-4.png "Chordbomb - Admin Login")
+![Chordbomb Screenshot 5](screenshots/screenshot-5.png "Chordbomb - Edit Song")

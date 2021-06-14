@@ -17,10 +17,13 @@ import { LoaderService } from '@app/shared/services/loader.service';
   `
 })
 export class AppComponent {
+  /*
+   * Subscribe to Loader Service and place loader inside router outlet, so that when
+   * triggered, it overlays onto whichever component is currently using it and has the
+   * loading variable set to true
+   */
   isLoading!: boolean;
-  constructor(private loaderService: LoaderService) {}
-
-  ngOnInit() {
+  constructor(private loaderService: LoaderService) {
     this.loaderService.status.subscribe((value: boolean) => {
       this.isLoading = value;
     });

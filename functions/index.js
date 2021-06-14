@@ -7,6 +7,7 @@ const ADMIN_KEY = functions.config().algolia.key;
 const client = algoliasearch(APP_ID, ADMIN_KEY);
 const index = client.initIndex('songs');
 
+/* Carry over the searchable parameters of newly added song to Algolia */
 exports.addToIndex = functions.firestore.document('songs/{songId}')
   .onCreate((snapshot) => {
     const data = snapshot.data();
@@ -23,6 +24,7 @@ exports.addToIndex = functions.firestore.document('songs/{songId}')
     });
 });
 
+/* Carry over any updates to Algolia */
 exports.updateIndex = functions.firestore.document('songs/{songId}')
   .onUpdate((change) => {
     const newData = change.after.data();
@@ -39,6 +41,7 @@ exports.updateIndex = functions.firestore.document('songs/{songId}')
     });
 });
 
+/* Delete from Algolia's index any song that's deleted from Firestore */
 exports.deleteFromIndex = functions.firestore.document('songs/{songId}')
   .onDelete((snapshot) => {
     index.deleteObject(snapshot.id)

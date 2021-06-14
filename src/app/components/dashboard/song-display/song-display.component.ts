@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 
 import { Song } from '@app/shared/models/song.model';
 import { SettingsService } from '@app/shared/services/settings.service';
@@ -15,8 +14,12 @@ export class SongDisplayComponent implements OnDestroy {
   fontSizeSub!: Subscription;
   chordTypeSub!: Subscription;
 
+  /*
+   * Local variable for displayed song, and a convenience alias variable for song's final
+   * node's timeMarker
+   */
   song!: Song | null;
-  lastMarker!: string; // Alias for song's final time marker
+  lastMarker!: string;
 
   /*
    * Internal 'label' flags, not meant to be displayed to user:
@@ -24,13 +27,13 @@ export class SongDisplayComponent implements OnDestroy {
    */
   internalFlags = ['n', 'i', 'ni', 'e', 'ef'];
 
+  /* Local variables for user-selected settings from sidenav */
   fontSize!: string;
   chordType!: string;
 
   constructor(
     private songService: SongService,
-    private settingsService: SettingsService,
-    private toastr: ToastrService
+    private settingsService: SettingsService
   ) {
     this.songSub = this.songService.songToDisplay$.subscribe((song) => {
       this.song = song;

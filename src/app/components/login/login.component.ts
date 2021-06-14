@@ -11,6 +11,11 @@ import { LoaderService } from '@app/shared/services/loader.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
+  /*
+   * Declare form group variable to store form validators and fields' initial values
+   * (instantiated in constructor once FormBuilder has been injected); also initiate local
+   * error variable as an empty string
+   */
   loginForm!: FormGroup;
   error = '';
 
@@ -20,16 +25,19 @@ export class LoginComponent implements OnInit {
     private loaderService: LoaderService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     });
+  }
+
+  /* Hide top nav settings button, as it is only used in Dashboard component */
+  ngOnInit() {
     document.getElementById('nav-settings-btn')?.classList.add('hide');
   }
 
+  /* Trigger login method if key 13 is lifted ('enter' key on keyboard) */
   onKeyUp(event: any): void {
     console.log('key')
     if (event.keyCode === 13) {
@@ -38,19 +46,26 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /*
+   * 1 - Start up loading spinner (set back to false later regardless of login success)
+   * 2 - Retrieve email and password values from login form by destructuring value object
+   * 3 - Send email and password to Angular Fire Auth to validate
+   * 4 - If successful, display success toast and navigate to home page (Song Search)
+   * 5 - If unsuccessful, handle error and display appropriate error message to user
+   */
   onLogin() {
-    this.loaderService.display(true);
-    const { email, password } = this.loginForm.value;
+    this.loaderService.display(true); /* 1 */
+    const { email, password } = this.loginForm.value; /* 2 */
     this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .signInWithEmailAndPassword(email, password) /* 3 */
+      .then(() => { /* 4 */
         this.router.navigate(['']);
         this.toastr.success('', 'Successfully logged in', {
           positionClass: 'toast-bottom-right'
         });
         this.loaderService.display(false);
       })
-      .catch((err) => {
+      .catch((err) => { /* 5 */
         switch (err.code) {
           case 'auth/wrong-password':
           case 'auth/user-not-found':

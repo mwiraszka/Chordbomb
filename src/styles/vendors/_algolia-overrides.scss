@@ -10,6 +10,10 @@
   background: inherit;
 }
 
+/*
+ * Override default SearchBox input styling to better match Chordbomb's input styles; also
+ * see 'input' SCSS partial
+ */
 .ais-SearchBox-input {
   box-shadow: 0 0 2px 2px lighten($color: $cb-select, $amount: 10%) inset !important;
   border: 1px solid $cb-gray;

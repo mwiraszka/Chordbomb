@@ -11,9 +11,10 @@ import { SongService } from '@app/shared/services/song.service';
   templateUrl: './nav.component.html'
 })
 export class NavComponent {
-  menuOpen = false;
+  /* Declare Font Awesome icon variables; initialize menu as closed on small viewports */
   userCog = faUserCog;
   faCog = faCog;
+  menuOpen = false;
 
   constructor(
     public auth: AngularFireAuth,
