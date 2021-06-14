@@ -1,3 +1,5 @@
+$guest-welcome-text-spacing: 0.8em;
+
 #login-container {
   height: 100%;
   display: flex;
@@ -10,29 +12,33 @@ mat-card#admin-login {
   box-sizing: content-box;
 }
 
+mat-card#guest-welcome {
+  background-color: lighten($color: $cb-accent, $amount: 15%);
+  width: 100%;
+  margin-bottom: 2em;
+
+  /* Centre all text within mat-card flush-left, based on longest line of text */
+  #login-message {
+    display: table;
+    margin: 0 auto;
+    line-height: $guest-welcome-text-spacing * 2;
+
+    h4 {
+      margin-bottom: $guest-welcome-text-spacing;
+    }
+  }
+
+  #login-credentials {
+    margin-top: $guest-welcome-text-spacing;
+  }
+}
+
 mat-card-title {
   padding: 0 0 10px 10px;
 }
 
 mat-card-content {
   padding: 0 10px;
-}
-
-mat-card#guest-welcome {
-  background-color: lighten($color: $cb-accent, $amount: 15%);
-  width: 100%;
-  margin-bottom: 1em;
-
-  /* Centre all text within mat-card flush-left, based on longest line of text */
-  #login-credentials {
-    display: table;
-    margin: 0 auto;
-    line-height: 1.5em;
-
-    h3 {
-      margin-bottom: 0.8em;
-    }
-  }
 }
 
 mat-form-field {

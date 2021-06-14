@@ -28,7 +28,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
   faMinus = faMinus;
 
   /*
-   * Inject necessary services, subscribe to the user-selected song from song list &
+   * Inject necessary services, subscribe to the user-selected song from song list, and
    * initialize form
    */
   private songSub!: Subscription;
@@ -49,6 +49,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
     this.userSub = this.auth.user.subscribe((user) => {
       this.userId = user.uid;
     });
+
     this.songSub = this.songService.songToEdit$.subscribe((song) => {
       this.song = song;
       this.newForm();

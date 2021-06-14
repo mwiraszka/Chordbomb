@@ -10,9 +10,13 @@ import { LoaderService } from '@app/shared/services/loader.service';
   templateUrl: './song-list.component.html'
 })
 export class SongListComponent implements OnInit, OnDestroy {
-  songList!: Song[];
+  /*
+   * Subscribe to a list of all songs stored in the database and declare a Song-type
+   * array (populated in ngOnInit lifecycle hook); initialize the currently-selected
+   * song's ID as an empty string
+   */
   private songListSub!: Subscription;
-
+  songList!: Song[];
   currentSongId: string = '';
 
   constructor(
@@ -31,16 +35,20 @@ export class SongListComponent implements OnInit, OnDestroy {
     });
   }
 
+  /* Unsubscribe to prevent memory leaks */
   ngOnDestroy() {
     this.songListSub.unsubscribe();
   }
 
+  /*
+   * When a song is clicked, first check ID against locally stored current song ID value
+   * to ensure method is not being called needlessly when there is no song to change;
+   * update currentSongId and switch editMode to true in Song Service
+   */
   onSelect(song: Song) {
-    if (this.currentSongId !== song.id || !this.songService.editMode) {
+    if (this.currentSongId !== song.id) {
       this.songService.setSongToEdit(song);
       this.songService.editMode = true;
-      // Keep a record of the current song ID to prevent this method from being called
-      // needlessly when song wouldn't change anyway
       this.currentSongId = song.id;
     }
   }

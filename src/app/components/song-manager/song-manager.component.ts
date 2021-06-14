@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   `
 })
 export class SongManagerComponent implements OnInit {
+  /* Hide top nav settings button since it is only applicable to Dashboard component */
   ngOnInit() {
     document.getElementById('nav-settings-btn')?.classList.add('hide');
   }

@@ -60,7 +60,7 @@ mat-card-content#lyrics-and-chords {
   text-align: left;
   font-size: $h4;
   &.enlarge { font-size: $h3; }
-  &.reduce { font-size: $h5; }
+  &.reduce { font-size: $h6; }
 }
 
 /* Use hr tags for various line breaks and spacings between song sections */
@@ -108,6 +108,7 @@ hr {
 
   .chord {
     height: 1.5 * $row-height;
+    line-height: 1.3em; // Better aligns chords with flat symbols with those without
     padding-right: 0.8em;
     color: $cb-accent;
   }
