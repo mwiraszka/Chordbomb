@@ -1,6 +1,6 @@
 {
   "name": "chordbomb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
@@ -34,7 +34,7 @@
     "angular-instantsearch": "^3.0.0-beta.5",
     "firebase": "^8.4.3",
     "instantsearch.css": "^7.4.5",
-    "instantsearch.js": "^3.7.0",
+    "instantsearch.js": "^3.6.0",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

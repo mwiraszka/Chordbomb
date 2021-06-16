@@ -20,14 +20,7 @@ export class SongSearchComponent {
     searchClient
   };
 
-  isRefinement = false;
-
   constructor(private songService: SongService) {}
-
-  onClickRefinements() {
-    this.isRefinement != this.isRefinement;
-    console.log('clicked')
-  }
 
   onSelect(id: string) {
     this.songService.setSongToDisplay(id);
