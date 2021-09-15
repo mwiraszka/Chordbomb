@@ -120,7 +120,7 @@ export class SongEditComponent implements OnInit, OnDestroy {
       songDuration: [this.song.songDuration, [
         Validators.required,
         Validators.maxLength(5),
-        Validators.pattern(/^\d{1,2}:(0|1|2|3|4|5)\d$/)
+        Validators.pattern(/^\d{1,2}:[0-5]\d$/)
       ]],
       nodes: this.getNodeFormArray()
     });
