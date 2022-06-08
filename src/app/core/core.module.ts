@@ -11,11 +11,7 @@ import { SharedModule } from '@app/shared/modules/shared.module';
 import { environment } from '@environments/environment';
 
 @NgModule({
-  declarations: [
-    FooterComponent,
-    HeaderComponent,
-    NavComponent,
-  ],
+  declarations: [FooterComponent, HeaderComponent, NavComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     CommonModule,

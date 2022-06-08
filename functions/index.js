@@ -8,7 +8,8 @@ const client = algoliasearch(APP_ID, ADMIN_KEY);
 const index = client.initIndex('songs');
 
 /* Carry over the searchable parameters of newly added song to Algolia */
-exports.addToIndex = functions.firestore.document('songs/{songId}')
+exports.addToIndex = functions.firestore
+  .document('songs/{songId}')
   .onCreate((snapshot) => {
     const data = snapshot.data();
 
@@ -22,10 +23,11 @@ exports.addToIndex = functions.firestore.document('songs/{songId}')
       songwriters: data.songwriters,
       producers: data.producers
     });
-});
+  });
 
 /* Carry over any updates to Algolia */
-exports.updateIndex = functions.firestore.document('songs/{songId}')
+exports.updateIndex = functions.firestore
+  .document('songs/{songId}')
   .onUpdate((change) => {
     const newData = change.after.data();
 
@@ -39,10 +41,11 @@ exports.updateIndex = functions.firestore.document('songs/{songId}')
       songwriters: newData.songwriters,
       producers: newData.producers
     });
-});
+  });
 
 /* Delete from Algolia's index any song that's deleted from Firestore */
-exports.deleteFromIndex = functions.firestore.document('songs/{songId}')
+exports.deleteFromIndex = functions.firestore
+  .document('songs/{songId}')
   .onDelete((snapshot) => {
-    index.deleteObject(snapshot.id)
-});
+    index.deleteObject(snapshot.id);
+  });

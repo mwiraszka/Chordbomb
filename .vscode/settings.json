@@ -1,9 +1,7 @@
 {
   "debug.openExplorerOnEnd": true,
   "editor.tabSize": 2,
-  "editor.rulers": [
-    90
-  ],
+  "editor.rulers": [90],
   "editor.autoIndent": "full",
   "editor.cursorBlinking": "solid",
   "editor.formatOnType": false,
@@ -15,9 +13,6 @@
     "source.fixAll.tslint": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[html]": {
-    "editor.defaultFormatter": "HookyQR.beautify"
-  },
   "explorer.openEditors.visible": 0,
   "files.trimTrailingWhitespace": true,
   "files.autoSave": "onFocusChange",
@@ -31,5 +26,25 @@
   "gitlens.menus": {
     "editorGroup": false
   },
-  "ng-evergreen.upgradeChannel": "Latest"
+  "ng-evergreen.upgradeChannel": "Latest",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#a900c9",
+    "activityBar.activeBorder": "#403600",
+    "activityBar.background": "#a900c9",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#403600",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "sash.hoverBorder": "#a900c9",
+    "statusBar.background": "#7e0096",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#a900c9",
+    "statusBarItem.remoteBackground": "#7e0096",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#7e0096",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#7e009699",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#7e0096"
 }
