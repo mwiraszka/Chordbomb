@@ -6,7 +6,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   template: `
     <footer>
       <small id="copyright" class="footer-text">
-        &copy; 2021 Copyright: Michal Wiraszka
+        {{ currentYear }} &copy; Michal Wiraszka
       </small>
       <address id="github-repo" class="bigger">
         <a href="https://github.com/mwiraszka/Chordbomb#readme" id="about-chordbomb">
@@ -19,4 +19,5 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 })
 export class FooterComponent {
   faGithub = faGithub;
+  currentYear = new Date().getFullYear();
 }
