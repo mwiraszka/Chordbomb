@@ -6,7 +6,8 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   template: `
     <footer>
       <small id="copyright" class="footer-text">
-        {{ currentYear }} &copy; Michal Wiraszka
+        Copyright&nbsp;&copy;&nbsp;{{ currentYear }}&nbsp;&nbsp;&nbsp;&nbsp;Michal
+        Wiraszka
       </small>
       <address id="github-repo" class="bigger">
         <a href="https://github.com/mwiraszka/Chordbomb#readme" id="about-chordbomb">
