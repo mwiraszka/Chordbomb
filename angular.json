@@ -21,6 +21,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "angular-instantsearch",
               "algoliasearch/lite",
               "hogan.js",
               "prop-types",
