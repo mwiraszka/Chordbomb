@@ -1,4 +1,4 @@
-import 'zone.js/dist/zone';
+import 'zone.js';
 
 /* Part of Algolia search config process */
 (window as any).process = { env: { DEBUG: undefined } };
