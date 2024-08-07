@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Run tests
-        run: npm run test
+        run: npm run test:headless
 
   Update-S3-Bucket:
     needs: [Test]
