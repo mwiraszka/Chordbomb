@@ -4,7 +4,9 @@
 
 Chordbomb is a single-page web application, offering the ability to query a small database of songs and customize how the lyrics and chords are displayed.
 
-Here you'll find an overview of the application's architecture, a summary of what's changed with each release, and instructions on how to report a bug or request a change.
+### End of Support (August 6th, 2024)
+
+Chordbomb is no longer maintained due to the deprecation of the [Algolia InstantSearch package](https://www.npmjs.com/package/angular-instantsearch) that it heavily relies on.
 
 ## Release notes
 
@@ -19,9 +21,9 @@ Here you'll find an overview of the application's architecture, a summary of wha
 v1.2.0 - August 6th, 2024
 </summary>
 
-- 🔧 Upgrade all the way up to Angular 18
-- 🔧 Implement preview and production GitHub Action workflows
-- 🔧 Major revamp in various areas of the code repo to better follow best coding practices
+- 🐛 Upgrade to Angular v12
+- 🔧 Implement a production GitHub Action workflow
+- 🔧 Update this README file
 
 </details>
 
@@ -58,11 +60,6 @@ v1.0.0 - June 13th, 2021
 - 🚀 Fully-responsive design with a dropdown navigation on smaller viewports
 
 </details>
-
-## Report a bug / Request a change
-
-Have an idea how we can improve the website? Find a bug?
-Submit a new issue [here](https://github.com/mwiraszka/Chordbomb/issues).
 
 ## Screenshots
 
