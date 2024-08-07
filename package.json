@@ -31,7 +31,6 @@
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
     "algoliasearch": "^3.35.1",
-    "angular-instantsearch": "^5.0.0",
     "firebase": "^8.4.3",
     "instantsearch.css": "^7.4.5",
     "instantsearch.js": "^3.6.0",

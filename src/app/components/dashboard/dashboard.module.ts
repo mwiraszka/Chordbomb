@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgAisModule } from 'angular-instantsearch';
 
 import { MaterialModule } from '@app/shared/modules/material.module';
 import { SharedModule } from '@app/shared/modules/shared.module';
@@ -12,17 +11,12 @@ import { TransformKeyPipe } from '@app/shared/pipes/transform-key.pipe';
 
 @NgModule({
   declarations: [
-    SongSearchComponent,
-    SongDisplayComponent,
     DashboardComponent,
+    SongDisplayComponent,
+    SongSearchComponent,
     TransformChordPipe,
     TransformKeyPipe
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    NgAisModule,
-    SharedModule
-  ]
+  imports: [CommonModule, MaterialModule, SharedModule]
 })
 export class SongSearchModule {}
